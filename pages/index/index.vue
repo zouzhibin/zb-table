@@ -1,6 +1,10 @@
 <template>
 	<view class="content">
-		<zb-table :columns="column" :data="data"></zb-table>
+		<zb-table
+        :show-header="true"
+        :columns="column"
+        :stripe="true"
+        :data="data"></zb-table>
 	</view>
 </template>
 
@@ -14,7 +18,7 @@
 			return {
 				title: 'Hello',
         column:[
-          { name: 'name', label: '姓名',fixed:true },
+          { name: 'name', label: '姓名',fixed:true,width:80 },
           { name: 'age', label: '年纪',sorter:true },
           { name: 'sex', label: '性别' },
           { name: 'address', label: '地址' },
@@ -31,7 +35,7 @@
             sex:'男',
             age:'16',
             city: '普陀区',
-            address: '上海市普',
+            address: '上海市普上海市普上海市普上海市普',
             zip: 200333
           },
           {

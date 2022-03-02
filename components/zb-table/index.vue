@@ -2,32 +2,36 @@
 	<view :class="['zb-table','zb-table-fixed-header',(bodyTableLeft>50||headerTableLeft>50)&&'scroll-left-fixed']">
 		<view class="zb-table-content">
 			<view class="zb-table-scroll" style="height: 100%;">
-				<view class="zb-table-header top-header-uni" style="height: 40px;">
-					<scroll-view class="zb-table-headers"
-								@scroll="handleTableScrollLeft"
-								scroll-x="true"
-								scroll-y="true"
-								id="tableHeaders"
-								scroll-anchoring="true"
-								:scroll-left="headerTableLeft"
-								style="min-width: 17px;padding-bottom: 0px;
+        <template v-if="showHeader">
+          <view class="zb-table-header top-header-uni" style="height: 40px;">
+            <scroll-view class="zb-table-headers"
+                         @scroll="handleTableScrollLeft"
+                         scroll-x="true"
+                         scroll-y="true"
+                         id="tableHeaders"
+                         scroll-anchoring="true"
+                         :scroll-left="headerTableLeft"
+                         style="min-width: 17px;padding-bottom: 0px;
 					background: #fafafa;height: 100%">
-									<view class="zb-table-fixed" >
-										<view class="zb-table-thead" style="position: relative;" >
-											<view class="item-tr">
-												<view
-                            @click="sortAction(item,index)"
-                            :class="['item-th',item.sorter&&`sorting${item.sorterMode||''}`]"
-                              :style="{
+              <view class="zb-table-fixed" >
+                <view class="zb-table-thead" style="position: relative;" >
+                  <view class="item-tr">
+                    <view
+                        @click="sortAction(item,index)"
+                        :class="['item-th',item.sorter&&`sorting${item.sorterMode||''}`]"
+                        :style="{
+                              width:`${width(item)}`,
 														  flex:index===transColumns.length-1?1:'none',
-														  minWidth:'100px'
+														  minWidth:`${width(item)}`,
 													  }"
-                              v-for="(item,index) in transColumns" :key="index">{{ item.label }}</view>
-											</view>
-										</view>
-									</view>
-								</scroll-view>
-				</view>
+                        v-for="(item,index) in transColumns" :key="index">{{ item.label }}</view>
+                  </view>
+                </view>
+              </view>
+            </scroll-view>
+          </view>
+        </template>
+
 				<scroll-view class="zb-table-body"
 				ref="tableBody"
 				scroll-x="true"
@@ -40,13 +44,16 @@
 				style=" height: calc(100% - 50px);" >
 					<view class="zb-table-fixed">
 						<view class="zb-table-tbody">
-							<view  class="item-tr"  v-for="(item,index) in data">
+							<view  class="item-tr"
+
+                     v-for="(item,index) in data">
 								<view
                     :style="{
+								              width:`${width(ite)}`,
 														  flex:i===transColumns.length-1?1:'none',
-														  minWidth:'100px'
+														  minWidth:`${width(ite)}`
 													  }"
-                    class="item-td"
+                    :class="['item-td',showStripe(index)]"
                     v-for="(ite,i) in transColumns">{{ item[ite.name] }}</view>
 							</view>
 						</view>
@@ -54,14 +61,19 @@
 				</scroll-view>
 			</view>
 			<view class="zb-table-fixed-left" v-if="isFixedLeft">
-				<view class="zb-table-header" style="height: 40px;">
-					<view class="item-tr" style="flex-direction: column;">
-						<view
-                @click="sortAction(transColumns[0],0)"
-                :class="['item-th',transColumns[0].sorter&&`sorting${transColumns[0].sorterMode||''}`]"
-            >{{ transColumns[0].label }}</view>
-					</view>
-				</view>
+        <template v-if="showHeader">
+          <view class="zb-table-header" style="height: 40px;">
+            <view class="item-tr" style="flex-direction: column;">
+              <view
+                  :style="{
+                 width:`${width(transColumns[0])}`
+              }"
+                  @click="sortAction(transColumns[0],0)"
+                  :class="['item-th',transColumns[0].sorter&&`sorting${transColumns[0].sorterMode||''}`]"
+              >{{ transColumns[0].label }}</view>
+            </view>
+          </view>
+        </template>
 				<view class="zb-table-body-outer center-header-uni" style="height: 100%;">
 					<scroll-view
 					scroll-y="true"
@@ -74,7 +86,11 @@
 							<view class="zb-table-tbody">
 								<view class="item-tr"
                       style="flex-direction: column;">
-									<view class="item-td" v-for="item in data">{{item[transColumns[0].name]}}</view>
+									<view :class="['item-td',showStripe(index)]"
+                        :style="{
+                         width:`${width(transColumns[0])}`
+                        }"
+                        v-for="(item,index) in data">{{item[transColumns[0].name]}}</view>
 								</view>
 							</view>
 
@@ -100,6 +116,18 @@ export default {
     data:{
       type:Array,
       default:()=>[]
+    },
+    showHeader:{
+      type:Boolean,
+      default:true
+    },
+    stripe:{
+      type:Boolean,
+      default:true
+    },
+    fit:{
+      type:Boolean,
+      default:false
     }
   },
   computed:{
@@ -128,11 +156,17 @@ export default {
 			headerTime:null,
 		}
 	},
-	mounted(){
-
-
-	},
 	methods: {
+    width(item){
+      return `${item.width?item.width:'100'}px`
+    },
+    showStripe(index){
+      if(this.stripe){
+        return (index % 2) != 0?'odd':'even'
+      }else{
+        return ''
+      }
+    },
     //验证字符串是否是数字
     checkNumber(theObj) {
       var reg = /^[0-9]+.?[0-9]*$/;
@@ -268,6 +302,10 @@ export default {
   height: 40px;
   line-height: 40px;
   box-sizing: border-box;
+  word-break:keep-all;           /* 不换行 */
+  white-space:nowrap;          /* 不换行 */
+  overflow:hidden;               /* 内容超出宽度时隐藏超出部分的内容 */
+  text-overflow:ellipsis;         /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
 	overflow-wrap: break-word;
 	border-bottom: 1px solid #e8e8e8;
     transition: background 0.3s;
@@ -278,6 +316,11 @@ export default {
 	overflow-wrap: break-word;
 	border-bottom: 1px solid #e8e8e8;
 	transition: background 0.3s;
+  word-break:keep-all;           /* 不换行 */
+  white-space:nowrap;          /* 不换行 */
+  overflow:hidden;               /* 内容超出宽度时隐藏超出部分的内容 */
+  text-overflow:ellipsis;         /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+  overflow-wrap: break-word;
 }
 .zb-table-fixed-left .zb-table-header{
 	overflow-y: hidden;
@@ -317,5 +360,14 @@ export default {
     box-shadow: 6px 0 6px -4px #ccc;
   }
 }
-
+.odd{
+  background-color:rgba(249,249,249,0.6);
+  height: 100%;
+  width: 100%;
+}
+.even{
+  background-color:white ;
+  height: 100%;
+  width: 100%;
+}
 </style>
