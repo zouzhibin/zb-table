@@ -7,7 +7,7 @@
             <scroll-view class="zb-table-headers"
                          @scroll="handleTableScrollLeft"
                          scroll-x="true"
-                         scroll-y="true"
+                         scroll-y="false"
                          id="tableHeaders"
                          scroll-anchoring="true"
                          :scroll-left="headerTableLeft"
@@ -31,13 +31,23 @@
             </scroll-view>
           </view>
         </template>
+        <template v-if="!data.length">
+          <view class="no-data">暂无数据~~</view>
+        </template>
 
 				<scroll-view class="zb-table-body"
 				ref="tableBody"
 				scroll-x="true"
 				scroll-y="true"
 				id="tableBody"
-				@scrolltoupper="scrollToLeft"
+				@scrolltoupper="(e)=>{
+					// #ifdef MP-WEIXIN
+					return scrollToLeft(e)
+					// #endif
+					// #ifdef H5
+					return debounce(scrollToLeft)(e)
+					// #endif
+				}"
 				@scroll="handleBodyScroll"
 				:scroll-left="bodyTableLeft"
 				:scroll-top="bodyScrollTop"
@@ -53,8 +63,22 @@
 														  flex:i===transColumns.length-1?1:'none',
 														  minWidth:`${width(ite)}`
 													  }"
+
                     :class="['item-td',showStripe(index)]"
-                    v-for="(ite,i) in transColumns">{{ item[ite.name] }}</view>
+                    v-for="(ite,i) in transColumns">
+                  <template  v-if="ite.type!=='operation'">
+                    {{ item[ite.name]||ite.emptyString }}
+                  </template>
+                 <view v-else style="display: flex;align-items: center;height: 100%">
+                  <view
+                      v-for="render,i in ite.renders"
+                      :key="i"
+                      @click.stop="$emit(render.func,item,index)"
+                      style="display: flex;align-items: center">
+                    <button :type="render.type||'primary'" :size="render.size||'mini'">{{render.name}}</button>
+                  </view>
+                 </view>
+                </view>
 							</view>
 						</view>
 					</view>
@@ -90,7 +114,7 @@
                         :style="{
                          width:`${width(transColumns[0])}`
                         }"
-                        v-for="(item,index) in data">{{item[transColumns[0].name]}}</view>
+                        v-for="(item,index) in data">{{item[transColumns[0].name]||transColumns[0].emptyString}}</view>
 								</view>
 							</view>
 
@@ -102,7 +126,6 @@
 	</view>
 </template>
 <script>
-import {toLocaleString} from '@/utils/index.js'
 export default {
   props:{
     itemDate:{
@@ -128,22 +151,41 @@ export default {
     fit:{
       type:Boolean,
       default:false
-    }
+    },
   },
   computed:{
     isFixedLeft(){
       if(!this.columns.length){
         return false
       }
+      if(!this.data.length){
+        return false
+      }
       let [firstArr] = this.columns
       return !!firstArr.fixed;
     },
     transColumns(){
+      if(this.fit){
+        this.columns.forEach(column=>{
+          let arr = [this.getTextWidth(column.label)]
+          this.data.forEach(data=>{
+            let str = (data[column.name]+'')
+            let width = this.getTextWidth(str)
+            arr.push(width)
+          })
+          column.width = Math.max(...arr)+12
+        })
+        return this.columns
+      }
+      this.columns.forEach(item=>{
+        item.emptyString = item.emptyString||'--'
+      })
       return this.columns
     }
   },
 	data() {
 		return {
+      button:[],
 			bodyTableLeft:0,
 			headerTableLeft:0,
 			lastScrollLeft:0,
@@ -154,9 +196,30 @@ export default {
 			bodyTime:null,
 			bodyTime1:null,
 			headerTime:null,
+      debounceTime:null,
+      operation:{}
 		}
 	},
 	methods: {
+
+    // 默认字体为微软雅黑 Microsoft YaHei,字体大小为 14px
+    getTextWidth(str) {
+      let flexWidth = 0
+      for (const char of str) {
+        if ((char >= 'A' && char <= 'Z') || (char >= 'a' && char <= 'z')) {
+
+          // 如果是英文字符，为字符分配8个单位宽度
+          flexWidth += 8
+        } else if (char >= '\u4e00' && char <= '\u9fa5') {
+          // 如果是中文字符，为字符分配15个单位宽度
+          flexWidth += 18
+        } else {
+          // 其他种类字符，为字符分配8个单位宽度
+          flexWidth += 8
+        }
+      }
+      return flexWidth
+    },
     width(item){
       return `${item.width?item.width:'100'}px`
     },
@@ -186,7 +249,6 @@ export default {
       this.sortData(item)
     },
     sortData(item){
-      console.log('item===',item)
       let key = item.name
       if(item.sorterMode==='_asc'){
         this.data.sort((a,b)=>{
@@ -212,6 +274,25 @@ export default {
         })
       }
     },
+    throttle(method,delay=60){
+      let time = null
+      return (...args)=>{
+        if(!time){
+          time = setTimeout(()=>{
+            method(...args)
+            time = null;
+          },delay)
+        }
+      }
+    },
+    debounce(method,delay=1000){
+      return (...args)=>{
+        this.debounceTime&&clearTimeout(this.debounceTime)
+        this.debounceTime = setTimeout(()=>{
+          method(...args)
+        },delay)
+      }
+    },
 		handleBodyScroll(e){
 			if(this.currentDriver&&this.currentDriver!==e.currentTarget.id)return
 			this.currentDriver = e.currentTarget.id
@@ -233,9 +314,9 @@ export default {
 			},200)
 		},
 		scrollToLeft(e){
-			if(e.detail.direction==='left'){
+			if(e.detail.direction==='left'&&this.headerTableLeft<5){
 				this.headerTableLeft = 0
-			}else if(e.detail.direction==='top'){
+			}else if(e.detail.direction==='top'&&this.leftFiexScrollTop<5){
 				this.leftFiexScrollTop = 0
 			}
 		},
@@ -259,6 +340,14 @@ export default {
 }
 .zb-table-fixed{
 	min-width: 100%;
+}
+.no-data{
+  width: 100%;
+  height: 80rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #e8e8e8;
 }
 .zb-table{
   height: 100%;
@@ -294,6 +383,7 @@ export default {
 }
 .item-tr{
 	display: flex;
+  //height: 41px;
 }
 .item-td{
 	flex-shrink: 0;
@@ -308,7 +398,7 @@ export default {
   text-overflow:ellipsis;         /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
 	overflow-wrap: break-word;
 	border-bottom: 1px solid #e8e8e8;
-    transition: background 0.3s;
+    //transition: background 0.3s;
 }
 .item-th{
 	flex-shrink: 0;
@@ -352,7 +442,7 @@ export default {
 	overflow: hidden;
 	border-radius: 0;
 	height: 100%;
-	transition: box-shadow 0.3s ease;
+	//transition: box-shadow 0.3s ease;
 }
 .scroll-left-fixed{
   .zb-table-fixed-left {
@@ -362,12 +452,12 @@ export default {
 }
 .odd{
   background-color:rgba(249,249,249,0.6);
-  height: 100%;
+  //height: 100%;
   width: 100%;
 }
 .even{
   background-color:white ;
-  height: 100%;
+  //height: 100%;
   width: 100%;
 }
 </style>
