@@ -20,6 +20,17 @@
 		data() {
 			return {
 				title: 'Hello',
+        renders:[
+          {
+            name:'编辑',
+            func:'edit' // func 代表子元素点击的事件 父元素接收的事件 父元素 @edit
+          },
+          {
+            name:'删除',
+            type:'warn',
+            func:"dele"
+          }
+        ],
         column:[
           { name: 'name', label: '姓名',fixed:true,width:80,emptyString:'--' },
           { name: 'age', label: '年纪',sorter:true },
@@ -173,11 +184,20 @@
 		},
     methods:{
       buttonEdit(ite,index){
-        alert('点击编辑')
+        uni.showToast({
+          icon:'none',
+          duration:3000,
+          title:'点击编辑'
+        })
         console.log(ite,index)
       },
       dele(ite,index){
-        alert('点击删除')
+        uni.showToast({
+          icon:'none',
+          duration:3000,
+          title:'点击删除'
+        })
+        // alert('点击删除')
         console.log(ite,index)
       }
     },

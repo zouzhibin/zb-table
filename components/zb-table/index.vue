@@ -56,7 +56,7 @@
 						<view class="zb-table-tbody">
 							<view  class="item-tr"
 
-                     v-for="(item,index) in data">
+                     v-for="(item,index) in data" :key="index">
 								<view
                     :style="{
 								              width:`${width(ite)}`,
@@ -66,18 +66,21 @@
 
                     :class="['item-td',showStripe(index)]"
                     v-for="(ite,i) in transColumns">
-                  <template  v-if="ite.type!=='operation'">
+                  <template  v-if="ite.type==='operation'">
+                    <view style="display: flex;align-items: center;height: 100%">
+                      <view
+                          v-for="ren,ind in ite.renders"
+                          :key="ind"
+                          @click="$emit(ren.func,item,index)"
+                          style="display: flex;align-items: center">
+                        <button :type="ren.type||'primary'" :size="ren.size||'mini'">{{ren.name}}</button>
+                      </view>
+                    </view>
+                  </template>
+                  <template  v-else>
                     {{ item[ite.name]||ite.emptyString }}
                   </template>
-                 <view v-else style="display: flex;align-items: center;height: 100%">
-                  <view
-                      v-for="render,i in ite.renders"
-                      :key="i"
-                      @click.stop="$emit(render.func,item,index)"
-                      style="display: flex;align-items: center">
-                    <button :type="render.type||'primary'" :size="render.size||'mini'">{{render.name}}</button>
-                  </view>
-                 </view>
+
                 </view>
 							</view>
 						</view>
@@ -201,7 +204,11 @@ export default {
 		}
 	},
 	methods: {
-
+    operationAction(item,ren){
+      console.log('item',item,ren)
+      // this.$emit(render.func)
+      // $emit(render.func,item)
+    },
     // 默认字体为微软雅黑 Microsoft YaHei,字体大小为 14px
     getTextWidth(str) {
       let flexWidth = 0
