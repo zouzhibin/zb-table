@@ -20,9 +20,9 @@
                         @click="sortAction(item,index)"
                         :class="['item-th',item.sorter&&`sorting${item.sorterMode||''}`]"
                         :style="{
-                              width:`${width(item)}`,
+                              width:`${item.width?item.width:'100'}px`,
 														  flex:index===transColumns.length-1?1:'none',
-														  minWidth:`${width(item)}`,
+														  minWidth:`${item.width?item.width:'100'}px`
 													  }"
                         v-for="(item,index) in transColumns" :key="index">{{ item.label }}</view>
                   </view>
@@ -34,9 +34,9 @@
         <template v-if="!data.length">
           <view class="no-data">暂无数据~~</view>
         </template>
-
 				<scroll-view class="zb-table-body"
 				ref="tableBody"
+
 				scroll-x="true"
 				scroll-y="true"
 				id="tableBody"
@@ -55,30 +55,33 @@
 					<view class="zb-table-fixed">
 						<view class="zb-table-tbody">
 							<view  class="item-tr"
-
-                     v-for="(item,index) in data" :key="index">
+                     v-for="(item,index) in transData" :key="item.key" >
 								<view
                     :style="{
-								              width:`${width(ite)}`,
+								              width:`${ite.width?ite.width:'100'}px`,
 														  flex:i===transColumns.length-1?1:'none',
-														  minWidth:`${width(ite)}`
+														  minWidth:`${ite.width?ite.width:'100'}px`
 													  }"
 
                     :class="['item-td',showStripe(index)]"
-                    v-for="(ite,i) in transColumns">
+                    v-for="(ite,i) in transColumns" :key="i">
                   <template  v-if="ite.type==='operation'">
                     <view style="display: flex;align-items: center;height: 100%">
                       <view
                           v-for="ren,ind in ite.renders"
                           :key="ind"
-                          @click="$emit(ren.func,item,index)"
-                          style="display: flex;align-items: center">
+                          @click.stop="$emit(ren.func,item,index)"
+                          :style="{
+                            display:'flex',
+                            alignItems: 'center',
+                            marginRight:ite.renders.length>1?'8px':'0'
+                          }">
                         <button :type="ren.type||'primary'" :size="ren.size||'mini'">{{ren.name}}</button>
                       </view>
                     </view>
                   </template>
                   <template  v-else>
-                    {{ item[ite.name]||ite.emptyString }}
+                    {{ ite.filters?itemFilter(item,ite):item[ite.name]||ite.emptyString }}
                   </template>
 
                 </view>
@@ -93,7 +96,7 @@
             <view class="item-tr" style="flex-direction: column;">
               <view
                   :style="{
-                 width:`${width(transColumns[0])}`
+                 width:`${transColumns[0].width?transColumns[0].width:'100'}px`,
               }"
                   @click="sortAction(transColumns[0],0)"
                   :class="['item-th',transColumns[0].sorter&&`sorting${transColumns[0].sorterMode||''}`]"
@@ -115,12 +118,12 @@
                       style="flex-direction: column;">
 									<view :class="['item-td',showStripe(index)]"
                         :style="{
-                         width:`${width(transColumns[0])}`
+                         width:`${transColumns[0].width?transColumns[0].width:'100'}px`
                         }"
-                        v-for="(item,index) in data">{{item[transColumns[0].name]||transColumns[0].emptyString}}</view>
+                        :key="item.key"
+                        v-for="(item,index) in transData">{{item[transColumns[0].name]||transColumns[0].emptyString}}</view>
 								</view>
 							</view>
-
 						</view>
 					</scroll-view>
 				</view>
@@ -135,6 +138,7 @@ export default {
       type:Object,
       default:()=>{}
     },
+    rowKey:Function,
     columns:{
       type:Array,
       default:()=>[]
@@ -170,20 +174,43 @@ export default {
     transColumns(){
       if(this.fit){
         this.columns.forEach(column=>{
-          let arr = [this.getTextWidth(column.label)]
-          this.data.forEach(data=>{
-            let str = (data[column.name]+'')
-            let width = this.getTextWidth(str)
-            arr.push(width)
-          })
-          column.width = Math.max(...arr)+12
+          if(column.type==="operation"&&column.renders){
+            let str = column.renders.reduce((prev,next)=>{
+              return prev.name+next.name
+            })
+            column.width = this.getTextWidth(str)+column.renders.length*40
+          }else {
+            let arr = [this.getTextWidth(column.label)]
+            this.data.forEach(data=>{
+              let str = (data[column.name]+'')
+              let width = this.getTextWidth(str)
+              arr.push(width)
+            })
+            column.width = Math.max(...arr)+12
+          }
         })
         return this.columns
       }
       this.columns.forEach(item=>{
+        if(item.type==="operation"&&item.renders){
+          let str = item.renders.reduce((prev,next)=>{
+            return prev.name+next.name
+          })
+          item.width = this.getTextWidth(str)+item.renders.length*40
+        }
         item.emptyString = item.emptyString||'--'
       })
       return this.columns
+    },
+    transData(){
+      this.data.forEach((item,index)=>{
+        if(this.rowKey){
+          item.key = Object.freeze(this.rowKey(item))
+        }else {
+          item.key = index
+        }
+      })
+      return this.data
     }
   },
 	data() {
@@ -200,21 +227,23 @@ export default {
 			bodyTime1:null,
 			headerTime:null,
       debounceTime:null,
-      operation:{}
+      operation:{},
+      completedFlag:false
 		}
 	},
 	methods: {
-    operationAction(item,ren){
-      console.log('item',item,ren)
-      // this.$emit(render.func)
-      // $emit(render.func,item)
+    itemFilter(item,ite){
+      if(ite.filters&&ite.name){
+        let key = item[ite.name]
+        return ite.filters[key]||''
+      }
+      return item[ite.name]||ite.emptyString
     },
     // 默认字体为微软雅黑 Microsoft YaHei,字体大小为 14px
     getTextWidth(str) {
       let flexWidth = 0
       for (const char of str) {
         if ((char >= 'A' && char <= 'Z') || (char >= 'a' && char <= 'z')) {
-
           // 如果是英文字符，为字符分配8个单位宽度
           flexWidth += 8
         } else if (char >= '\u4e00' && char <= '\u9fa5') {
@@ -231,6 +260,7 @@ export default {
       return `${item.width?item.width:'100'}px`
     },
     showStripe(index){
+      if(this.currentDriver)return
       if(this.stripe){
         return (index % 2) != 0?'odd':'even'
       }else{
