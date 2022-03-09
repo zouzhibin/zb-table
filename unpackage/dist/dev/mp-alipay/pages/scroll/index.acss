@@ -1,0 +1,9 @@
+
+.scroll-Y{
+  height: 100px;
+}
+.scroll-view-item{
+  width: 100%;
+  height: 100px;
+}
+

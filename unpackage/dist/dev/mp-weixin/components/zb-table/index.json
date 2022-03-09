@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "table-checkbox": "/components/zb-table/table-checkbox"
+  },
+  "component": true
+}

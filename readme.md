@@ -10,11 +10,14 @@
 | stripe | 是否为斑马纹 table| boolean | - |false | 否 |
 | fit | 列的宽度是否自撑开 | boolean |true,false | false |否 |
 | show-header | 是否显示表头 | boolean |true,false | true |否 |
+| border | 是否带有纵向边框 | boolean |true,false | true |否 |
 
 ## table 事件
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |是否必须|
 | ------ | ------ | ------ | ------ | ------ |------ |
-| 事件名自定义 | 取决于type类型为operation的 renders参数里面 func 的参数名 | Function |(row,index)=>{} | -- |必须 |
+| 事件名自定义 | 取决于type类型为operation的 renders参数里面 func 的参数名 | Function |(row,index)=>{} | -- |否 |
+| toggleRowSelection | 用于多选表格，切换某一行的选中状态，第一个参数代表选中状态，参数二代表选中的对象 | Function |(selected ,array)=>{} | -- |否 |
+| toggleAllSelection | 用于多选表格，切换所有行的选中状态 ，第一个参数代表选中状态，参数二代表选中的对象| Function |(selected ,array)=>{} | -- |否 |
 
 
 ## column 属性
@@ -26,10 +29,10 @@
 | fixed | 列是否固定在左侧，true 表示固定在左侧 | boolean |true,false | true |
 | sorter | 排序 | boolean |true,false | false |
 | emptyString | 当值为空的时候默认显示的值 | string |  | -- |
-| type | 为 operation 的时候代表为操作按钮 | string | operation | -- |否 |
-| renders | type 为operation的时候 必传 | Array | {name:'名字',func:"父元素接收事件名",type:"按钮的类型",size:"大小"} | -- |否 |
-| filters | 对象过滤的选项，对象格式，对象中的元素需要有 key 和 value 属性。 | Object | {key:value} | -- |否 |
-
+| filters | 对象过滤的选项，对象格式，对象中的元素需要有 key 和 value 属性。 | Object | {key:value} | -- |
+| align | 对齐方式 | String | left/center/right | left |
+| type | 为 operation 的时候代表为操作按钮 | string | operation | -- |
+| renders | type 为operation的时候 必传 | Array | {name:'名字',func:"父元素接收事件名",type:"按钮的类型",size:"大小"} | -- |
 ```
 type 为 operation 的时候代表为操作按钮
 renders 代表传入的按钮  Array  =>[
