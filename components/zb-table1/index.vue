@@ -183,7 +183,16 @@
             <view class="zb-table-fixed">
               <view class="zb-table-tbody">
                 <view class="item-tr" style="flex-direction: column;">
-                  <view class="item-td" v-for="item,index in data" :key="key(item,index)">{{ item.name }}</view>
+                  <view class="item-td">header1</view>
+                  <view class="item-td">Edrward 2</view>
+                  <view class="item-td">Edrward 3</view>
+                  <view class="item-td">Edrward 4</view>
+                  <view class="item-td">Edrward 5</view>
+                  <view class="item-td">Edrward 6</view>
+                  <view class="item-td">Edrward 7</view>
+                  <view class="item-td">Edrward 8</view>
+                  <view class="item-td  ">Edrward 9</view>
+                  <view class="item-td ">Edrward 10</view>
                 </view>
               </view>
 
@@ -201,15 +210,7 @@ export default {
     itemDate:{
       type:Object,
       default:()=>{}
-    },
-    columns:{
-      type:Array,
-      default:()=>[]
-    },
-    data:{
-      type:Array,
-      default:()=>[]
-    },
+    }
   },
   computed:{
     // dataSource(){
@@ -265,10 +266,6 @@ export default {
 
   },
   methods: {
-    key(item,index){
-      console.log('===')
-      return item.id
-    },
     handleBodyScroll(e){
       if(this.currentDriver&&this.currentDriver!==e.currentTarget.id)return
       this.currentDriver = e.currentTarget.id
@@ -290,7 +287,11 @@ export default {
       },200)
     },
     scrollToLeft(e){
-
+      if(e.detail.direction==='left'){
+        this.headerTableLeft = 0
+      }else if(e.detail.direction==='top'){
+        this.leftFiexScrollTop = 0
+      }
     },
     handleTableScrollLeft(e,type){
       if(this.currentDriver&&this.currentDriver!==e.currentTarget.id)return

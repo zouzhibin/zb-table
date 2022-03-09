@@ -5,6 +5,10 @@
         :columns="column"
         :stripe="true"
         :fit="false"
+        @toggleRowSelection="toggleRowSelection"
+        @toggleAllSelection="toggleAllSelection"
+
+        :border="true"
         @edit="buttonEdit"
         @dele="dele"
         :data="data"></zb-table>
@@ -32,8 +36,9 @@
           }
         ],
         column:[
+          { type:'selection', fixed:true,width:50 },
           { name: 'name', label: '姓名',fixed:true,width:80,emptyString:'--' },
-          { name: 'age', label: '年纪',sorter:true },
+          { name: 'age', label: '年纪',sorter:true,align:'right', },
           { name: 'sex', label: '性别',filters:{0:'男',1:'女'}},
           { name: 'address', label: '地址' },
           { name: 'date', label: '日期',sorter:true },
@@ -59,7 +64,7 @@
             name: '',
             province: '上海',
             sex:'1',
-            id:"1",
+            id:"20",
             age:'',
             city: '普陀区',
             address: '上海市普上海市普上海市普上海市普',
@@ -212,6 +217,12 @@
         })
         // alert('点击删除')
         console.log(ite,index)
+      },
+      toggleAllSelection(checked,arr){
+        console.log('全选',checked,arr)
+      },
+      toggleRowSelection(checked,arr){
+        console.log('单选',checked,arr)
       }
     },
 
