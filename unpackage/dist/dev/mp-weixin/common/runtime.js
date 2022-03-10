@@ -105,11 +105,11 @@
 /******/
 /******/
 /******/ 		// mini-css-extract-plugin CSS loading
-/******/ 		var cssChunks = {"components/zb-table/index":1,"components/zb-table1/index":1,"components/zb-table/table-checkbox":1};
+/******/ 		var cssChunks = {"components/zb-table/index":1,"uni_modules/uni-card/components/uni-card/uni-card":1,"components/zb-table1/index":1,"components/zb-table/table-checkbox":1};
 /******/ 		if(installedCssChunks[chunkId]) promises.push(installedCssChunks[chunkId]);
 /******/ 		else if(installedCssChunks[chunkId] !== 0 && cssChunks[chunkId]) {
 /******/ 			promises.push(installedCssChunks[chunkId] = new Promise(function(resolve, reject) {
-/******/ 				var href = "" + ({"components/zb-table/index":"components/zb-table/index","components/zb-table1/index":"components/zb-table1/index","components/zb-table/table-checkbox":"components/zb-table/table-checkbox"}[chunkId]||chunkId) + ".wxss";
+/******/ 				var href = "" + ({"components/zb-table/index":"components/zb-table/index","uni_modules/uni-card/components/uni-card/uni-card":"uni_modules/uni-card/components/uni-card/uni-card","components/zb-table1/index":"components/zb-table1/index","components/zb-table/table-checkbox":"components/zb-table/table-checkbox"}[chunkId]||chunkId) + ".wxss";
 /******/ 				var fullhref = __webpack_require__.p + href;
 /******/ 				var existingLinkTags = document.getElementsByTagName("link");
 /******/ 				for(var i = 0; i < existingLinkTags.length; i++) {

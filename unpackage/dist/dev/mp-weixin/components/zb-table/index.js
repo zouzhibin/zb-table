@@ -92,7 +92,9 @@ var render = function() {
       var $orig = _vm.__get_orig(ite)
 
       var m1 =
-        !(ite.type === "operation") && ite.filters
+        !(ite.type === "operation") &&
+        !(ite.type === "selection") &&
+        ite.filters
           ? _vm.itemFilter(item, ite)
           : null
       return {
@@ -108,25 +110,19 @@ var render = function() {
     }
   })
 
-  var l2 = _vm.isFixedLeft
-    ? _vm.__map(_vm.transData, function(ite, i) {
-        var $orig = _vm.__get_orig(ite)
-
-        var m2 = _vm.showStripe(i)
-        return {
-          $orig: $orig,
-          m2: m2
-        }
-      })
-    : null
-
   if (!_vm._isMounted) {
-    _vm.e0 = function(e) {
-      return _vm.debounce(_vm.scrollToLeft)(e)
-    }
+    _vm.e0 = function(e, item) {
+      var args = [],
+        len = arguments.length - 2
+      while (len-- > 0) args[len] = arguments[len + 2]
 
-    _vm.e1 = function(e) {
-      return _vm.scrollToFixedLeft(e)
+      var _temp = args[args.length - 1].currentTarget.dataset,
+        _temp2 = _temp.eventParams || _temp["event-params"],
+        item = _temp2.item
+
+      var _temp, _temp2
+
+      return _vm.checkboxSelected(e, item)
     }
   }
 
@@ -134,8 +130,7 @@ var render = function() {
     {},
     {
       $root: {
-        l1: l1,
-        l2: l2
+        l1: l1
       }
     }
   )
@@ -172,7 +167,43 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _createForOfIteratorHelper(o, allowArrayLike) {var it;if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {if (it) o = it;var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e2) {throw _e2;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var normalCompletion = true,didErr = false,err;return { s: function s() {it = o[Symbol.iterator]();}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e3) {didErr = true;err = _e3;}, f: function f() {try {if (!normalCompletion && it.return != null) it.return();} finally {if (didErr) throw err;}} };}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}var tableCheckbox = function tableCheckbox() {__webpack_require__.e(/*! require.ensure | components/zb-table/table-checkbox */ "components/zb-table/table-checkbox").then((function () {return resolve(__webpack_require__(/*! ./table-checkbox.vue */ 56));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default2 =
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _createForOfIteratorHelper(o, allowArrayLike) {var it;if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {if (it) o = it;var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e2) {throw _e2;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var normalCompletion = true,didErr = false,err;return { s: function s() {it = o[Symbol.iterator]();}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e3) {didErr = true;err = _e3;}, f: function f() {try {if (!normalCompletion && it.return != null) it.return();} finally {if (didErr) throw err;}} };}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}var tableCheckbox = function tableCheckbox() {__webpack_require__.e(/*! require.ensure | components/zb-table/table-checkbox */ "components/zb-table/table-checkbox").then((function () {return resolve(__webpack_require__(/*! ./table-checkbox.vue */ 50));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default2 =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -524,29 +555,52 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
       checkedAll: false };
 
   },
+  created: function created() {
+    var flag = this.columns.some(function (item) {return item.type === 'selection';});
+    if (flag) {
+      this.data.forEach(function (item) {
+        item.checked = false;
+      });
+    }
+  },
   mounted: function mounted() {
-    // if(){
-    //
-    // }
   },
   methods: {
     checkboxSelectedAll: function checkboxSelectedAll(e) {var _this3 = this;
+      this.indeterminate = false;
       if (e.checked) {
+        this.selectArr = [];
         this.checkedAll = true;
         this.data.forEach(function (item) {
-          item.checked = true;
+          _this3.$set(item, 'checked', true);
           _this3.selectArr.push(item);
         });
       } else {
         this.checkedAll = false;
         this.data.forEach(function (item) {
-          item.checked = false;
+          _this3.$set(item, 'checked', false);
         });
         this.selectArr = [];
       }
+
+      this.$forceUpdate();
+
       this.$emit('toggleAllSelection', e.checked, this.selectArr);
     },
-    checkboxSelected: function checkboxSelected(e) {
+    checkboxSelected: function checkboxSelected(e, item) {
+
+
+
+
+      this.data.forEach(function (item) {
+        if (item.key === e.data.key) {
+          item.checked = e.checked;
+        }
+      });
+
+
+      item.checked = e.checked;
+      e.data.checked = e.checked;
       if (e.checked) {
         this.selectArr.push(e.data);
       } else {
@@ -559,6 +613,13 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
         this.indeterminate = true;
         this.checkedAll = false;
       }
+      if (!this.selectArr.length) {
+        this.checkedAll = false;
+        this.indeterminate = false;
+      }
+
+      this.$forceUpdate();
+
       this.$emit('toggleRowSelection', e.checked, this.selectArr);
     },
     itemFilter: function itemFilter(item, ite) {
@@ -567,9 +628,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
         return ite.filters[key] || '';
       }
       return item[ite.name] || ite.emptyString;
-    },
-    selectionAll: function selectionAll() {
-      LET;
     },
     // 默认字体为微软雅黑 Microsoft YaHei,字体大小为 14px
     getTextWidth: function getTextWidth(str) {

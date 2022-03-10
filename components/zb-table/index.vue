@@ -1,5 +1,5 @@
 <template>
-	<!-- #ifndef H5 || APP-PLUS -->
+	<!-- #ifdef H5 || APP-PLUS -->
 	<view :class="['zb-table','zb-table-fixed-header',!border&&(bodyTableLeft>50||headerTableLeft>50)&&'scroll-left-fixed']">
 	  <view class="zb-table-content">
 	    <view class="zb-table-scroll" style="height: 100%;">
@@ -28,7 +28,17 @@
 															  borderTop:`${border?'1px solid #e8e8e8':''}`,
 															  textAlign:item.align||'left'
 														  }"
-	                      v-for="(item,index) in transColumns" :key="index">{{ item.label }}</view>
+	                      v-for="(item,index) in transColumns" :key="index">
+                      <template v-if="item.type==='selection'">
+                        <view class="checkbox-item">
+                          <tableCheckbox
+                              :indeterminate="indeterminate" :checked="checkedAll" @checkboxSelected="checkboxSelectedAll"></tableCheckbox>
+                        </view>
+                      </template>
+                      <template v-else>
+                        {{ item.label }}
+                      </template>
+                    </view>
 	                </view>
 	              </view>
 	            </view>
@@ -73,6 +83,11 @@
 	                      </view>
 	                    </view>
 	                  </template>
+                    <template v-else-if="ite.type==='selection'">
+                      <view class="checkbox-item">
+                        <tableCheckbox @checkboxSelected="(e)=>checkboxSelected(e,item)" :cellData="item" :checked="item.checked"/>
+                      </view>
+                    </template>
 	                  <template  v-else>
 	                    {{ ite.filters?itemFilter(item,ite):item[ite.name]||ite.emptyString }}
 	                  </template>
@@ -96,7 +111,17 @@
 	            }"
 	                @click="sortAction(item,0)"
 	                :class="['item-th',item.sorter&&`sorting${item.sorterMode||''}`]"
-	            >{{ item.label }}</view>
+	            >
+                <template v-if="item.type==='selection'">
+                  <view class="checkbox-item">
+                    <tableCheckbox
+                        :indeterminate="indeterminate" :checked="checkedAll" @checkboxSelected="checkboxSelectedAll"></tableCheckbox>
+                  </view>
+                </template>
+                <template v-else>
+                  {{ item.label }}
+                </template>
+              </view>
 	          </view>
 	        </view>
 	      </template>
@@ -114,6 +139,7 @@
 	            <view class="zb-table-tbody">
 	              <view :class="['item-tr',showStripe(i)]"
                       v-for="(ite,i) in transData"
+                      :key="ite.key"
 	                    style="">
 	                <view :class="['item-td']"
 	                      :style="{
@@ -122,7 +148,17 @@
 	                       textAlign:item.align||'left'
 	                      }"
 	                      :key="item.key"
-	                      v-for="(item,index) in fixedLeftData">{{ite[item.name]||item.emptyString}}</view>
+	                      v-for="(item,index) in fixedLeftData">
+                    <template v-if="item.type==='selection'">
+                      <view class="checkbox-item">
+                        <tableCheckbox @checkboxSelected="(e)=>checkboxSelected(e,ite)" :cellData="ite" :checked="ite.checked"/>
+                      </view>
+                    </template>
+                    <template v-else>
+                      {{ite[item.name]||item.emptyString}}
+                    </template>
+
+                  </view>
 	              </view>
 	            </view>
 	          </view>
@@ -132,7 +168,7 @@
 	  </view>
 	</view>
 	<!-- #endif -->
-	<!-- #ifdef H5 || APP-PLUS -->
+	<!-- #ifndef H5 || APP-PLUS -->
 	<view class="zb-table-applet">
 	  <view class="zb-table-content">
 	    <view class="zb-table-scroll" style="height: 100%;overflow: scroll">
@@ -207,7 +243,7 @@
 	                  </template>
                     <template v-else-if="ite.type==='selection'">
                       <view class="checkbox-item">
-                        <tableCheckbox @checkboxSelected="checkboxSelected" :cellData="item" :checked="item.checked"/>
+                        <tableCheckbox @checkboxSelected="(e)=>checkboxSelected(e,item)" :cellData="item" :checked="item.checked"/>
                       </view>
                     </template>
 	                  <template  v-else>
@@ -350,29 +386,52 @@ export default {
       checkedAll:false
     }
   },
+  created(){
+    let flag = this.columns.some(item=>item.type==='selection')
+    if(flag){
+      this.data.forEach(item=> {
+        item.checked = false
+      })
+    }
+  },
   mounted(){
-    // if(){
-    //
-    // }
   },
   methods: {
     checkboxSelectedAll(e){
+      this.indeterminate = false
       if(e.checked){
+        this.selectArr = []
         this.checkedAll = true
         this.data.forEach(item=>{
-          item.checked = true
+          this.$set(item,'checked',true)
           this.selectArr.push(item)
         })
       }else{
         this.checkedAll = false
         this.data.forEach(item=>{
-          item.checked = false
+          this.$set(item,'checked',false)
         })
         this.selectArr = []
       }
+      // #ifndef H5 || APP-PLUS
+      this.$forceUpdate()
+      // #endif
       this.$emit('toggleAllSelection',e.checked,this.selectArr)
     },
-    checkboxSelected(e){
+    checkboxSelected(e,item){
+      // #ifdef H5 || APP-PLUS
+      this.$set(item,'checked',e.checked)
+      // #endif
+      // #ifndef H5 || APP-PLUS
+      this.data.forEach(item=>{
+        if(item.key===e.data.key){
+          item.checked = e.checked
+        }
+      })
+      // #endif
+
+      item.checked = e.checked
+      e.data.checked = e.checked
       if(e.checked){
         this.selectArr.push(e.data)
       }else{
@@ -385,6 +444,13 @@ export default {
         this.indeterminate = true
         this.checkedAll = false
       }
+      if(!this.selectArr.length){
+        this.checkedAll = false
+        this.indeterminate = false
+      }
+      // #ifndef H5 || APP-PLUS
+      this.$forceUpdate()
+      // #endif
       this.$emit('toggleRowSelection',e.checked,this.selectArr)
     },
     itemFilter(item,ite){
@@ -393,9 +459,6 @@ export default {
         return ite.filters[key]||''
       }
       return item[ite.name]||ite.emptyString
-    },
-    selectionAll(){
-        LET
     },
     // 默认字体为微软雅黑 Microsoft YaHei,字体大小为 14px
     getTextWidth(str) {

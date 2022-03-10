@@ -67,6 +67,7 @@
 				if (this.isDisabled) return
 				this.isIndeterminate = false
 				this.isChecked = !this.isChecked
+        console.log('===',this.indeterminate,this.isChecked)
 				this.$emit('checkboxSelected', {
 					checked: this.isChecked,
 					data: this.cellData

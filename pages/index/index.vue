@@ -1,28 +1,113 @@
 <template>
 	<view class="content">
-		<zb-table
-        :show-header="true"
-        :columns="column"
-        :stripe="true"
-        :fit="false"
-        @toggleRowSelection="toggleRowSelection"
-        @toggleAllSelection="toggleAllSelection"
+    <uni-card title="全部功能" >
+      <view style="height: 200px">
+        <zb-table
+            :show-header="true"
+            :columns="column"
+            :stripe="true"
+            :fit="false"
+            @toggleRowSelection="toggleRowSelection"
+            @toggleAllSelection="toggleAllSelection"
+            :border="true"
+            @edit="buttonEdit"
+            @dele="dele"
+            :data="data"></zb-table>
+      </view>
+    </uni-card>
+    <uni-card title="普通表格" >
+      <view style="height: 200px">
+        <zb-table
+            :show-header="true"
+            :columns="column1"
+            :stripe="true"
+            :fit="false"
+            @toggleRowSelection="toggleRowSelection"
+            @toggleAllSelection="toggleAllSelection"
 
-        :border="true"
-        @edit="buttonEdit"
-        @dele="dele"
-        :data="data"></zb-table>
+            @edit="buttonEdit"
+            @dele="dele"
+            :data="data"></zb-table>
+      </view>
+    </uni-card>
+    <uni-card title="带边框表格" >
+      <view style="height: 200px">
+        <zb-table
+            :show-header="true"
+            :columns="column1"
+            :stripe="true"
+            :fit="false"
+            @toggleRowSelection="toggleRowSelection"
+            @toggleAllSelection="toggleAllSelection"
+            :border="true"
+            @edit="buttonEdit"
+            @dele="dele"
+            :data="data"></zb-table>
+      </view>
+    </uni-card>
+    <uni-card title="多选，多行数据时使用 Checkbox" >
+      <view style="height: 200px">
+        <zb-table
+            :show-header="true"
+            :columns="column2"
+            :stripe="true"
+            :fit="false"
+            @toggleRowSelection="toggleRowSelection"
+            @toggleAllSelection="toggleAllSelection"
+            :border="true"
+            @edit="buttonEdit"
+            @dele="dele"
+            :data="data"></zb-table>
+      </view>
+    </uni-card>
+    <uni-card title="固定多列和表头" >
+      <view style="height: 200px">
+        <zb-table
+            :show-header="true"
+            :columns="column3"
+            :stripe="true"
+            :fit="false"
+            @toggleRowSelection="toggleRowSelection"
+            @toggleAllSelection="toggleAllSelection"
+            :border="true"
+            @edit="buttonEdit"
+            @dele="dele"
+            :data="data"></zb-table>
+      </view>
+    </uni-card>
+    <uni-card title="年纪、日期排序" >
+      <view style="height: 200px">
+        <zb-table
+            :show-header="true"
+            :columns="column4"
+            :stripe="true"
+            :fit="false"
+            @toggleRowSelection="toggleRowSelection"
+            @toggleAllSelection="toggleAllSelection"
+            :border="true"
+            @edit="buttonEdit"
+            @dele="dele"
+            :data="data"></zb-table>
+      </view>
+    </uni-card>
+
+
 	</view>
 </template>
 
 <script>
 	import ZbTable from '@/components/zb-table/index.vue'
+  import {column1,column2,column3,column4} from './all.js'
 	export default {
 		components:{
 			ZbTable
 		},
 		data() {
 			return {
+        column1,
+        column2,
+        column3,
+        column4,
 				title: 'Hello',
         renders:[
           {
@@ -37,8 +122,8 @@
         ],
         column:[
           { type:'selection', fixed:true,width:50 },
-          { name: 'name', label: '姓名',fixed:true,width:80,emptyString:'--' },
-          { name: 'age', label: '年纪',sorter:true,align:'right', },
+          { name: 'name', label: '姓名',fixed:false,width:80,emptyString:'--' },
+          { name: 'age', label: '年纪',sorter:false,align:'right', },
           { name: 'sex', label: '性别',filters:{0:'男',1:'女'}},
           { name: 'address', label: '地址' },
           { name: 'date', label: '日期',sorter:true },
@@ -57,7 +142,6 @@
               },
             ]},
         ],
-        data1:[],
         data:[
           {
             date: '2016-05-02',
@@ -173,26 +257,6 @@
             city: '普陀区',
             address: '上海市普',
             zip: 200333
-          },{
-            date: '2011-05-02',
-            name: '王小虎9',
-            province: '上海',
-            sex:1,
-            id:"12",
-            age:'30',
-            city: '普陀区',
-            address: '上海市普',
-            zip: 200333
-          },{
-            date: '2011-05-02',
-            name: '王小虎9',
-            province: '上海',
-            sex:1,
-            age:'30',
-            id:"13",
-            city: '普陀区',
-            address: '上海市普',
-            zip: 200333
           }
         ]
 			}
@@ -219,9 +283,19 @@
         console.log(ite,index)
       },
       toggleAllSelection(checked,arr){
+        uni.showToast({
+          icon:'none',
+          duration:3000,
+          title:'点击全选'
+        })
         console.log('全选',checked,arr)
       },
       toggleRowSelection(checked,arr){
+        uni.showToast({
+          icon:'none',
+          duration:3000,
+          title:'点击单选'
+        })
         console.log('单选',checked,arr)
       }
     },
@@ -229,8 +303,22 @@
 	}
 </script>
 
-<style>
+<style scoped lang="scss">
+::v-deep{
+  .uni-card{
+    margin: 8px!important;
+    padding: 0!important;
+    .uni-card__content{
+      padding: 0!important;
+    }
+  }
+}
 	.content{
-		height: 600rpx;
+		//height: 600rpx;
+    //.title{
+    //  font-weight: bold;
+    //  padding: 20rpx 0;
+    //}
 	}
+
 </style>
