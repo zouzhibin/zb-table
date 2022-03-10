@@ -49,27 +49,31 @@ renders 代表传入的按钮  Array  =>[
 ## 示例
 ```
 <zb-table
-        :show-header="true"
-        :columns="column"
-        :stripe="true"
-        :fit="false"
-        @edit="buttonEdit"
-        @dele="dele"
-        :data="data"/>
+            :show-header="true"
+            :columns="column"
+            :stripe="true"
+            :fit="false"
+            @toggleRowSelection="toggleRowSelection"
+            @toggleAllSelection="toggleAllSelection"
+            :border="true"
+            @edit="buttonEdit"
+            @dele="dele"
+            :data="data"></zb-table>
 ```
 
 ## 数据格式
 ```
 column:[
-          { name: 'name', label: '姓名',fixed:true,width:80,emptyString:'--' },
-          { name: 'age', label: '年纪',sorter:true },
-          { name: 'sex', label: '性别' },
+          { type:'selection', fixed:true,width:50 },
+          { name: 'name', label: '姓名',fixed:false,width:80,emptyString:'--' },
+          { name: 'age', label: '年纪',sorter:false,align:'right', },
+          { name: 'sex', label: '性别',filters:{0:'男',1:'女'}},
           { name: 'address', label: '地址' },
           { name: 'date', label: '日期',sorter:true },
           { name: 'province', label: '省份' },
           { name: 'city', label: '城市' },
           { name: 'zip', label: '邮编' },
-          { name: 'operation', type:'operation',label: '操作',width: 150,renders:[
+          { name: 'operation', type:'operation',label: '操作',renders:[
               {
                 name:'编辑',
                 func:'edit' // func 代表子元素点击的事件 父元素接收的事件 父元素 @edit
@@ -78,7 +82,7 @@ column:[
                 name:'删除',
                 type:'warn',
                 func:"dele"
-              }
+              },
             ]},
         ],
  data:[
