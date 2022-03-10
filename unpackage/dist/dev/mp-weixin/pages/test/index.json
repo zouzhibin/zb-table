@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "uni-app",
-  "usingComponents": {
-    "zb-table": "/components/zb-table1/index"
-  }
-}
