@@ -20,10 +20,12 @@
 | toggleAllSelection | 用于多选表格，切换所有行的选中状态 ，第一个参数代表选中状态，参数二代表选中的对象| Function |(selected ,array)=>{} | -- |否 |
 | rowClick | 单击某行 ，第一个参数代表选中对象，参数二代表选中的index| Function |(row ,index)=>{} | -- |否 |
 
+
 ## data 属性
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | ------ | ------ | ------ | ------ | ------ |
 | checked | 是否被勾选 | boolean |true,false | 无 |
+
 
 ## column 属性
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |

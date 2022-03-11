@@ -1,26 +1,26 @@
 <template>
-  <!-- #ifdef H5 || APP-PLUS -->
-  <view :class="['zb-table','zb-table-fixed-header',!border&&(bodyTableLeft>50||headerTableLeft>50)&&'scroll-left-fixed']">
-    <view class="zb-table-content">
-      <view class="zb-table-scroll" style="height: 100%;">
-        <template v-if="showHeader">
-          <view class="zb-table-header top-header-uni" style="height: 40px;">
-            <scroll-view class="zb-table-headers"
-                         @scroll="handleTableScrollLeft"
-                         scroll-x="true"
-                         scroll-y="false"
-                         id="tableHeaders"
-                         scroll-anchoring="true"
-                         :scroll-left="headerTableLeft"
-                         style="min-width: 17px;padding-bottom: 0px;
+	<!-- #ifdef H5 || APP-PLUS -->
+	<view :class="['zb-table','zb-table-fixed-header',!border&&(bodyTableLeft>50||headerTableLeft>50)&&'scroll-left-fixed']">
+	  <view class="zb-table-content">
+	    <view class="zb-table-scroll" style="height: 100%;">
+	      <template v-if="showHeader">
+	        <view class="zb-table-header top-header-uni" style="height: 40px;">
+	          <scroll-view class="zb-table-headers"
+	                       @scroll="handleTableScrollLeft"
+	                       scroll-x="true"
+	                       scroll-y="false"
+	                       id="tableHeaders"
+	                       scroll-anchoring="true"
+	                       :scroll-left="headerTableLeft"
+	                       style="min-width: 17px;padding-bottom: 0px;
 						background: #fafafa;height: 100%">
-              <view class="zb-table-fixed" >
-                <view class="zb-table-thead" style="position: relative;" >
-                  <view class="item-tr">
-                    <view
-                        @click.stop="sortAction(item,index)"
-                        :class="['item-th',item.sorter&&`sorting${item.sorterMode||''}`]"
-                        :style="{
+	            <view class="zb-table-fixed" >
+	              <view class="zb-table-thead" style="position: relative;" >
+	                <view class="item-tr">
+	                  <view
+	                      @click.stop="sortAction(item,index)"
+	                      :class="['item-th',item.sorter&&`sorting${item.sorterMode||''}`]"
+	                      :style="{
 	                            width:`${item.width?item.width:'100'}px`,
 															  flex:index===transColumns.length-1?1:'none',
 															  minWidth:`${item.width?item.width:'100'}px`,
@@ -28,7 +28,7 @@
 															  borderTop:`${border?'1px solid #e8e8e8':''}`,
 															  textAlign:item.align||'left'
 														  }"
-                        v-for="(item,index) in transColumns" :key="index">
+	                      v-for="(item,index) in transColumns" :key="index">
                       <template v-if="item.type==='selection'">
                         <view class="checkbox-item">
                           <tableCheckbox
@@ -39,27 +39,27 @@
                         {{ item.label }}
                       </template>
                     </view>
-                  </view>
-                </view>
-              </view>
-            </scroll-view>
-          </view>
-        </template>
-        <template v-if="!data.length">
-          <view class="no-data">暂无数据~~</view>
-        </template>
-        <scroll-view class="zb-table-body" ref="tableBody"	scroll-x="true"	scroll-y="true"	id="tableBody"
-                     :lower-threshold="10"
-                     :upper-threshold="10"
-                     @scrolltoupper="(e)=>debounce(scrollToLeft)(e)"	@scroll="handleBodyScroll"	:scroll-left="bodyTableLeft"	:scroll-top="bodyScrollTop"	style=" height: calc(100% - 50px);" >
+	                </view>
+	              </view>
+	            </view>
+	          </scroll-view>
+	        </view>
+	      </template>
+	      <template v-if="!data.length">
+	        <view class="no-data">暂无数据~~</view>
+	      </template>
+	      <scroll-view class="zb-table-body" ref="tableBody"	scroll-x="true"	scroll-y="true"	id="tableBody"
+	                   :lower-threshold="10"
+	                   :upper-threshold="10"
+	                   @scrolltoupper="(e)=>debounce(scrollToLeft)(e)"	@scroll="handleBodyScroll"	:scroll-left="bodyTableLeft"	:scroll-top="bodyScrollTop"	style=" height: calc(100% - 50px);" >
 
-          <view class="zb-table-fixed">
-            <view class="zb-table-tbody">
-              <view  class="item-tr"
-                     @click.stop="rowClick(item,index)"
-                     v-for="(item,index) in transData" :key="item.key" >
-                <view
-                    :style="{
+	          <view class="zb-table-fixed">
+	            <view class="zb-table-tbody">
+	              <view  class="item-tr"
+                       @click.stop="rowClick(item,index)"
+	                     v-for="(item,index) in transData" :key="item.key" >
+	                <view
+	                    :style="{
 									              width:`${ite.width?ite.width:'100'}px`,
 															  flex:i===transColumns.length-1?1:'none',
 															  minWidth:`${ite.width?ite.width:'100'}px`,
@@ -67,55 +67,55 @@
                                 textAlign:ite.align||'left'
 														  }"
 
-                    :class="['item-td',showStripe(index)]"
-                    v-for="(ite,i) in transColumns" :key="i">
-                  <template  v-if="ite.type==='operation'">
-                    <view style="display: flex;align-items: center;height: 100%">
-                      <view
-                          v-for="ren,ind in ite.renders"
-                          :key="ind"
-                          @click.stop="$emit(ren.func,item,index)"
-                          :style="{
+	                    :class="['item-td',showStripe(index)]"
+	                    v-for="(ite,i) in transColumns" :key="i">
+	                  <template  v-if="ite.type==='operation'">
+	                    <view style="display: flex;align-items: center;height: 100%">
+	                      <view
+	                          v-for="ren,ind in ite.renders"
+	                          :key="ind"
+	                          @click.stop="$emit(ren.func,item,index)"
+	                          :style="{
 	                          display:'flex',
 	                          alignItems: 'center',
 	                          marginRight:ite.renders.length>1?'8px':'0'
 	                        }">
-                        <button :type="ren.type||'primary'" :size="ren.size||'mini'">{{ren.name}}</button>
+	                        <button :type="ren.type||'primary'" :size="ren.size||'mini'">{{ren.name}}</button>
+	                      </view>
+	                    </view>
+	                  </template>
+                    <template v-else-if="ite.type==='selection'">
+                      <view class="checkbox-item">
+                        <tableCheckbox @checkboxSelected="(e)=>checkboxSelected(e,item)" :cellData="item" :checked="item.checked"/>
                       </view>
-                    </view>
-                  </template>
-                  <template v-else-if="ite.type==='selection'">
-                    <view class="checkbox-item">
-                      <tableCheckbox @checkboxSelected="(e)=>checkboxSelected(e,item)" :cellData="item" :checked="item.checked"/>
-                    </view>
-                  </template>
-                  <template  v-else>
-                    {{ ite.filters?itemFilter(item,ite):item[ite.name]||ite.emptyString }}
-                  </template>
+                    </template>
+	                  <template  v-else>
+	                    {{ ite.filters?itemFilter(item,ite):item[ite.name]||ite.emptyString }}
+	                  </template>
 
-                </view>
-              </view>
-            </view>
-          </view>
-        </scroll-view>
-      </view>
-      <view class="zb-table-fixed-left" v-if="isFixedLeft">
-        <template v-if="showHeader">
-          <view class="zb-table-header" style="height: 40px;display: flex">
-            <view class="item-tr"
+	                </view>
+	              </view>
+	            </view>
+	          </view>
+	        </scroll-view>
+	    </view>
+	    <view class="zb-table-fixed-left" v-if="isFixedLeft">
+	      <template v-if="showHeader">
+	        <view class="zb-table-header" style="height: 40px;display: flex">
+	          <view class="item-tr"
                   style=""
                   @click.stop="rowClick(item,index)"
                   v-for="(item,index) in fixedLeftColumns" :key="index">
-              <view
-                  :style="{
+	            <view
+	                :style="{
 	               width:`${item.width?item.width:'100'}px`,
 	               borderRight:`${border?'1px solid #e8e8e8':''}`,
 	               borderTop:`${border?'1px solid #e8e8e8':''}`,
                 textAlign:item.align||'left'
 	            }"
-                  @click.stop="sortAction(item,0)"
-                  :class="['item-th',item.sorter&&`sorting${item.sorterMode||''}`]"
-              >
+	                @click.stop="sortAction(item,0)"
+	                :class="['item-th',item.sorter&&`sorting${item.sorterMode||''}`]"
+	            >
                 <template v-if="item.type==='selection'">
                   <view class="checkbox-item">
                     <tableCheckbox
@@ -126,34 +126,34 @@
                   {{ item.label }}
                 </template>
               </view>
-            </view>
-          </view>
-        </template>
-        <view class="zb-table-body-outer center-header-uni" style="height: 100%;">
-          <scroll-view
-              scroll-y="true"
-              id="leftTableFixed"
-              :upper-threshold="15"
-              @scrolltoupper="(e)=>scrollToFixedLeft(e)"
-              @scroll="leftFixedScrollAction"
-              :scroll-top="leftFiexScrollTop"
-              class="zb-table-body-inner"
-              style=" height: calc(100% - 50px);">
-            <view class="zb-table-fixed">
-              <view class="zb-table-tbody">
-                <view :class="['item-tr',showStripe(i)]"
+	          </view>
+	        </view>
+	      </template>
+	      <view class="zb-table-body-outer center-header-uni" style="height: 100%;">
+	        <scroll-view
+	            scroll-y="true"
+	            id="leftTableFixed"
+	            :upper-threshold="15"
+	            @scrolltoupper="(e)=>scrollToFixedLeft(e)"
+	            @scroll="leftFixedScrollAction"
+	            :scroll-top="leftFiexScrollTop"
+	            class="zb-table-body-inner"
+	            style=" height: calc(100% - 50px);">
+	          <view class="zb-table-fixed">
+	            <view class="zb-table-tbody">
+	              <view :class="['item-tr',showStripe(i)]"
                       v-for="(ite,i) in transData"
                       @click.stop="rowClick(ite,i)"
                       :key="ite.key"
-                      style="">
-                  <view :class="['item-td']"
-                        :style="{
+	                    style="">
+	                <view :class="['item-td']"
+	                      :style="{
 	                       width:`${item.width?item.width:'100'}px`,
 	                       borderRight:`${border?'1px solid #e8e8e8':''}`,
 	                       textAlign:item.align||'left'
 	                      }"
-                        :key="index"
-                        v-for="(item,index) in fixedLeftColumns">
+	                      :key="index"
+	                      v-for="(item,index) in fixedLeftColumns">
                     <template v-if="item.type==='selection'">
                       <view class="checkbox-item">
                         <tableCheckbox @checkboxSelected="(e)=>checkboxSelected(e,ite)" :cellData="ite" :checked="ite.checked"/>
@@ -164,28 +164,28 @@
                     </template>
 
                   </view>
-                </view>
-              </view>
-            </view>
-          </scroll-view>
-        </view>
-      </view>
-    </view>
-  </view>
-  <!-- #endif -->
-  <!-- #ifndef H5 || APP-PLUS -->
-  <view class="zb-table-applet">
-    <view class="zb-table-content">
-      <view class="zb-table-scroll" style="height: 100%;overflow: scroll">
-        <template v-if="showHeader">
-          <view class="zb-table-header top-header-uni" style="height: 40px;">
-            <view class="zb-table-fixed" >
-              <view class="zb-table-thead" style="position: relative;" >
-                <view class="item-tr">
-                  <view
-                      @click.stop="sortAction(item,index)"
-                      :class="['item-th',index <fixedLeftColumns.length&&'zb-stick-side',item.sorter&&`sorting${item.sorterMode||''}`]"
-                      :style="{
+	              </view>
+	            </view>
+	          </view>
+	        </scroll-view>
+	      </view>
+	    </view>
+	  </view>
+	</view>
+	<!-- #endif -->
+	<!-- #ifndef H5 || APP-PLUS -->
+	<view class="zb-table-applet">
+	  <view class="zb-table-content">
+	    <view class="zb-table-scroll" style="height: 100%;overflow: scroll">
+	      <template v-if="showHeader">
+	        <view class="zb-table-header top-header-uni" style="height: 40px;">
+	            <view class="zb-table-fixed" >
+	              <view class="zb-table-thead" style="position: relative;" >
+	                <view class="item-tr">
+	                  <view
+	                      @click.stop="sortAction(item,index)"
+	                      :class="['item-th',index <fixedLeftColumns.length&&'zb-stick-side',item.sorter&&`sorting${item.sorterMode||''}`]"
+	                      :style="{
 	                              left:`${item.left}px`,
 	                              width:`${item.width?item.width:'100'}px`,
 															  flex:index===transColumns.length-1?1:'none',
@@ -194,34 +194,34 @@
 															  borderTop:`${border?'1px solid #e8e8e8':''}`,
 															   textAlign:item.align||'left'
 														  }"
-                      v-for="(item,index) in transColumns" :key="index">
-                    <template v-if="item.type==='selection'">
-                      <view class="checkbox-item">
-                        <tableCheckbox
-                            :indeterminate="indeterminate" :checked="checkedAll" @checkboxSelected="checkboxSelectedAll"></tableCheckbox>
-                      </view>
+	                      v-for="(item,index) in transColumns" :key="index">
+                      <template v-if="item.type==='selection'">
+                        <view class="checkbox-item">
+                          <tableCheckbox
+                              :indeterminate="indeterminate" :checked="checkedAll" @checkboxSelected="checkboxSelectedAll"></tableCheckbox>
+                        </view>
 
-                    </template>
-                    <template v-else>
-                      {{ item.label }}
-                    </template>
+                      </template>
+                      <template v-else>
+                        {{ item.label }}
+                      </template>
 
-                  </view>
-                </view>
-              </view>
-            </view>
-          </view>
-        </template>
-        <template v-if="!data.length">
-          <view class="no-data">暂无数据~~</view>
-        </template>
-        <view class="zb-table-fixed">
-          <view class="zb-table-tbody">
-            <view  class="item-tr"
-                   @click.stop="rowClick(item,index)"
-                   v-for="(item,index) in transData" :key="item.key" >
-              <view
-                  :style="{
+                    </view>
+	                </view>
+	              </view>
+	            </view>
+	        </view>
+	      </template>
+	      <template v-if="!data.length">
+	        <view class="no-data">暂无数据~~</view>
+	      </template>
+	          <view class="zb-table-fixed">
+	            <view class="zb-table-tbody">
+	              <view  class="item-tr"
+                       @click.stop="rowClick(item,index)"
+	                     v-for="(item,index) in transData" :key="item.key" >
+	                <view
+	                    :style="{
 	                              left:`${ite.left}px`,
 									              width:`${ite.width?ite.width:'100'}px`,
 															  flex:i===transColumns.length-1?1:'none',
@@ -230,39 +230,39 @@
                                 textAlign:ite.align||'left'
 														  }"
 
-                  :class="['item-td', i <fixedLeftColumns.length&&'zb-stick-side',showStripe(index)]"
-                  v-for="(ite,i) in transColumns" :key="i">
-                <template  v-if="ite.type==='operation'">
-                  <view style="display: flex;align-items: center;height: 100%">
-                    <view
-                        v-for="ren,ind in ite.renders"
-                        :key="ind"
-                        @click.stop="$emit(ren.func,item,index)"
-                        :style="{
+	                    :class="['item-td', i <fixedLeftColumns.length&&'zb-stick-side',showStripe(index)]"
+	                    v-for="(ite,i) in transColumns" :key="i">
+	                  <template  v-if="ite.type==='operation'">
+	                    <view style="display: flex;align-items: center;height: 100%">
+	                      <view
+	                          v-for="ren,ind in ite.renders"
+	                          :key="ind"
+	                          @click.stop="$emit(ren.func,item,index)"
+	                          :style="{
 	                          display:'flex',
 	                          alignItems: 'center',
 	                          marginRight:ite.renders.length>1?'8px':'0'
 	                        }">
-                      <button :type="ren.type||'primary'" :size="ren.size||'mini'">{{ren.name}}</button>
-                    </view>
-                  </view>
-                </template>
-                <template v-else-if="ite.type==='selection'">
-                  <view class="checkbox-item">
-                    <tableCheckbox @checkboxSelected="(e)=>checkboxSelected(e,item)" :cellData="item" :checked="item.checked"/>
-                  </view>
-                </template>
-                <template  v-else>
-                  {{ ite.filters?itemFilter(item,ite):item[ite.name]||ite.emptyString }}
-                </template>
-              </view>
-            </view>
-          </view>
-        </view>
-      </view>
-    </view>
-  </view>
-  <!-- #endif -->
+	                        <button :type="ren.type||'primary'" :size="ren.size||'mini'">{{ren.name}}</button>
+	                      </view>
+	                    </view>
+	                  </template>
+                    <template v-else-if="ite.type==='selection'">
+                      <view class="checkbox-item">
+                        <tableCheckbox @checkboxSelected="(e)=>checkboxSelected(e,item)" :cellData="item" :checked="item.checked"/>
+                      </view>
+                    </template>
+	                  <template  v-else>
+	                    {{ ite.filters?itemFilter(item,ite):item[ite.name]||ite.emptyString }}
+	                  </template>
+	                </view>
+	              </view>
+	            </view>
+	          </view>
+	    </view>
+	  </view>
+	</view>
+	<!-- #endif -->
 </template>
 <script>
 import tableCheckbox from './table-checkbox.vue'
@@ -514,9 +514,9 @@ export default {
     sortAction(item,index){
       this.$set(item,'sorterMode',item.sorterMode==='_asc'?'_desc':'_asc')
       this.sortData(item)
-      // #ifndef H5 || APP-PLUS
-      this.$forceUpdate()
-      // #endif
+	  // #ifndef H5 || APP-PLUS
+	  this.$forceUpdate()
+	  // #endif
 
     },
 
@@ -691,7 +691,7 @@ export default {
     padding-left: 8px;
     height: 40px;
     line-height: 40px;
-    padding-right: 20px;
+	padding-right: 20px;
     box-sizing: border-box;
     word-break:keep-all;           /* 不换行 */
     white-space:nowrap;          /* 不换行 */
@@ -815,7 +815,7 @@ export default {
     padding-left: 8px;
     height: 40px;
     line-height: 40px;
-    padding-right:20px;
+	padding-right:20px;
     box-sizing: border-box;
     word-break:keep-all;           /* 不换行 */
     white-space:nowrap;          /* 不换行 */

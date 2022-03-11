@@ -7,6 +7,7 @@
             :columns="column"
             :stripe="true"
             :fit="false"
+            @rowClick="rowClick"
             @toggleRowSelection="toggleRowSelection"
             @toggleAllSelection="toggleAllSelection"
             :border="true"
@@ -22,6 +23,7 @@
             :columns="column1"
             :stripe="true"
             :fit="false"
+            @rowClick="rowClick"
             @toggleRowSelection="toggleRowSelection"
             @toggleAllSelection="toggleAllSelection"
 
@@ -37,6 +39,7 @@
             :columns="column1"
             :stripe="true"
             :fit="false"
+            @rowClick="rowClick"
             @toggleRowSelection="toggleRowSelection"
             @toggleAllSelection="toggleAllSelection"
             :border="true"
@@ -52,6 +55,7 @@
             :columns="column2"
             :stripe="true"
             :fit="false"
+            @rowClick="rowClick"
             @toggleRowSelection="toggleRowSelection"
             @toggleAllSelection="toggleAllSelection"
             :border="true"
@@ -67,6 +71,7 @@
             :columns="column3"
             :stripe="true"
             :fit="false"
+            @rowClick="rowClick"
             @toggleRowSelection="toggleRowSelection"
             @toggleAllSelection="toggleAllSelection"
             :border="true"
@@ -82,6 +87,7 @@
             :columns="column4"
             :stripe="true"
             :fit="false"
+            @rowClick="rowClick"
             @toggleRowSelection="toggleRowSelection"
             @toggleAllSelection="toggleAllSelection"
             :border="true"
@@ -96,11 +102,11 @@
 </template>
 
 <script>
-	import ZbTable from '@/components/zb-table/index.vue'
+	// import ZbTable from '@/components/zb-table/index.vue'
   import {column1,column2,column3,column4} from './all.js'
 	export default {
 		components:{
-			ZbTable
+			// ZbTable
 		},
 		data() {
 			return {
@@ -148,6 +154,7 @@
             name: '',
             province: '上海',
             sex:'1',
+            checked:true,
             id:"20",
             age:'',
             city: '普陀区',
@@ -162,6 +169,7 @@
             id:"2",
             age:12,
             city: '普陀区',
+
             address: '上海市普',
             zip: 200333
           },
@@ -297,6 +305,14 @@
           title:'点击单选'
         })
         console.log('单选',checked,arr)
+      },
+      rowClick(row,index){
+        uni.showToast({
+          icon:'none',
+          duration:3000,
+          title:'单击某行'
+        })
+        console.log('单击某行',row,index)
       }
     },
 
