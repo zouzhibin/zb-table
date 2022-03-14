@@ -23,7 +23,6 @@ export const column2 = [
 export const column3 = [
     { type:'selection', fixed:true,width:50 },
     { name: 'name', label: '姓名',fixed:true,width:80,emptyString:'--' },
-    { name: 'name', label: '姓名',width:80,emptyString:'--' },
     { name: 'age', label: '年纪',},
     { name: 'sex', label: '性别',filters:{0:'男',1:'女'}},
     { name: 'address', label: '地址' },
@@ -36,7 +35,6 @@ export const column3 = [
 export const column4 = [
     { type:'selection', fixed:true,width:50 },
     { name: 'name', label: '姓名',fixed:true,width:80,emptyString:'--' },
-    { name: 'name', label: '姓名',width:80,emptyString:'--' },
     { name: 'age', label: '年纪',sorter:true},
     { name: 'sex', label: '性别',filters:{0:'男',1:'女'}},
     { name: 'address', label: '地址' },

@@ -73,7 +73,9 @@ column:[
           { name: 'name', label: '姓名',fixed:false,width:80,emptyString:'--' },
           { name: 'age', label: '年纪',sorter:false,align:'right', },
           { name: 'sex', label: '性别',filters:{0:'男',1:'女'}},
+		  { name: 'img', label: '图片',type:"img" },
           { name: 'address', label: '地址' },
+		  
           { name: 'date', label: '日期',sorter:true },
           { name: 'province', label: '省份' },
           { name: 'city', label: '城市' },
@@ -98,6 +100,7 @@ column:[
             sex:'男',
             age:'18',
             city: '普陀区',
+			img:"https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500",
             address: '上海市普',
             zip: 200333
           },

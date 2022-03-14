@@ -38,7 +38,7 @@
 | emptyString | 当值为空的时候默认显示的值 | string |  | -- |
 | filters | 对象过滤的选项，对象格式，对象中的元素需要有 key 和 value 属性。 | Object | {key:value} | -- |
 | align | 对齐方式 | String | left/center/right | left |
-| type | 为 operation 的时候代表为操作按钮 | string | operation | -- |
+| type | 为 operation 的时候代表为操作按钮,img的时候代表图片地址 | string | operation,img | -- |
 | renders | type 为operation的时候 必传 | Array | {name:'名字',func:"父元素接收事件名",type:"按钮的类型",size:"大小"} | -- |
 ```
 type 为 operation 的时候代表为操作按钮
@@ -75,6 +75,7 @@ column:[
           { name: 'name', label: '姓名',fixed:false,width:80,emptyString:'--' },
           { name: 'age', label: '年纪',sorter:false,align:'right', },
           { name: 'sex', label: '性别',filters:{0:'男',1:'女'}},
+		  { name: 'img', label: '图片',type:"img" },
           { name: 'address', label: '地址' },
           { name: 'date', label: '日期',sorter:true },
           { name: 'province', label: '省份' },
@@ -99,6 +100,7 @@ column:[
             province: '上海',
             sex:'男',
             age:'18',
+			img:"https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500",
             city: '普陀区',
             address: '上海市普',
             zip: 200333

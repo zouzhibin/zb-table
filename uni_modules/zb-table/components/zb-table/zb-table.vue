@@ -19,9 +19,9 @@
 	                <view class="item-tr">
 	                  <view
 	                      @click.stop="sortAction(item,index)"
-	                      :class="['item-th',item.sorter&&`sorting${item.sorterMode||''}`]"
+	                      class="item-th"
 	                      :style="{
-	                            width:`${item.width?item.width:'100'}px`,
+	                              width:`${item.width?item.width:'100'}px`,
 															  flex:index===transColumns.length-1?1:'none',
 															  minWidth:`${item.width?item.width:'100'}px`,
 															  borderRight:`${border?'1px solid #e8e8e8':''}`,
@@ -37,6 +37,10 @@
                       </template>
                       <template v-else>
                         {{ item.label }}
+                        <view class="sorter-table" v-if="item.sorter">
+                          <view :class="['sorter-table-icon',item.sorterMode==='_asc'&&`sorting${item.sorterMode||''}`]"></view>
+                          <view :class="['sorter-table-icon',item.sorterMode==='_desc'&&`sorting${item.sorterMode||''}`]"></view>
+                        </view>
                       </template>
                     </view>
 	                </view>
@@ -52,7 +56,6 @@
 	                   :lower-threshold="10"
 	                   :upper-threshold="10"
 	                   @scrolltoupper="(e)=>debounce(scrollToLeft)(e)"	@scroll="handleBodyScroll"	:scroll-left="bodyTableLeft"	:scroll-top="bodyScrollTop"	style=" height: calc(100% - 50px);" >
-
 	          <view class="zb-table-fixed">
 	            <view class="zb-table-tbody">
 	              <view  class="item-tr"
@@ -89,6 +92,16 @@
                         <tableCheckbox @checkboxSelected="(e)=>checkboxSelected(e,item)" :cellData="item" :checked="item.checked"/>
                       </view>
                     </template>
+					<template v-else-if="ite.type==='img'">
+					  <view class="checkbox-item">
+					    <image
+						@click.stop="previewImage(item,item[ite.name],index)"
+						v-if="item[ite.name]"
+						:show-menu-by-longpress="false"
+						:src="item[ite.name]" style="width: 40px;height:30px; " mode="aspectFit"></image>
+						<text v-else>{{ite.emptyString}}</text>
+					  </view>
+					</template>
 	                  <template  v-else>
 	                    {{ ite.filters?itemFilter(item,ite):item[ite.name]||ite.emptyString }}
 	                  </template>
@@ -114,7 +127,7 @@
                 textAlign:item.align||'left'
 	            }"
 	                @click.stop="sortAction(item,0)"
-	                :class="['item-th',item.sorter&&`sorting${item.sorterMode||''}`]"
+	                class="item-th"
 	            >
                 <template v-if="item.type==='selection'">
                   <view class="checkbox-item">
@@ -124,6 +137,10 @@
                 </template>
                 <template v-else>
                   {{ item.label }}
+                  <view class="sorter-table" v-if="item.sorter">
+                    <view :class="['sorter-table-icon',item.sorterMode==='_asc'&&`sorting${item.sorterMode||''}`]"></view>
+                    <view :class="['sorter-table-icon',item.sorterMode==='_desc'&&`sorting${item.sorterMode||''}`]"></view>
+                  </view>
                 </template>
               </view>
 	          </view>
@@ -184,7 +201,7 @@
 	                <view class="item-tr">
 	                  <view
 	                      @click.stop="sortAction(item,index)"
-	                      :class="['item-th',index <fixedLeftColumns.length&&'zb-stick-side',item.sorter&&`sorting${item.sorterMode||''}`]"
+	                      :class="['item-th',index <fixedLeftColumns.length&&'zb-stick-side']"
 	                      :style="{
 	                              left:`${item.left}px`,
 	                              width:`${item.width?item.width:'100'}px`,
@@ -204,6 +221,10 @@
                       </template>
                       <template v-else>
                         {{ item.label }}
+                        <view class="sorter-table" v-if="item.sorter">
+                          <view :class="['sorter-table-icon',item.sorterMode==='_asc'&&`sorting${item.sorterMode||''}`]"></view>
+                          <view :class="['sorter-table-icon',item.sorterMode==='_desc'&&`sorting${item.sorterMode||''}`]"></view>
+                        </view>
                       </template>
 
                     </view>
@@ -252,6 +273,14 @@
                         <tableCheckbox @checkboxSelected="(e)=>checkboxSelected(e,item)" :cellData="item" :checked="item.checked"/>
                       </view>
                     </template>
+					<template v-else-if="ite.type==='img'">
+					  <image
+					  @click.stop="previewImage(item,item[ite.name],index)"
+					  v-if="item[ite.name]"
+					  :show-menu-by-longpress="false"
+					  :src="item[ite.name]" style="width: 40px;height:30px; " mode="aspectFit"></image>
+					  <text v-else>{{ite.emptyString}}</text>
+					</template>
 	                  <template  v-else>
 	                    {{ ite.filters?itemFilter(item,ite):item[ite.name]||ite.emptyString }}
 	                  </template>
@@ -304,13 +333,18 @@ export default {
   computed:{
     fixedLeftColumns(){
       let arr = []
+      let number = 0
       for(let i=0;i<this.columns.length;i++){
         let item = this.columns[i]
         if(item.fixed){
           if(i===0){
             item.left = 0
+            number+=item.width
           }else {
-            item.left = this.columns[i-1].width
+
+            console.log('===',i,number)
+            item.left = number
+            number+=item.width
           }
           arr.push(item)
         }else {
@@ -333,11 +367,14 @@ export default {
       if(this.fit){
         this.columns.forEach(column=>{
           if(column.type==="operation"&&column.renders){
-            let str = column.renders.reduce((prev,next)=>{
-              return prev.name+next.name
+			  let str = ''
+            column.renders.map((item)=>{
+              str+=item.name
             })
             column.width = this.getTextWidth(str)+column.renders.length*40
-          }else {
+          }else if(column.type==="img"){
+			   }else if(column.type==="selection"){
+			    }else{
             let arr = [this.getTextWidth(column.label)]
             this.data.forEach(data=>{
               let str = (data[column.name]+'')
@@ -350,15 +387,17 @@ export default {
         return this.columns
       }
       this.columns.forEach(item=>{
-        if(item.type==="operation"&&item.renders){
-          let str = item.renders.reduce((prev,next)=>{
-            return prev.name+next.name
-          })
+        if(item.type==="operation"&&item.renders&&!item.width){
+		  let str = ''
+		  item.renders.map((item)=>{
+		    str+=item.name
+		  })
           item.width = this.getTextWidth(str)+item.renders.length*40
         }
         item.emptyString = item.emptyString||'--'
       })
       return this.columns
+
     },
     transData(){
       this.data.forEach((item,index)=>{
@@ -403,6 +442,12 @@ export default {
   mounted(){
   },
   methods: {
+	  previewImage(item,url,current){
+		  uni.previewImage({
+			  current,
+			  urls:[url]
+		  })
+	  },
     rowClick(row,index){
       this.$emit('rowClick',row,index)
     },
@@ -653,6 +698,32 @@ export default {
 
 </style>
 <style lang="scss" scoped>
+.sorter-table{
+  position: absolute;
+  right: 6px;
+  top:50%;
+  transform:translateY(-50%);
+  .sorter-table-icon{
+    width: 0;
+    height: 0;
+    color: #dcdcdc;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+  }
+  .sorter-table-icon:first-child{
+    border-bottom: 5px solid currentColor;
+  }
+  .sorter-table-icon:last-child{
+    margin-top: 1.5px;
+    border-top: 5px solid currentColor;
+  }
+  .sorting_desc{
+    color: #2979ff;
+  }
+  .sorting_asc{
+    color: #2979ff;
+  }
+}
 .checkbox-item{
   display: flex;align-items: center;justify-content: center;width: 100%;height: 100%
 }
@@ -663,6 +734,20 @@ export default {
   justify-content: center;
   align-items: center;
   border-bottom: 1px solid #e8e8e8;
+}
+.item-th{
+  position: relative;
+  flex-shrink: 0;
+  width: 100px;
+  overflow-wrap: break-word;
+  border-bottom: 1px solid #e8e8e8;
+  transition: background 0.3s;
+  padding-right: 20px;
+  word-break:keep-all;           /* 不换行 */
+  white-space:nowrap;          /* 不换行 */
+  overflow:hidden;               /* 内容超出宽度时隐藏超出部分的内容 */
+  text-overflow:ellipsis;         /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+  overflow-wrap: break-word;
 }
 .zb-table{
   height: 100%;
@@ -701,19 +786,7 @@ export default {
     border-bottom: 1px solid #e8e8e8;
     //transition: background 0.3s;
   }
-  .item-th{
-    flex-shrink: 0;
-    width: 100px;
-    overflow-wrap: break-word;
-    border-bottom: 1px solid #e8e8e8;
-    transition: background 0.3s;
-    padding-right: 20px;
-    word-break:keep-all;           /* 不换行 */
-    white-space:nowrap;          /* 不换行 */
-    overflow:hidden;               /* 内容超出宽度时隐藏超出部分的内容 */
-    text-overflow:ellipsis;         /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
-    overflow-wrap: break-word;
-  }
+
   .zb-table-fixed-left .zb-table-header{
     overflow-y: hidden;
   }
@@ -724,6 +797,8 @@ export default {
       padding-left: 8px;
       line-height: 39px;
       height: 40px;
+      //display: flex;
+      //align-items: center;
       box-sizing: border-box;
     }
   }
@@ -746,7 +821,6 @@ export default {
     height: 100%;
     //transition: box-shadow 0.3s ease;
   }
-
   .odd{
     background-color:rgba(249,249,249,0.6);
     //height: 100%;
@@ -764,28 +838,6 @@ export default {
     box-shadow: 6px 0 6px -4px #ccc;
   }
 }
-.sorting{
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjczRkE5Qjk2OTQwNDExRTk4NUU3RUY3OTQwOUYzOUU3IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjczRkE5Qjk3OTQwNDExRTk4NUU3RUY3OTQwOUYzOUU3Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NzNGQTlCOTQ5NDA0MTFFOTg1RTdFRjc5NDA5RjM5RTciIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NzNGQTlCOTU5NDA0MTFFOTg1RTdFRjc5NDA5RjM5RTciLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4R7rKqAAAAWklEQVR42mL8//8/AzUBEwOVwaiB2MHdu3f/gzBVDEQ2iBhDmYg1jFhDmUgxjBg5xkGfsFnI8RYIKCsrM5LkQlwaCMkxkeoKfIYRFYbIBhAybGjE8gg0ECDAAI+ULEsz8LFkAAAAAElFTkSuQmCC);
-  background-repeat: no-repeat;
-  background-position: center right;
-  background-size: 20px 20px;
-  cursor: pointer;
-}
-.sorting_asc{
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjlDMzQ5NTk4OTQwNDExRTk4ODYwRkRDNTNBRUE5MTc1IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjlDMzQ5NTk5OTQwNDExRTk4ODYwRkRDNTNBRUE5MTc1Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6OUMzNDk1OTY5NDA0MTFFOTg4NjBGREM1M0FFQTkxNzUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6OUMzNDk1OTc5NDA0MTFFOTg4NjBGREM1M0FFQTkxNzUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4u6TUfAAAAdElEQVR42mL8//8/AzUBEwOVweA3kIVUDdJbp8LZT72zyXMh0JD/IIzLEJIMhBmEzMZnKCO+ZINsGDIAGshIsgtxGUZIjnHQJ2ycyebu3bt4na6srMxIkgtxaSAkx0SqK/AZRlQYIhtAyLChEcsj0ECAAAMABS4rJ0ADXJ8AAAAASUVORK5CYII=);
-  background-repeat: no-repeat;
-  background-position: center right;
-  background-size: 20px 20px;
-  cursor: pointer;
-}
-.sorting_desc{
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjg1MjMyQjFCOTQwNDExRTk5NjhDQjc2MEYxQzUxNkEzIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjg1MjMyQjFDOTQwNDExRTk5NjhDQjc2MEYxQzUxNkEzIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6ODUyMzJCMTk5NDA0MTFFOTk2OENCNzYwRjFDNTE2QTMiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6ODUyMzJCMUE5NDA0MTFFOTk2OENCNzYwRjFDNTE2QTMiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz69xJt+AAAAaElEQVR42mL8//8/AzUBEwOVwaiB2MHdu3f/gzBVDEQ2iBhDmYg1jFhDmUgxjBg5xkGfsFlwSUhvnYrX6U+9sxlJciEuDYTkmEh1BUwM6APywhDZUHwuIxiG+FyKy3VDI9kMfgMBAgwAP+E336XXjQcAAAAASUVORK5CYII=);
-  background-repeat: no-repeat;
-  background-position: center right;
-  background-size: 20px 20px;
-  cursor: pointer;
-}
-
 .zb-table-applet{
   height: 100%;
   overflow: hidden;
@@ -825,36 +877,24 @@ export default {
     border-bottom: 1px solid #e8e8e8;
     //transition: background 0.3s;
   }
-  .item-th{
-    flex-shrink: 0;
-    width: 100px;
-    overflow-wrap: break-word;
-    border-bottom: 1px solid #e8e8e8;
-    transition: background 0.3s;
-    padding-right: 20px;
-    word-break:keep-all;           /* 不换行 */
-    white-space:nowrap;          /* 不换行 */
-    overflow:hidden;               /* 内容超出宽度时隐藏超出部分的内容 */
-    text-overflow:ellipsis;         /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
-    overflow-wrap: break-word;
-  }
   .zb-table-header {
     //overflow: hidden;
     position: sticky;
     top: 0;
-    z-index: 1;
+    z-index: 2;
     width: fit-content;
-    background: #fafafa;
     .item-th{
       padding-left: 8px;
       line-height: 39px;
       height: 40px;
       box-sizing: border-box;
+      background: #fafafa;
     }
     .zb-stick-side{
       position: sticky;
       top: 0;
       left: 0;
+      z-index: 2;
       //border-right: solid 1rpx #dbdbdb;
       box-sizing: border-box;
       background: #fafafa;
@@ -900,6 +940,7 @@ export default {
     .zb-stick-side{
       position: sticky;
       left: 0;
+      z-index: 1;
       box-sizing: border-box;
       background:white;
       //box-shadow: 6px 0 6px -2px #ccc;

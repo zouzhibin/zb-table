@@ -115,27 +115,18 @@
         column3,
         column4,
 				title: 'Hello',
-        renders:[
-          {
-            name:'编辑',
-            func:'edit' // func 代表子元素点击的事件 父元素接收的事件 父元素 @edit
-          },
-          {
-            name:'删除',
-            type:'warn',
-            func:"dele"
-          }
-        ],
+
         column:[
           { type:'selection', fixed:true,width:50 },
-          { name: 'name', label: '姓名',fixed:false,width:80,emptyString:'--' },
-          { name: 'age', label: '年纪',sorter:false,align:'right', },
+          { name: 'name', label: '姓名',fixed:true,width:80,emptyString:'--' },
+          { name: 'age', label: '年纪',sorter:true,align:'right',fixed:false, },
           { name: 'sex', label: '性别',filters:{0:'男',1:'女'}},
           { name: 'address', label: '地址' },
           { name: 'date', label: '日期',sorter:true },
           { name: 'province', label: '省份' },
           { name: 'city', label: '城市' },
           { name: 'zip', label: '邮编' },
+          { name: 'img', label: '图片',type:"img",align: "center" },
           { name: 'operation', type:'operation',label: '操作',renders:[
               {
                 name:'编辑',
@@ -156,6 +147,7 @@
             sex:'1',
             checked:true,
             id:"20",
+			img:"https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500",
             age:'',
             city: '普陀区',
             address: '上海市普上海市普上海市普上海市普',
@@ -169,7 +161,7 @@
             id:"2",
             age:12,
             city: '普陀区',
-
+img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-7a1ed80f6055.jpeg.a.jpeg",
             address: '上海市普',
             zip: 200333
           },
@@ -180,6 +172,7 @@
             sex:1,
             id:"3",
             age:'15',
+			img:"https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500",
             city: '普陀区',
             address: '上海市普',
             zip: 200333
@@ -191,6 +184,7 @@
             sex:1,
             age:'11',
             id:"4",
+			img:"https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500",
             city: '普陀区',
             address: '上海市普',
             zip: 200333
@@ -201,6 +195,7 @@
             province: '上海',
             sex:1,
             age:'14',
+			img:"https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500",
             id:"5",
             city: '普陀区',
             address: '上海市普',
@@ -212,6 +207,7 @@
             sex:1,
             id:"6",
             age:'12',
+			img:"https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500",
             city: '普陀区',
             address: '上海市普',
             zip: 200333
@@ -223,6 +219,7 @@
             age:'10',
             id:"7",
             city: '普陀区',
+			img:"https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500",
             address: '上海市普',
             zip: 200333
           },{
@@ -233,11 +230,13 @@
             age:'29',
             id:"8",
             city: '普陀区',
+			img:"https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500",
             address: '上海市普',
             zip: 200333
           },{
             date: '2011-05-02',
             name: '王小虎9',
+			img:"https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500",
             province: '上海',
             sex:1,
             id:"9",
@@ -252,6 +251,7 @@
             sex:1,
             id:"10",
             age:'30',
+			img:"https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500",
             city: '普陀区',
             address: '上海市普',
             zip: 200333
