@@ -882,7 +882,7 @@ export default {
     position: sticky;
     top: 0;
     z-index: 2;
-    width: fit-content;
+    //width: fit-content;
     .item-th{
       padding-left: 8px;
       line-height: 39px;
