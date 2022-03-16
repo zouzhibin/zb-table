@@ -72,7 +72,7 @@
                                 textAlign:ite.align||'left'
 														  }"
 
-	                    :class="['item-td',showStripe(index)]"
+	                    :class="['item-td',stripe?(index % 2) != 0?'odd':'even':'']"
 	                    v-for="(ite,i) in transColumns" :key="i">
 	                  <template  v-if="ite.type==='operation'">
 	                    <view style="display: flex;align-items: center;height: 100%">
@@ -173,7 +173,7 @@
             :style=" `height: calc(100% - ${showSummary?80:40}px)`">
           <view class="zb-table-fixed">
             <view class="zb-table-tbody">
-              <view :class="['item-tr',showStripe(i)]"
+              <view :class="['item-tr',stripe?(i % 2) != 0?'odd':'even':'']"
                     v-for="(ite,i) in transData"
                     @click.stop="rowClick(ite,i)"
                     :key="ite.key"
@@ -272,7 +272,7 @@
                                 textAlign:ite.align||'left'
 														  }"
 
-	                    :class="['item-td', i <fixedLeftColumns.length&&'zb-stick-side',showStripe(index)]"
+	                    :class="['item-td', i <fixedLeftColumns.length&&'zb-stick-side',stripe?(index % 2) != 0?'odd':'even':'']"
 	                    v-for="(ite,i) in transColumns" :key="i">
 	                  <template  v-if="ite.type==='operation'">
 	                    <view style="display: flex;align-items: center;height: 100%">
