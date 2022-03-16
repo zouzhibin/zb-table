@@ -102,11 +102,9 @@
 </template>
 
 <script>
-	// import ZbTable from '@/components/zb-table/index.vue'
   import {column1,column2,column3,column4} from './all.js'
 	export default {
 		components:{
-			// ZbTable
 		},
 		data() {
 			return {
