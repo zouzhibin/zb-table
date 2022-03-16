@@ -38,7 +38,7 @@ export default {
   mixins:[summary],
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .table-h5-footer {
   background: #fafafa;
   /*每个页面公共css */

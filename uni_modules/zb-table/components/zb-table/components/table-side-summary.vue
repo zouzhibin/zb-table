@@ -23,7 +23,7 @@ export default {
   mixins:[summary]
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .zb-table-header {
   overflow: hidden;
   background: #fafafa;

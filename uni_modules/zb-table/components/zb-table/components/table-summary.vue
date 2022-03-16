@@ -30,15 +30,17 @@
     mixins:[summary]
   }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
   .zb-table-footer {
     background: #fafafa;
     width: fit-content;
+    min-width: 100%;
     position: sticky;
     bottom: 0;
     z-index: 2;
     .item-tr{
       display: flex;
+      min-width: 100%;
     }
     .item-th{
       padding-left: 8px;

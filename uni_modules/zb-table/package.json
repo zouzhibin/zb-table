@@ -1,13 +1,13 @@
 {
   "id": "zb-table",
   "displayName": "zb-table（多功能表格）",
-  "version": "1.1.7",
-  "description": "表格组件 支持固定表头和首列、及固定多列，表格自适应内容，排序，多选checkbox、可点击删除，编辑功能、兼容多端",
+  "version": "1.1.8",
+  "description": "表格组件 支持固定表头和首列、及固定多列，表格自适应内容，排序，多选checkbox、可点击删除，编辑、合计功能，兼容多端",
   "keywords": [
     "table",
     "表格",
     "固定表头、固定首列、多列",
-    "排序、自适应列宽、多选checkbox、编辑、删除、按钮"
+    "排序、自适应列宽、多选checkbox、编辑、删除、按钮、合计"
 ],
   "repository": "https://github.com/zouzhibin/zb-table.git",
   "engines": {
