@@ -1,13 +1,16 @@
 <template>
 	<view class="content">
     <uni-card title="全部功能" >
-      <view style="height: 200px">
+      <view style="height: 300px">
         <zb-table
             :show-header="true"
             :columns="column"
             :stripe="true"
             :fit="false"
+            show-summary
+            sum-text="合计"
             @rowClick="rowClick"
+            :summary-method="getSummaries"
             @toggleRowSelection="toggleRowSelection"
             @toggleAllSelection="toggleAllSelection"
             :border="true"
@@ -26,7 +29,6 @@
             @rowClick="rowClick"
             @toggleRowSelection="toggleRowSelection"
             @toggleAllSelection="toggleAllSelection"
-
             @edit="buttonEdit"
             @dele="dele"
             :data="data"></zb-table>
@@ -115,10 +117,11 @@
 				title: 'Hello',
 
         column:[
-          { type:'selection', fixed:true,width:50 },
+          { type:'selection', fixed:true,width:60 },
           { name: 'name', label: '姓名',fixed:true,width:80,emptyString:'--' },
           { name: 'age', label: '年纪',sorter:true,align:'right',fixed:false, },
           { name: 'sex', label: '性别',filters:{0:'男',1:'女'}},
+          { name: 'price', label: '价格'},
           { name: 'address', label: '地址' },
           { name: 'date', label: '日期',sorter:true },
           { name: 'province', label: '省份' },
@@ -141,6 +144,7 @@
           {
             date: '2016-05-02',
             name: '',
+            price: 1,
             province: '上海',
             sex:'1',
             checked:true,
@@ -156,6 +160,7 @@
             name: '王小虎2',
             province: '上海',
             sex:'0',
+            price: 22,
             id:"2",
             age:12,
             city: '普陀区',
@@ -168,6 +173,7 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
             name: '王小虎3',
             province: '上海',
             sex:1,
+            price: 33,
             id:"3",
             age:'15',
 			img:"https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500",
@@ -181,6 +187,7 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
             province: '上海',
             sex:1,
             age:'11',
+            price: 33,
             id:"4",
 			img:"https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500",
             city: '普陀区',
@@ -191,6 +198,7 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
             date: '2016-03-02',
             name: '王小虎5',
             province: '上海',
+            price: 33,
             sex:1,
             age:'14',
 			img:"https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500",
@@ -202,6 +210,7 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
             date: '2014-05-02',
             name: '王小虎6',
             province: '上海',
+            price: 33,
             sex:1,
             id:"6",
             age:'12',
@@ -212,6 +221,7 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
           },{
             date: '2019-05-02',
             name: '王小虎7',
+            price: 33,
             province: '上海',
             sex:1,
             age:'10',
@@ -224,6 +234,7 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
             date: '2012-05-02',
             name: '王小虎8',
             province: '上海',
+            price: 33,
             sex:1,
             age:'29',
             id:"8",
@@ -233,7 +244,8 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
             zip: 200333
           },{
             date: '2011-05-02',
-            name: '王小虎9',
+            name: '王小虎91',
+            price: 33,
 			img:"https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500",
             province: '上海',
             sex:1,
@@ -244,7 +256,7 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
             zip: 200333
           },{
             date: '2011-05-02',
-            name: '王小虎9',
+            name: '王小虎10',
             province: '上海',
             sex:1,
             id:"10",
@@ -255,9 +267,10 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
             zip: 200333
           },{
             date: '2011-05-02',
-            name: '王小虎9',
+            name: '王小虎20',
             province: '上海',
             sex:1,
+            price: 33,
             id:"11",
             age:'30',
             city: '普陀区',
@@ -311,6 +324,33 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
           title:'单击某行'
         })
         console.log('单击某行',row,index)
+      },
+      getSummaries(param){
+        const { columns, data } = param;
+        const sums = [];
+        columns.forEach((column, index) => {
+          if (index === 0) {
+            sums[index] = '总价';
+            return;
+          }
+          if(column.name==='price'){
+            const values = data.map(item => Number(item[column.name]));
+            if (!values.every(value => isNaN(value))) {
+              sums[index] = values.reduce((prev, curr) => {
+                const value = Number(curr);
+                if (!isNaN(value)) {
+                  return prev + curr;
+                } else {
+                  return prev;
+                }
+              }, 0);
+              sums[index] += ' 元';
+            }
+          }else{
+            sums[index] = 'N/A';
+          }
+        });
+        return sums;
       }
     },
 
