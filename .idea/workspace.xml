@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="89f1c591-fe9c-4bae-ac2e-8f70733302fe" name="Default Changelist" comment="提交">
+      <change afterPath="$PROJECT_DIR$/uni_modules/zb-table/components/zb-table/components/table-h5-summary.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uni_modules/zb-table/components/zb-table/components/table-side-summary.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uni_modules/zb-table/components/zb-table/components/table-summary.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uni_modules/zb-table/components/zb-table/js/summary.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/index/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uni_modules/zb-table/components/zb-table/sorter.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uni_modules/zb-table/components/zb-table/table-checkbox.vue" beforeDir="false" afterPath="$PROJECT_DIR$/uni_modules/zb-table/components/zb-table/components/table-checkbox.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uni_modules/zb-table/components/zb-table/zb-table.vue" beforeDir="false" afterPath="$PROJECT_DIR$/uni_modules/zb-table/components/zb-table/zb-table.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uni_modules/zb-table/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/uni_modules/zb-table/readme.md" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="26M7DU4pfjXYPRlLZwf6teTCKAe" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../【z-paging下拉刷新、上拉加载更多】超简单、低耦合！仅需两步轻松完成完整分页逻辑示例" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\dingw\pr2\zzb-table\pages" />
+      <recent name="E:\dingw\pr2\zzb-table" />
+      <recent name="E:\dingw\pr2\zzb-table\pages\index" />
+      <recent name="E:\dingw\pr2\zzb-table\components" />
+      <recent name="E:\dingw\pr2\zzb-table\uni_modules" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\dingw\pr2\zzb-table\uni_modules\zb-table\components\zb-table\components" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="89f1c591-fe9c-4bae-ac2e-8f70733302fe" name="Default Changelist" comment="" />
+      <created>1647221481400</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1647221481400</updated>
+      <workItem from="1647221482656" duration="17301000" />
+      <workItem from="1647244109651" duration="5520000" />
+      <workItem from="1647309106504" duration="14728000" />
+      <workItem from="1647337608406" duration="594000" />
+      <workItem from="1647393730387" duration="2887000" />
+    </task>
+    <task id="LOCAL-00001" summary="优化代码">
+      <created>1647228869949</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1647228869949</updated>
+    </task>
+    <task id="LOCAL-00002" summary="优化样式代码">
+      <created>1647229507901</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1647229507901</updated>
+    </task>
+    <task id="LOCAL-00003" summary="scroll 测试">
+      <created>1647309133543</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1647309133543</updated>
+    </task>
+    <task id="LOCAL-00004" summary="提交">
+      <created>1647311393224</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1647311393224</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="优化代码" />
+    <MESSAGE value="优化样式代码" />
+    <MESSAGE value="scroll 测试" />
+    <MESSAGE value="提交" />
+    <option name="LAST_COMMIT_MESSAGE" value="提交" />
+  </component>
+</project>

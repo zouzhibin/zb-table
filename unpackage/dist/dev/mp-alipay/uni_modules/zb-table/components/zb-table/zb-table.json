@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "table-checkbox": "/uni_modules/zb-table/components/zb-table/table-checkbox",
+    "table-footer": "/uni_modules/zb-table/components/zb-table/table-footer",
+    "table-left-fixed": "/uni_modules/zb-table/components/zb-table/table-left-fixed"
+  }
+}

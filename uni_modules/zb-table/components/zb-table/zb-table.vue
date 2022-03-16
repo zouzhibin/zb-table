@@ -55,7 +55,9 @@
 	      <scroll-view class="zb-table-body" ref="tableBody"	scroll-x="true"	scroll-y="true"	id="tableBody"
 	                   :lower-threshold="10"
 	                   :upper-threshold="10"
-	                   @scrolltoupper="(e)=>debounce(scrollToLeft)(e)"	@scroll="handleBodyScroll"	:scroll-left="bodyTableLeft"	:scroll-top="bodyScrollTop"	style=" height: calc(100% - 50px);" >
+	                   @scrolltoupper="(e)=>debounce(scrollToLeft)(e)"
+                     @scroll="handleBodyScroll"	:scroll-left="bodyTableLeft"	:scroll-top="bodyScrollTop"
+                     :style=" `height: calc(100% - ${showSummary?80:40}px)`" >
 	          <view class="zb-table-fixed">
 	            <view class="zb-table-tbody">
 	              <view  class="item-tr"
@@ -105,12 +107,25 @@
 	                  <template  v-else>
 	                    {{ ite.filters?itemFilter(item,ite):item[ite.name]||ite.emptyString }}
 	                  </template>
-
 	                </view>
 	              </view>
 	            </view>
 	          </view>
 	        </scroll-view>
+
+       <table-h5-summary
+           :data="data"
+           :handleFooterTableScrollLeft="handleFooterTableScrollLeft"
+           :headerFooterTableLeft="headerFooterTableLeft"
+           v-if="showSummary"
+           :showSummary="showSummary"
+           :transColumns="transColumns"
+           :border="border"
+           :summary-method="summaryMethod"
+           :sumText="sumText"
+           :fixedLeftColumns="fixedLeftColumns"/>
+
+
 	    </view>
 	    <view class="zb-table-fixed-left" v-if="isFixedLeft">
 	      <template v-if="showHeader">
@@ -144,48 +159,55 @@
                 </template>
               </view>
 	          </view>
+
 	        </view>
 	      </template>
-	      <view class="zb-table-body-outer center-header-uni" style="height: 100%;">
-	        <scroll-view
-	            scroll-y="true"
-	            id="leftTableFixed"
-	            :upper-threshold="15"
-	            @scrolltoupper="(e)=>scrollToFixedLeft(e)"
-	            @scroll="leftFixedScrollAction"
-	            :scroll-top="leftFiexScrollTop"
-	            class="zb-table-body-inner"
-	            style=" height: calc(100% - 50px);">
-	          <view class="zb-table-fixed">
-	            <view class="zb-table-tbody">
-	              <view :class="['item-tr',showStripe(i)]"
-                      v-for="(ite,i) in transData"
-                      @click.stop="rowClick(ite,i)"
-                      :key="ite.key"
-	                    style="">
-	                <view :class="['item-td']"
-	                      :style="{
+        <scroll-view
+            scroll-y="true"
+            id="leftTableFixed"
+            :upper-threshold="15"
+            @scrolltoupper="(e)=>scrollToFixedLeft(e)"
+            @scroll="leftFixedScrollAction"
+            :scroll-top="leftFiexScrollTop"
+            class="zb-table-body-inner"
+            :style=" `height: calc(100% - ${showSummary?80:40}px)`">
+          <view class="zb-table-fixed">
+            <view class="zb-table-tbody">
+              <view :class="['item-tr',showStripe(i)]"
+                    v-for="(ite,i) in transData"
+                    @click.stop="rowClick(ite,i)"
+                    :key="ite.key"
+                    style="">
+                <view class='item-td'
+                      :style="{
 	                       width:`${item.width?item.width:'100'}px`,
 	                       borderRight:`${border?'1px solid #e8e8e8':''}`,
 	                       textAlign:item.align||'left'
 	                      }"
-	                      :key="index"
-	                      v-for="(item,index) in fixedLeftColumns">
-                    <template v-if="item.type==='selection'">
-                      <view class="checkbox-item">
-                        <tableCheckbox @checkboxSelected="(e)=>checkboxSelected(e,ite)" :cellData="ite" :checked="ite.checked"/>
-                      </view>
-                    </template>
-                    <template v-else>
-                      {{ite[item.name]||item.emptyString}}
-                    </template>
-
-                  </view>
-	              </view>
-	            </view>
-	          </view>
-	        </scroll-view>
-	      </view>
+                      :key="index"
+                      v-for="(item,index) in fixedLeftColumns">
+                  <template v-if="item.type==='selection'">
+                    <view class="checkbox-item">
+                      <tableCheckbox @checkboxSelected="(e)=>checkboxSelected(e,ite)" :cellData="ite" :checked="ite.checked"/>
+                    </view>
+                  </template>
+                  <template v-else>
+                    {{ite[item.name]||item.emptyString}}
+                  </template>
+                </view>
+              </view>
+            </view>
+          </view>
+        </scroll-view>
+        <table-side-summary
+            v-if="showSummary"
+            :data="data"
+            :showSummary="showSummary"
+            :transColumns="transColumns"
+            :border="border"
+            :summary-method="summaryMethod"
+            :sumText="sumText"
+            :fixedLeftColumns="fixedLeftColumns"/>
 	    </view>
 	  </view>
 	</view>
@@ -217,7 +239,6 @@
                           <tableCheckbox
                               :indeterminate="indeterminate" :checked="checkedAll" @checkboxSelected="checkboxSelectedAll"></tableCheckbox>
                         </view>
-
                       </template>
                       <template v-else>
                         {{ item.label }}
@@ -236,7 +257,7 @@
 	      <template v-if="!data.length">
 	        <view class="no-data">暂无数据~~</view>
 	      </template>
-	          <view class="zb-table-fixed">
+	      <view class="zb-table-fixed">
 	            <view class="zb-table-tbody">
 	              <view  class="item-tr"
                        @click.stop="rowClick(item,index)"
@@ -273,14 +294,14 @@
                         <tableCheckbox @checkboxSelected="(e)=>checkboxSelected(e,item)" :cellData="item" :checked="item.checked"/>
                       </view>
                     </template>
-					<template v-else-if="ite.type==='img'">
-					  <image
-					  @click.stop="previewImage(item,item[ite.name],index)"
-					  v-if="item[ite.name]"
-					  :show-menu-by-longpress="false"
-					  :src="item[ite.name]" style="width: 40px;height:30px; " mode="aspectFit"></image>
-					  <text v-else>{{ite.emptyString}}</text>
-					</template>
+                    <template v-else-if="ite.type==='img'">
+                      <image
+                      @click.stop="previewImage(item,item[ite.name],index)"
+                      v-if="item[ite.name]"
+                      :show-menu-by-longpress="false"
+                      :src="item[ite.name]" style="width: 40px;height:30px; " mode="aspectFit"></image>
+                      <text v-else>{{ite.emptyString}}</text>
+                    </template>
 	                  <template  v-else>
 	                    {{ ite.filters?itemFilter(item,ite):item[ite.name]||ite.emptyString }}
 	                  </template>
@@ -288,16 +309,32 @@
 	              </view>
 	            </view>
 	          </view>
+        <table-summary
+            v-if="showSummary"
+            :data="data"
+            :showSummary="showSummary"
+            :fixedLeftColumns="fixedLeftColumns"
+            :transColumns="transColumns"
+            :border="border"
+            :summary-method="summaryMethod"
+            :sumText="sumText"
+        />
 	    </view>
 	  </view>
 	</view>
 	<!-- #endif -->
 </template>
 <script>
-import tableCheckbox from './table-checkbox.vue'
+import TableCheckbox from './components/table-checkbox.vue'
+import TableSummary from "./components/table-summary.vue";
+import TableSideSummary from "./components/table-side-summary.vue";
+import TableH5Summary from './components/table-h5-summary'
 export default {
   components:{
-    tableCheckbox
+    TableCheckbox,
+    TableSummary,
+    TableSideSummary,
+    TableH5Summary
   },
   props:{
     itemDate:{
@@ -305,13 +342,22 @@ export default {
       default:()=>{}
     },
     rowKey:Function,
+    summaryMethod:Function,
     columns:{
       type:Array,
       default:()=>[]
     },
+    showSummary:{
+      type:Boolean,
+      default:false
+    },
     data:{
       type:Array,
       default:()=>[]
+    },
+    sumText:{
+      type:String,
+      default:'合计'
     },
     showHeader:{
       type:Boolean,
@@ -330,6 +376,18 @@ export default {
       default:false
     },
   },
+  watch:{
+    'showSummary':{
+      immediate:true,
+      handler(newValue){
+        if(newValue){
+          // this.data.push({
+          //   type:'total-last-table'
+          // })
+        }
+      }
+    }
+  },
   computed:{
     fixedLeftColumns(){
       let arr = []
@@ -341,8 +399,6 @@ export default {
             item.left = 0
             number+=item.width
           }else {
-
-            console.log('===',i,number)
             item.left = number
             number+=item.width
           }
@@ -367,7 +423,7 @@ export default {
       if(this.fit){
         this.columns.forEach(column=>{
           if(column.type==="operation"&&column.renders){
-			  let str = ''
+			      let str = ''
             column.renders.map((item)=>{
               str+=item.name
             })
@@ -397,8 +453,8 @@ export default {
         item.emptyString = item.emptyString||'--'
       })
       return this.columns
-
     },
+
     transData(){
       this.data.forEach((item,index)=>{
         if(this.rowKey){
@@ -416,6 +472,7 @@ export default {
       bodyTableLeft:0,
       headerTableLeft:0,
       lastScrollLeft:0,
+      headerFooterTableLeft:0,
       leftFiexScrollTop:0,
       bodyScrollTop:0,
       currentDriver:null,
@@ -614,6 +671,7 @@ export default {
       if(this.currentDriver&&this.currentDriver!==e.currentTarget.id)return
       this.currentDriver = e.currentTarget.id
       this.headerTableLeft = e.detail.scrollLeft
+      this.headerFooterTableLeft = e.detail.scrollLeft
       this.leftFiexScrollTop = e.detail.scrollTop
       this.bodyTime&&clearTimeout(this.bodyTime)
       this.bodyTime = setTimeout(()=>{
@@ -658,6 +716,17 @@ export default {
       if(this.currentDriver&&this.currentDriver!==e.currentTarget.id)return
       this.currentDriver = e.currentTarget.id
       this.bodyTableLeft = e.detail.scrollLeft
+      this.headerFooterTableLeft = e.detail.scrollLeft
+      this.bodyTime&&clearTimeout(this.bodyTime)
+      this.bodyTime = setTimeout(()=>{
+        this.currentDriver=null
+      },200)
+    },
+    handleFooterTableScrollLeft(e){
+      if(this.currentDriver&&this.currentDriver!==e.currentTarget.id)return
+      this.currentDriver = e.currentTarget.id
+      this.bodyTableLeft = e.detail.scrollLeft
+      this.headerTableLeft = e.detail.scrollLeft
       this.bodyTime&&clearTimeout(this.bodyTime)
       this.bodyTime = setTimeout(()=>{
         this.currentDriver=null

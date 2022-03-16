@@ -11,6 +11,9 @@
 | fit | 列的宽度是否自撑开 | boolean |true,false | false |否 |
 | show-header | 是否显示表头 | boolean |true,false | true |否 |
 | border | 是否带有纵向边框 | boolean |true,false | true |否 |
+| show-summary | 是否在表尾显示合计行 | boolean |true,false | false |否 |
+| sum-text | 合计行第一列的文本 | String |- | 合计 |否 |
+| summary-method | 自定义的合计计算方法 | Function({ columns, data }) |- | - |否 |
 
 ## table 事件
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |是否必须|
@@ -60,6 +63,10 @@ renders 代表传入的按钮  Array  =>[
             :columns="column"
             :stripe="true"
             :fit="false"
+            show-summary
+            sum-text="合计"
+            @rowClick="rowClick"
+            :summary-method="getSummaries"
             @toggleRowSelection="toggleRowSelection"
             @toggleAllSelection="toggleAllSelection"
             :border="true"
