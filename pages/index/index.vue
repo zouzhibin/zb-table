@@ -5,12 +5,8 @@
         <zb-table
             :show-header="true"
             :columns="column"
-            :stripe="true"
             :fit="false"
-            show-summary
-            sum-text="合计"
             @rowClick="rowClick"
-            :summary-method="getSummaries"
             @toggleRowSelection="toggleRowSelection"
             @toggleAllSelection="toggleAllSelection"
             :border="true"
@@ -89,6 +85,24 @@
             :columns="column4"
             :stripe="true"
             :fit="false"
+            @rowClick="rowClick"
+            @toggleRowSelection="toggleRowSelection"
+            @toggleAllSelection="toggleAllSelection"
+            :border="true"
+            @edit="buttonEdit"
+            @dele="dele"
+            :data="data"></zb-table>
+      </view>
+    </uni-card>
+
+    <uni-card title="表尾合计" >
+      <view style="height: 300px">
+        <zb-table
+            :show-header="true"
+            :columns="column"
+            :fit="false"
+            :show-summary="true"
+            :summary-method="getSummaries"
             @rowClick="rowClick"
             @toggleRowSelection="toggleRowSelection"
             @toggleAllSelection="toggleAllSelection"
