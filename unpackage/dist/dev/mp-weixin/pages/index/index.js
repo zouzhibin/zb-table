@@ -476,6 +476,7 @@ var that = null;var _default = { components: {}, data: function data() {return {
 
       data1: [],
       flag1: true,
+      num: 0,
       isShowLoadMore: true };
 
   },
@@ -492,7 +493,11 @@ var that = null;var _default = { components: {}, data: function data() {return {
     // },3000)
   },
   methods: {
+
     pullUpLoading: function pullUpLoading(done) {var _this = this;
+      if (!this.flag1) {
+        return;
+      }
       setTimeout(function () {
         _this.data.push({
           date: '2011-05-02',
@@ -506,7 +511,14 @@ var that = null;var _default = { components: {}, data: function data() {return {
           address: '上海市普',
           zip: 200333 });
 
-        done('ok');
+
+        _this.num++;
+        if (_this.num === 3) {
+          done('ok');
+          _this.flag1 = false;
+        } else {
+          done();
+        }
       }, 3000);
     },
     buttonEdit: function buttonEdit(ite, index) {

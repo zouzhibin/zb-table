@@ -141,11 +141,13 @@
   height: 100%;
   overflow: hidden;
   width: 100%;
+  display: flex;
+  flex-direction: column;
   font-size: 12px;
 }
 .zb-table .zb-table-content.data-v-35b7ff72 {
-  height: 100%;
   position: relative;
+  overflow: hidden;
 }
 .zb-table .zb-table-fixed.data-v-35b7ff72 {
   min-width: 100%;

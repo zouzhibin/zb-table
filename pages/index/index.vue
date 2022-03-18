@@ -314,6 +314,7 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
         ],
         data1:[],
         flag1:true,
+        num:0,
         isShowLoadMore:true
 			}
 		},
@@ -330,7 +331,11 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
       // },3000)
     },
     methods:{
+
       pullUpLoading(done){
+        if(!this.flag1){
+          return
+        }
         setTimeout(()=>{
           this.data.push({
             date: '2011-05-02',
@@ -344,7 +349,14 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
             address: '上海市普',
             zip: 200333
           })
-          done('ok')
+
+          this.num ++
+          if(this.num===3){
+            done('ok')
+            this.flag1 = false
+          }else {
+            done()
+          }
         },3000)
       },
       buttonEdit(ite,index){

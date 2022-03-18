@@ -500,6 +500,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 {
   components: {
     TableCheckbox: TableCheckbox,
@@ -664,27 +666,26 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
   },
   methods: {
-    pullUpCompleteLoading: function pullUpCompleteLoading() {
+    pullUpCompleteLoading: function pullUpCompleteLoading(type) {
       this.isLoadMore = false;
-      this.completeLoading = true;
+      if (type === 'ok') {
+        this.completeLoading = true;
+      }
     },
-    scrolltolower: function scrolltolower(e) {var _this3 = this;
+    scrolltolower: function scrolltolower(e) {
       if (e.detail.direction === 'bottom') {
         if (this.isShowLoadMore) {
           this.isLoadMore = true;
         }
       }
-      // this.$emit('pullUpLoading')
-      console.log('===', this.$parent.$parent);
+      this.$emit('pullUpLoading');
       var that = this;
       this.pullUpLoading && this.pullUpLoading.call(this.$parent.$parent, function (type) {
-        console.log('===ddd=======', _this3);
         that.isLoadMore = false;
         if (type === 'ok') {
           that.completeLoading = true;
         }
       });
-
       // this.pullUpLoading.call(this.$parent)
     },
     previewImage: function previewImage(item, url, current) {
@@ -696,19 +697,19 @@ __webpack_require__.r(__webpack_exports__);
     rowClick: function rowClick(row, index) {
       this.$emit('rowClick', row, index);
     },
-    checkboxSelectedAll: function checkboxSelectedAll(e) {var _this4 = this;
+    checkboxSelectedAll: function checkboxSelectedAll(e) {var _this3 = this;
       this.indeterminate = false;
       if (e.checked) {
         this.selectArr = [];
         this.checkedAll = true;
         this.data.forEach(function (item) {
-          _this4.$set(item, 'checked', true);
-          _this4.selectArr.push(item);
+          _this3.$set(item, 'checked', true);
+          _this3.selectArr.push(item);
         });
       } else {
         this.checkedAll = false;
         this.data.forEach(function (item) {
-          _this4.$set(item, 'checked', false);
+          _this3.$set(item, 'checked', false);
         });
         this.selectArr = [];
       }
@@ -810,14 +811,14 @@ __webpack_require__.r(__webpack_exports__);
 
     },
 
-    sortData: function sortData(item) {var _this5 = this;
+    sortData: function sortData(item) {var _this4 = this;
       var key = item.name;
       if (item.sorterMode === '_asc') {
         this.data.sort(function (a, b) {
-          if (_this5.checkNumber(a[key])) {
+          if (_this4.checkNumber(a[key])) {
             return a[key] - b[key];
           }
-          if (_this5.isDate(a[key])) {
+          if (_this4.isDate(a[key])) {
             var a1 = new Date(a[key]).getTime();
             var b1 = new Date(b[key]).getTime();
             return a1 - b1;
@@ -825,10 +826,10 @@ __webpack_require__.r(__webpack_exports__);
         });
       } else {
         this.data.sort(function (a, b) {
-          if (_this5.checkNumber(a[key])) {
+          if (_this4.checkNumber(a[key])) {
             return b[key] - a[key];
           }
-          if (_this5.isDate(a[key])) {
+          if (_this4.isDate(a[key])) {
             var a1 = new Date(a[key]).getTime();
             var b1 = new Date(b[key]).getTime();
             return b1 - a1;
@@ -847,15 +848,15 @@ __webpack_require__.r(__webpack_exports__);
         }
       };
     },
-    debounce: function debounce(method) {var _this6 = this;var delay = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1000;
+    debounce: function debounce(method) {var _this5 = this;var delay = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1000;
       return function () {for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {args[_key2] = arguments[_key2];}
-        _this6.debounceTime && clearTimeout(_this6.debounceTime);
-        _this6.debounceTime = setTimeout(function () {
+        _this5.debounceTime && clearTimeout(_this5.debounceTime);
+        _this5.debounceTime = setTimeout(function () {
           method.apply(void 0, args);
         }, delay);
       };
     },
-    handleBodyScroll: function handleBodyScroll(e) {var _this7 = this;
+    handleBodyScroll: function handleBodyScroll(e) {var _this6 = this;
       if (this.currentDriver && this.currentDriver !== e.currentTarget.id) return;
       this.currentDriver = e.currentTarget.id;
       this.headerTableLeft = e.detail.scrollLeft;
@@ -863,20 +864,20 @@ __webpack_require__.r(__webpack_exports__);
       this.leftFiexScrollTop = e.detail.scrollTop;
       this.bodyTime && clearTimeout(this.bodyTime);
       this.bodyTime = setTimeout(function () {
-        _this7.currentDriver = null;
+        _this6.currentDriver = null;
       }, 200);
 
     },
-    leftFixedScrollAction: function leftFixedScrollAction(e) {var _this8 = this;
+    leftFixedScrollAction: function leftFixedScrollAction(e) {var _this7 = this;
       if (this.currentDriver && this.currentDriver !== e.currentTarget.id) return;
       this.currentDriver = e.currentTarget.id;
       this.bodyScrollTop = e.detail.scrollTop;
       this.bodyTime && clearTimeout(this.bodyTime);
       this.bodyTime = setTimeout(function () {
-        _this8.currentDriver = null;
+        _this7.currentDriver = null;
       }, 200);
     },
-    scrollToLeft: function scrollToLeft(e) {var _this9 = this;
+    scrollToLeft: function scrollToLeft(e) {var _this8 = this;
       if (this.currentDriver1 && this.currentDriver1 !== e.currentTarget.id) return;
       this.currentDriver1 = e.currentTarget.id;
       if (e.detail.direction === 'left' && this.headerTableLeft < 10) {
@@ -886,10 +887,10 @@ __webpack_require__.r(__webpack_exports__);
       }
       this.bodyTime && clearTimeout(this.bodyTime);
       this.bodyTime = setTimeout(function () {
-        _this9.currentDriver1 = null;
+        _this8.currentDriver1 = null;
       }, 200);
     },
-    scrollToFixedLeft: function scrollToFixedLeft(e) {var _this10 = this;
+    scrollToFixedLeft: function scrollToFixedLeft(e) {var _this9 = this;
       if (this.currentDriver1 && this.currentDriver1 !== e.currentTarget.id) return;
       this.currentDriver1 = e.currentTarget.id;
       if (e.detail.direction === 'top' && this.bodyScrollTop < 10) {
@@ -897,27 +898,27 @@ __webpack_require__.r(__webpack_exports__);
       }
       this.bodyTime && clearTimeout(this.bodyTime);
       this.bodyTime = setTimeout(function () {
-        _this10.currentDriver1 = null;
+        _this9.currentDriver1 = null;
       }, 200);
     },
-    handleTableScrollLeft: function handleTableScrollLeft(e, type) {var _this11 = this;
+    handleTableScrollLeft: function handleTableScrollLeft(e, type) {var _this10 = this;
       if (this.currentDriver && this.currentDriver !== e.currentTarget.id) return;
       this.currentDriver = e.currentTarget.id;
       this.bodyTableLeft = e.detail.scrollLeft;
       this.headerFooterTableLeft = e.detail.scrollLeft;
       this.bodyTime && clearTimeout(this.bodyTime);
       this.bodyTime = setTimeout(function () {
-        _this11.currentDriver = null;
+        _this10.currentDriver = null;
       }, 200);
     },
-    handleFooterTableScrollLeft: function handleFooterTableScrollLeft(e) {var _this12 = this;
+    handleFooterTableScrollLeft: function handleFooterTableScrollLeft(e) {var _this11 = this;
       if (this.currentDriver && this.currentDriver !== e.currentTarget.id) return;
       this.currentDriver = e.currentTarget.id;
       this.bodyTableLeft = e.detail.scrollLeft;
       this.headerTableLeft = e.detail.scrollLeft;
       this.bodyTime && clearTimeout(this.bodyTime);
       this.bodyTime = setTimeout(function () {
-        _this12.currentDriver = null;
+        _this11.currentDriver = null;
       }, 200);
     } } };exports.default = _default2;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

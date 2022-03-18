@@ -1,7 +1,7 @@
 <template>
 	<!-- #ifdef H5 || APP-PLUS -->
 	<view :class="['zb-table','zb-table-fixed-header',!border&&(bodyTableLeft>50||headerTableLeft>50)&&'scroll-left-fixed']">
-	  <view class="zb-table-content">
+	  <view class="zb-table-content" style="flex: 1">
 	    <view class="zb-table-scroll" style="height: 100%;">
 	      <template v-if="showHeader">
 	        <view class="zb-table-header top-header-uni" style="height: 40px;">
@@ -55,6 +55,7 @@
 	      <scroll-view class="zb-table-body" ref="tableBody"	scroll-x="true"	scroll-y="true"	id="tableBody"
 	                   :lower-threshold="10"
 	                   :upper-threshold="10"
+                     @scrolltolower="scrolltolower"
 	                   @scrolltoupper="(e)=>debounce(scrollToLeft)(e)"
                      @scroll="handleBodyScroll"	:scroll-left="bodyTableLeft"	:scroll-top="bodyScrollTop"
                      :style=" `height: calc(100% - ${showSummary?80:40}px)`" >
@@ -207,6 +208,7 @@
             :fixedLeftColumns="fixedLeftColumns"/>
 	    </view>
 	  </view>
+    <zb-load-more v-if="isLoadMore&&!completeLoading"/>
 	</view>
 	<!-- #endif -->
 	<!-- #ifndef H5 || APP-PLUS -->
@@ -497,9 +499,11 @@ export default {
   mounted(){
   },
   methods: {
-    pullUpCompleteLoading(){
+    pullUpCompleteLoading(type){
       this.isLoadMore = false
-      this.completeLoading = true
+      if(type==='ok'){
+        this.completeLoading = true
+      }
     },
     scrolltolower(e){
       if(e.detail.direction==='bottom'){
@@ -507,17 +511,14 @@ export default {
           this.isLoadMore = true
         }
       }
-      // this.$emit('pullUpLoading')
-      console.log('===',this.$parent.$parent)
+      this.$emit('pullUpLoading')
       let that = this
       this.pullUpLoading&&this.pullUpLoading.call(this.$parent.$parent, (type)=>{
-        console.log('===ddd=======',this)
         that.isLoadMore = false
         if(type==='ok'){
           that.completeLoading=true
         }
       })
-
       // this.pullUpLoading.call(this.$parent)
     },
 	  previewImage(item,url,current){
@@ -843,11 +844,14 @@ export default {
   height: 100%;
   overflow: hidden;
   width: 100%;
+  display: flex;
+  flex-direction: column;
   font-size: 12px;
   .zb-table-content{
-    height: 100%;
+    //height: 100%;
     //flex: 1;
     position: relative;
+    overflow: hidden;
   }
   .zb-table-fixed{
     min-width: 100%;
