@@ -213,9 +213,11 @@
 	</view>
 	<!-- #endif -->
 	<!-- #ifndef H5 || APP-PLUS -->
+
 	<view class="zb-table-applet">
 	  <view class="zb-table-content">
-	    <view class="zb-table-scroll" style="height: 100%;overflow: scroll">
+      <scroll-view @scrolltolower="scrolltolower" style="height: 100%" scroll-y="true" scroll-x="true">
+	    <view class="zb-table-scroll" >
 	      <template v-if="showHeader">
 	        <view class="zb-table-header top-header-uni" style="height: 40px;">
 	            <view class="zb-table-fixed" >
@@ -257,13 +259,14 @@
 	      <template v-if="!data.length">
 	        <view class="no-data">暂无数据~~</view>
 	      </template>
-	      <view class="zb-table-fixed">
-	            <view class="zb-table-tbody">
-	              <view  class="item-tr"
-                       @click.stop="rowClick(item,index)"
-	                     v-for="(item,index) in transData" :key="item.key" >
-	                <view
-	                    :style="{
+
+          <view class="zb-table-fixed">
+            <view class="zb-table-tbody">
+              <view  class="item-tr"
+                     @click.stop="rowClick(item,index)"
+                     v-for="(item,index) in transData" :key="item.key" >
+                <view
+                    :style="{
 	                              left:`${ite.left}px`,
 									              width:`${ite.width?ite.width:'100'}px`,
 															  flex:i===transColumns.length-1?1:'none',
@@ -272,43 +275,44 @@
                                 textAlign:ite.align||'left'
 														  }"
 
-	                    :class="['item-td', i <fixedLeftColumns.length&&'zb-stick-side',stripe?(index % 2) != 0?'odd':'even':'']"
-	                    v-for="(ite,i) in transColumns" :key="i">
-	                  <template  v-if="ite.type==='operation'">
-	                    <view style="display: flex;align-items: center;height: 100%">
-	                      <view
-	                          v-for="ren,ind in ite.renders"
-	                          :key="ind"
-	                          @click.stop="$emit(ren.func,item,index)"
-	                          :style="{
+                    :class="['item-td', i <fixedLeftColumns.length&&'zb-stick-side',stripe?(index % 2) != 0?'odd':'even':'']"
+                    v-for="(ite,i) in transColumns" :key="i">
+                  <template  v-if="ite.type==='operation'">
+                    <view style="display: flex;align-items: center;height: 100%">
+                      <view
+                          v-for="ren,ind in ite.renders"
+                          :key="ind"
+                          @click.stop="$emit(ren.func,item,index)"
+                          :style="{
 	                          display:'flex',
 	                          alignItems: 'center',
 	                          marginRight:ite.renders.length>1?'8px':'0'
 	                        }">
-	                        <button :type="ren.type||'primary'" :size="ren.size||'mini'">{{ren.name}}</button>
-	                      </view>
-	                    </view>
-	                  </template>
-                    <template v-else-if="ite.type==='selection'">
-                      <view class="checkbox-item">
-                        <tableCheckbox @checkboxSelected="(e)=>checkboxSelected(e,item)" :cellData="item" :checked="item.checked"/>
+                        <button :type="ren.type||'primary'" :size="ren.size||'mini'">{{ren.name}}</button>
                       </view>
-                    </template>
-                    <template v-else-if="ite.type==='img'">
-                      <image
-                      @click.stop="previewImage(item,item[ite.name],index)"
-                      v-if="item[ite.name]"
-                      :show-menu-by-longpress="false"
-                      :src="item[ite.name]" style="width: 40px;height:30px; " mode="aspectFit"></image>
-                      <text v-else>{{ite.emptyString}}</text>
-                    </template>
-	                  <template  v-else>
-	                    {{ ite.filters?itemFilter(item,ite):item[ite.name]||ite.emptyString }}
-	                  </template>
-	                </view>
-	              </view>
-	            </view>
-	          </view>
+                    </view>
+                  </template>
+                  <template v-else-if="ite.type==='selection'">
+                    <view class="checkbox-item">
+                      <tableCheckbox @checkboxSelected="(e)=>checkboxSelected(e,item)" :cellData="item" :checked="item.checked"/>
+                    </view>
+                  </template>
+                  <template v-else-if="ite.type==='img'">
+                    <image
+                        @click.stop="previewImage(item,item[ite.name],index)"
+                        v-if="item[ite.name]"
+                        :show-menu-by-longpress="false"
+                        :src="item[ite.name]" style="width: 40px;height:30px; " mode="aspectFit"></image>
+                    <text v-else>{{ite.emptyString}}</text>
+                  </template>
+                  <template  v-else>
+                    {{ ite.filters?itemFilter(item,ite):item[ite.name]||ite.emptyString }}
+                  </template>
+                </view>
+              </view>
+            </view>
+          </view>
+
         <table-summary
             v-if="showSummary"
             :data="data"
@@ -320,8 +324,14 @@
             :sumText="sumText"
         />
 	    </view>
+        <div
+            v-if="isLoadMore"
+            style="height: 40px;width: 100%;display: flex;align-items: center;justify-content: center">加载中...</div>
+      </scroll-view>
 	  </view>
 	</view>
+
+
 	<!-- #endif -->
 </template>
 <script>
@@ -375,18 +385,6 @@ export default {
       type:Boolean,
       default:false
     },
-  },
-  watch:{
-    'showSummary':{
-      immediate:true,
-      handler(newValue){
-        if(newValue){
-          // this.data.push({
-          //   type:'total-last-table'
-          // })
-        }
-      }
-    }
   },
   computed:{
     fixedLeftColumns(){
@@ -472,6 +470,7 @@ export default {
       bodyTableLeft:0,
       headerTableLeft:0,
       lastScrollLeft:0,
+      isLoadMore:false,
       headerFooterTableLeft:0,
       leftFiexScrollTop:0,
       bodyScrollTop:0,
@@ -499,6 +498,12 @@ export default {
   mounted(){
   },
   methods: {
+    scrolltolower(e){
+      if(e.detail.direction==='bottom'){
+        this.isLoadMore = true
+      }
+      console.log('===',e)
+    },
 	  previewImage(item,url,current){
 		  uni.previewImage({
 			  current,
@@ -909,7 +914,7 @@ export default {
 }
 .zb-table-applet{
   height: 100%;
-  overflow: hidden;
+  //overflow: hidden;
   width: 100%;
   font-size: 12px;
   .zb-table-content{

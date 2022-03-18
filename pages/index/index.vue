@@ -109,7 +109,24 @@
             :border="true"
             @edit="buttonEdit"
             @dele="dele"
-            :data="data"></zb-table>
+            :data="data1"></zb-table>
+      </view>
+    </uni-card>
+
+    <uni-card title="上拉加载" >
+      <view style="height: 300px">
+        <zb-table
+            :show-header="true"
+            :columns="column"
+            :fit="false"
+            :summary-method="getSummaries"
+            @rowClick="rowClick"
+            @toggleRowSelection="toggleRowSelection"
+            @toggleAllSelection="toggleAllSelection"
+            :border="true"
+            @edit="buttonEdit"
+            @dele="dele"
+            :data="data1"></zb-table>
       </view>
     </uni-card>
 
@@ -291,12 +308,19 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
             address: '上海市普',
             zip: 200333
           }
-        ]
+        ],
+        data1:[]
 			}
 		},
 		onLoad() {
 
 		},
+    mounted(){
+		  this.data1 = JSON.parse(JSON.stringify(this.data))
+      setTimeout(()=>{
+        this.data1.shift()
+      },3000)
+    },
     methods:{
       buttonEdit(ite,index){
         uni.showToast({

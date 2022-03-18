@@ -39,47 +39,45 @@ export default {
         }
     },
     watch:{
-        'showSummary':{
+        'data':{
+            deep:true,
             immediate:true,
-            handler(newValue){
-                console.log('========',newValue)
-                if(newValue){
-                    let sums = [];
-                    if (this.summaryMethod) {
-                        sums = this.summaryMethod({ columns: this.transColumns, data: this.data });
-                    } else {
-                        this.transColumns.forEach((column, index) => {
-                            if (index === 0) {
-                                sums[index] = this.sumText;
-                                return;
-                            }
-                            const values = this.data.map(item => Number(item[column.name]));
-                            const precisions = [];
-                            let notNumber = true;
-                            values.forEach(value => {
-                                if (!isNaN(value)) {
-                                    notNumber = false;
-                                    let decimal = ('' + value).split('.')[1];
-                                    precisions.push(decimal ? decimal.length : 0);
-                                }
-                            });
-                            const precision = Math.max.apply(null, precisions);
-                            if (!notNumber) {
-                                sums[index] = values.reduce((prev, curr) => {
-                                    const value = Number(curr);
-                                    if (!isNaN(value)) {
-                                        return parseFloat((prev + curr).toFixed(Math.min(precision, 20)));
-                                    } else {
-                                        return prev;
-                                    }
-                                }, 0);
-                            } else {
-                                sums[index] = '';
+            handler(newValue,oldValue){
+                let sums = [];
+                if (this.summaryMethod) {
+                    sums = this.summaryMethod({ columns: this.transColumns, data: this.data });
+                } else {
+                    this.transColumns.forEach((column, index) => {
+                        if (index === 0) {
+                            sums[index] = this.sumText;
+                            return;
+                        }
+                        const values = this.data.map(item => Number(item[column.name]));
+                        const precisions = [];
+                        let notNumber = true;
+                        values.forEach(value => {
+                            if (!isNaN(value)) {
+                                notNumber = false;
+                                let decimal = ('' + value).split('.')[1];
+                                precisions.push(decimal ? decimal.length : 0);
                             }
                         });
-                    }
-                    this.sums = sums
+                        const precision = Math.max.apply(null, precisions);
+                        if (!notNumber) {
+                            sums[index] = values.reduce((prev, curr) => {
+                                const value = Number(curr);
+                                if (!isNaN(value)) {
+                                    return parseFloat((prev + curr).toFixed(Math.min(precision, 20)));
+                                } else {
+                                    return prev;
+                                }
+                            }, 0);
+                        } else {
+                            sums[index] = '';
+                        }
+                    });
                 }
+                this.sums = sums
             },
         }
     }
