@@ -112,7 +112,6 @@
 	            </view>
 	          </view>
 	        </scroll-view>
-
        <table-h5-summary
            :data="data"
            :handleFooterTableScrollLeft="handleFooterTableScrollLeft"
@@ -124,8 +123,6 @@
            :summary-method="summaryMethod"
            :sumText="sumText"
            :fixedLeftColumns="fixedLeftColumns"/>
-
-
 	    </view>
 	    <view class="zb-table-fixed-left" v-if="isFixedLeft">
 	      <template v-if="showHeader">
@@ -216,7 +213,9 @@
 
 	<view class="zb-table-applet">
 	  <view class="zb-table-content">
-      <scroll-view @scrolltolower="scrolltolower" style="height: 100%" scroll-y="true" scroll-x="true">
+      <scroll-view @scrolltolower="scrolltolower"
+                   style=" height: 100%"
+                   scroll-y="true" scroll-x="true">
 	    <view class="zb-table-scroll" >
 	      <template v-if="showHeader">
 	        <view class="zb-table-header top-header-uni" style="height: 40px;">
@@ -259,7 +258,6 @@
 	      <template v-if="!data.length">
 	        <view class="no-data">暂无数据~~</view>
 	      </template>
-
           <view class="zb-table-fixed">
             <view class="zb-table-tbody">
               <view  class="item-tr"
@@ -312,7 +310,6 @@
               </view>
             </view>
           </view>
-
         <table-summary
             v-if="showSummary"
             :data="data"
@@ -324,14 +321,10 @@
             :sumText="sumText"
         />
 	    </view>
-        <div
-            v-if="isLoadMore"
-            style="height: 40px;width: 100%;display: flex;align-items: center;justify-content: center">加载中...</div>
       </scroll-view>
 	  </view>
+    <zb-load-more v-if="isLoadMore&&!completeLoading"/>
 	</view>
-
-
 	<!-- #endif -->
 </template>
 <script>
@@ -339,12 +332,14 @@ import TableCheckbox from './components/table-checkbox.vue'
 import TableSummary from "./components/table-summary.vue";
 import TableSideSummary from "./components/table-side-summary.vue";
 import TableH5Summary from './components/table-h5-summary'
+import ZbLoadMore from './components/zb-load-more'
 export default {
   components:{
     TableCheckbox,
     TableSummary,
     TableSideSummary,
-    TableH5Summary
+    TableH5Summary,
+    ZbLoadMore
   },
   props:{
     itemDate:{
@@ -361,6 +356,10 @@ export default {
       type:Boolean,
       default:false
     },
+    isShowLoadMore:{
+      type:Boolean,
+      default:false
+    },
     data:{
       type:Array,
       default:()=>[]
@@ -369,6 +368,7 @@ export default {
       type:String,
       default:'合计'
     },
+    pullUpLoading:Function,
     showHeader:{
       type:Boolean,
       default:true
@@ -452,9 +452,12 @@ export default {
       })
       return this.columns
     },
-
     transData(){
+      let flag = this.columns.some(item=>item.type==='selection')
       this.data.forEach((item,index)=>{
+        if(flag){
+          if(item.checked==null){item.checked = false}
+        }
         if(this.rowKey){
           item.key = Object.freeze(this.rowKey(item))||Date.now()
         }else {
@@ -484,25 +487,38 @@ export default {
       completedFlag:false,
       selectArr:[],
       indeterminate:false,
-      checkedAll:false
+      checkedAll:false,
+      completeLoading:false,
     }
   },
   created(){
-    let flag = this.columns.some(item=>item.type==='selection')
-    if(flag){
-      this.data.forEach(item=> {
-        if(item.checked==null){item.checked = false}
-      })
-    }
+
   },
   mounted(){
   },
   methods: {
+    pullUpCompleteLoading(){
+      this.isLoadMore = false
+      this.completeLoading = true
+    },
     scrolltolower(e){
       if(e.detail.direction==='bottom'){
-        this.isLoadMore = true
+        if(this.isShowLoadMore){
+          this.isLoadMore = true
+        }
       }
-      console.log('===',e)
+      // this.$emit('pullUpLoading')
+      console.log('===',this.$parent.$parent)
+      let that = this
+      this.pullUpLoading&&this.pullUpLoading.call(this.$parent.$parent, (type)=>{
+        console.log('===ddd=======',this)
+        that.isLoadMore = false
+        if(type==='ok'){
+          that.completeLoading=true
+        }
+      })
+
+      // this.pullUpLoading.call(this.$parent)
     },
 	  previewImage(item,url,current){
 		  uni.previewImage({
@@ -830,6 +846,7 @@ export default {
   font-size: 12px;
   .zb-table-content{
     height: 100%;
+    //flex: 1;
     position: relative;
   }
   .zb-table-fixed{
@@ -916,10 +933,15 @@ export default {
   height: 100%;
   //overflow: hidden;
   width: 100%;
+  display: flex;
+  flex-direction: column;
   font-size: 12px;
   .zb-table-content{
-    height: 100%;
+    //height: 100%;
+    flex: 1;
+    overflow: hidden;
     position: relative;
+
   }
   .zb-table-fixed{
     min-width: 100%;

@@ -2,13 +2,66 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a358e186-f57e-4b90-864b-956058800d13" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/uni_modules/zb-table/components/zb-table/components/zb-load-more.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/index/all.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/all.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/index/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uni_modules/zb-table/changelog.md" beforeDir="false" afterPath="$PROJECT_DIR$/uni_modules/zb-table/changelog.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uni_modules/zb-table/components/zb-table/js/summary.js" beforeDir="false" afterPath="$PROJECT_DIR$/uni_modules/zb-table/components/zb-table/js/summary.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/uni_modules/zb-table/components/zb-table/zb-table.vue" beforeDir="false" afterPath="$PROJECT_DIR$/uni_modules/zb-table/components/zb-table/zb-table.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uni_modules/zb-table/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/uni_modules/zb-table/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/common/runtime.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/common/runtime.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/index/index.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/index/index.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/uni_modules/uni-card/components/uni-card/uni-card.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/uni_modules/uni-card/components/uni-card/uni-card.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-checkbox.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-checkbox.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-h5-summary.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-h5-summary.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-side-summary.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-side-summary.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-summary.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-summary.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/uni_modules/zb-table/components/zb-table/zb-table.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/uni_modules/zb-table/components/zb-table/zb-table.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/common/runtime.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/common/runtime.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/common/vendor.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/common/vendor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/pages/index/index.axml" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/pages/index/index.axml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/pages/index/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/pages/index/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/uni_modules/zb-table/components/zb-table/components/table-checkbox.acss" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/uni_modules/zb-table/components/zb-table/components/table-checkbox.acss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/uni_modules/zb-table/components/zb-table/components/table-checkbox.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/uni_modules/zb-table/components/zb-table/components/table-checkbox.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/uni_modules/zb-table/components/zb-table/components/table-h5-summary.acss" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/uni_modules/zb-table/components/zb-table/components/table-h5-summary.acss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/uni_modules/zb-table/components/zb-table/components/table-h5-summary.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/uni_modules/zb-table/components/zb-table/components/table-h5-summary.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/uni_modules/zb-table/components/zb-table/components/table-side-summary.acss" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/uni_modules/zb-table/components/zb-table/components/table-side-summary.acss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/uni_modules/zb-table/components/zb-table/components/table-side-summary.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/uni_modules/zb-table/components/zb-table/components/table-side-summary.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/uni_modules/zb-table/components/zb-table/components/table-summary.acss" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/uni_modules/zb-table/components/zb-table/components/table-summary.acss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/uni_modules/zb-table/components/zb-table/components/table-summary.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/uni_modules/zb-table/components/zb-table/components/table-summary.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/uni_modules/zb-table/components/zb-table/zb-table.acss" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/uni_modules/zb-table/components/zb-table/zb-table.acss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/uni_modules/zb-table/components/zb-table/zb-table.axml" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/uni_modules/zb-table/components/zb-table/zb-table.axml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/uni_modules/zb-table/components/zb-table/zb-table.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/uni_modules/zb-table/components/zb-table/zb-table.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/uni_modules/zb-table/components/zb-table/zb-table.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/uni_modules/zb-table/components/zb-table/zb-table.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/app.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/app.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/common/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/common/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/common/runtime.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/common/runtime.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/common/vendor.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/common/vendor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/index/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/index/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/index/index.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/index/index.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/index/index.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/index/index.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/index/index.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/index/index.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/project.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/project.config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/sitemap.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/sitemap.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/uni-card/components/uni-card/uni-card.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/uni-card/components/uni-card/uni-card.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/uni-card/components/uni-card/uni-card.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/uni-card/components/uni-card/uni-card.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/uni-card/components/uni-card/uni-card.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/uni-card/components/uni-card/uni-card.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-checkbox.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-checkbox.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-checkbox.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-checkbox.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-checkbox.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-checkbox.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-h5-summary.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-h5-summary.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-h5-summary.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-h5-summary.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-h5-summary.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-h5-summary.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-side-summary.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-side-summary.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-side-summary.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-side-summary.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-side-summary.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-side-summary.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-summary.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-summary.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-summary.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-summary.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-summary.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-summary.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/zb-table.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/zb-table.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/zb-table.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/zb-table.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/zb-table.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/zb-table.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/zb-table.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/zb-table.wxss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,13 +134,14 @@
       <updated>1647402155287</updated>
     </task>
     <task active="true" id="Default" summary="Default task">
-      <changelist id="e8182375-0b52-4952-b2d8-7a58be1208c4" name="Default Changelist" comment="" />
+      <changelist id="a358e186-f57e-4b90-864b-956058800d13" name="Default Changelist" comment="" />
       <created>1647410174256</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1647410174256</updated>
       <workItem from="1647410180516" duration="1549000" />
       <workItem from="1647508149523" duration="301000" />
+      <workItem from="1647589649838" duration="6166000" />
     </task>
     <option name="localTasksCounter" value="6" />
     <servers />

@@ -3,6 +3,9 @@
     <uni-card title="全部功能" >
       <view style="height: 300px">
         <zb-table
+            :pullUpLoading="pullUpLoading"
+            ref="zbTable"
+            :isShowLoadMore="isShowLoadMore"
             :show-header="true"
             :columns="column"
             :fit="false"
@@ -136,6 +139,7 @@
 
 <script>
   import {column1,column2,column3,column4} from './all.js'
+  let that = null
 	export default {
 		components:{
 		},
@@ -146,7 +150,6 @@
         column3,
         column4,
 				title: 'Hello',
-
         column:[
           { type:'selection', fixed:true,width:60 },
           { name: 'name', label: '姓名',fixed:true,width:80,emptyString:'--' },
@@ -309,19 +312,41 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
             zip: 200333
           }
         ],
-        data1:[]
+        data1:[],
+        flag1:true,
+        isShowLoadMore:true
 			}
 		},
 		onLoad() {
 
 		},
+    created(){
+		  that = this
+    },
     mounted(){
 		  this.data1 = JSON.parse(JSON.stringify(this.data))
-      setTimeout(()=>{
-        this.data1.shift()
-      },3000)
+      // setTimeout(()=>{
+      //   this.data1.shift()
+      // },3000)
     },
     methods:{
+      pullUpLoading(done){
+        setTimeout(()=>{
+          this.data.push({
+            date: '2011-05-02',
+            name: '王小虎23',
+            province: '上海',
+            sex:1,
+            price: 33,
+            id:"11111",
+            age:'30',
+            city: '普陀区',
+            address: '上海市普',
+            zip: 200333
+          })
+          done('ok')
+        },3000)
+      },
       buttonEdit(ite,index){
         uni.showToast({
           icon:'none',
