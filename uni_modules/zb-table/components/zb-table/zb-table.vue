@@ -142,7 +142,7 @@
 	               borderTop:`${border?'1px solid #e8e8e8':''}`,
                 textAlign:item.align||'left'
 	            }"
-	                @click.stop="sortAction(item,0)"
+	                @click.stop="sortAction(item,index)"
 	                class="item-th"
 	            >
                 <template v-if="item.type==='selection'">
@@ -219,7 +219,6 @@
 	</view>
 	<!-- #endif -->
 	<!-- #ifndef H5 || APP-PLUS -->
-
 	<view class="zb-table-applet">
 	  <view class="zb-table-content">
       <scroll-view @scrolltolower="scrolltolower"
@@ -278,9 +277,9 @@
 															  flex:i===transColumns.length-1?1:'none',
 															  minWidth:`${ite.width?ite.width:'100'}px`,
 															   borderRight:`${border?'1px solid #e8e8e8':''}`,
-                                textAlign:ite.align||'left'
-														  }"
-
+                                textAlign:ite.align||'left',
+														  }
+"
                     :class="['item-td', i <fixedLeftColumns.length&&'zb-stick-side',stripe?(index % 2) != 0?'odd':'even':'']"
                     v-for="(ite,i) in transColumns" :key="i">
                   <template  v-if="ite.type==='operation'">
@@ -361,8 +360,6 @@ export default {
       type:Object,
       default:()=>{}
     },
-    rowKey:Function,
-    summaryMethod:Function,
     columns:{
       type:Array,
       default:()=>[]
@@ -383,7 +380,6 @@ export default {
       type:String,
       default:'合计'
     },
-    pullUpLoading:Function,
     showHeader:{
       type:Boolean,
       default:true
@@ -400,6 +396,10 @@ export default {
       type:Boolean,
       default:false
     },
+    rowKey:Function,
+    summaryMethod:Function,
+    pullUpLoading:Function,
+    cellStyle:Function
   },
   computed:{
     fixedLeftColumns(){
@@ -527,6 +527,18 @@ export default {
   mounted(){
   },
   methods: {
+    getCellStyle(row, column,rowIndex, columnIndex) {
+      const cellStyle = this.cellStyle;
+      if (typeof cellStyle === 'function') {
+        return cellStyle.call(null, {
+          rowIndex,
+          columnIndex,
+          row,
+          column
+        });
+      }
+      return cellStyle;
+    },
 
     pullUpCompleteLoading(type){
       this.isLoadMore = false
@@ -678,14 +690,13 @@ export default {
       return false
     },
     sortAction(item,index){
+      if(!item.sorter){return false}
       this.$set(item,'sorterMode',item.sorterMode==='_asc'?'_desc':'_asc')
       this.sortData(item)
-	  // #ifndef H5 || APP-PLUS
-	  this.$forceUpdate()
-	  // #endif
-
+      // #ifndef H5 || APP-PLUS
+      this.$forceUpdate()
+      // #endif
     },
-
     sortData(item){
       let key = item.name
       if(item.sorterMode==='_asc'){

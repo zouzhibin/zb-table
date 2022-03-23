@@ -141,6 +141,19 @@
       </view>
     </uni-card>
 
+    <uni-card title="支持设置单元格样式" >
+      <view style="height: 300px">
+        <zb-table
+            :cell-style="cellStyle"
+            :show-header="true"
+            :columns="column1"
+            @currentChange="currentChange"
+            :highlight="true"
+            :border="true"
+            :data="data"></zb-table>
+      </view>
+    </uni-card>
+
 	</view>
 </template>
 
@@ -340,6 +353,13 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
       // },3000)
     },
     methods:{
+      cellStyle({row, column, rowIndex, columnIndex}){
+        if(columnIndex === 2 || columnIndex === 4) {
+          return{
+            color:'red'
+          }
+        }
+      },
       pullUpLoading(done){
         if(!this.flag1){
           return

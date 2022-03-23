@@ -514,7 +514,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 {
   components: {
     TableCheckbox: TableCheckbox,
@@ -532,8 +531,6 @@ __webpack_require__.r(__webpack_exports__);
       type: Object,
       default: function _default() {} },
 
-    rowKey: Function,
-    summaryMethod: Function,
     columns: {
       type: Array,
       default: function _default() {return [];} },
@@ -554,7 +551,6 @@ __webpack_require__.r(__webpack_exports__);
       type: String,
       default: '合计' },
 
-    pullUpLoading: Function,
     showHeader: {
       type: Boolean,
       default: true },
@@ -569,8 +565,12 @@ __webpack_require__.r(__webpack_exports__);
 
     fit: {
       type: Boolean,
-      default: false } },
+      default: false },
 
+    rowKey: Function,
+    summaryMethod: Function,
+    pullUpLoading: Function,
+    cellStyle: Function },
 
   computed: {
     fixedLeftColumns: function fixedLeftColumns() {
@@ -698,6 +698,18 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
   },
   methods: {
+    getCellStyle: function getCellStyle(row, column, rowIndex, columnIndex) {
+      var cellStyle = this.cellStyle;
+      if (typeof cellStyle === 'function') {
+        return cellStyle.call(null, {
+          rowIndex: rowIndex,
+          columnIndex: columnIndex,
+          row: row,
+          column: column });
+
+      }
+      return cellStyle;
+    },
 
     pullUpCompleteLoading: function pullUpCompleteLoading(type) {
       this.isLoadMore = false;
@@ -849,14 +861,13 @@ __webpack_require__.r(__webpack_exports__);
       return false;
     },
     sortAction: function sortAction(item, index) {
+      if (!item.sorter) {return false;}
       this.$set(item, 'sorterMode', item.sorterMode === '_asc' ? '_desc' : '_asc');
       this.sortData(item);
 
       this.$forceUpdate();
 
-
     },
-
     sortData: function sortData(item) {var _this5 = this;
       var key = item.name;
       if (item.sorterMode === '_asc') {
