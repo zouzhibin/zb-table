@@ -4,8 +4,8 @@
       <view style="height: 300px">
         <zb-table
             :pullUpLoading="pullUpLoading"
-            ref="zbTable"
-            :isShowLoadMore="isShowLoadMore"
+            :highlight="true"
+            :isShowLoadMore="true"
             :show-header="true"
             :columns="column"
             :fit="false"
@@ -26,10 +26,6 @@
             :stripe="true"
             :fit="false"
             @rowClick="rowClick"
-            @toggleRowSelection="toggleRowSelection"
-            @toggleAllSelection="toggleAllSelection"
-            @edit="buttonEdit"
-            @dele="dele"
             :data="data"></zb-table>
       </view>
     </uni-card>
@@ -41,11 +37,7 @@
             :stripe="true"
             :fit="false"
             @rowClick="rowClick"
-            @toggleRowSelection="toggleRowSelection"
-            @toggleAllSelection="toggleAllSelection"
             :border="true"
-            @edit="buttonEdit"
-            @dele="dele"
             :data="data"></zb-table>
       </view>
     </uni-card>
@@ -121,7 +113,10 @@
         <zb-table
             :show-header="true"
             :columns="column"
-            :fit="false"
+            :highlight="true"
+            :isShowLoadMore="true"
+            ref="zbTable"
+            @pullUpLoading="pullUpLoadingAction"
             :summary-method="getSummaries"
             @rowClick="rowClick"
             @toggleRowSelection="toggleRowSelection"
@@ -129,10 +124,22 @@
             :border="true"
             @edit="buttonEdit"
             @dele="dele"
-            :data="data1"></zb-table>
+            :data="data"></zb-table>
       </view>
     </uni-card>
 
+
+    <uni-card title="选择单行数据时使用色块表示" >
+      <view style="height: 300px">
+        <zb-table
+            :show-header="true"
+            :columns="column1"
+            @currentChange="currentChange"
+            :highlight="true"
+            :border="true"
+            :data="data"></zb-table>
+      </view>
+    </uni-card>
 
 	</view>
 </template>
@@ -153,7 +160,7 @@
         column:[
           { type:'selection', fixed:true,width:60 },
           { name: 'name', label: '姓名',fixed:true,width:80,emptyString:'--' },
-          { name: 'age', label: '年纪',sorter:true,align:'right',fixed:false, },
+          { name: 'age', label: 'id',sorter:true,align:'right',fixed:false, },
           { name: 'sex', label: '性别',filters:{0:'男',1:'女'}},
           { name: 'price', label: '价格'},
           { name: 'address', label: '地址' },
@@ -314,7 +321,9 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
         ],
         data1:[],
         flag1:true,
+		flag2:true,
         num:0,
+		num1:0,
         isShowLoadMore:true
 			}
 		},
@@ -331,7 +340,6 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
       // },3000)
     },
     methods:{
-
       pullUpLoading(done){
         if(!this.flag1){
           return
@@ -357,8 +365,36 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
           }else {
             done()
           }
-        },3000)
+        },1000)
       },
+
+	  pullUpLoadingAction(done){
+	    if(!this.flag2){
+	      return
+	    }
+	    setTimeout(()=>{
+	      this.data.push({
+	        date: '2011-05-02',
+	        name: '王小虎23',
+	        province: '上海',
+	        sex:1,
+	        price: 33,
+	        id:"11111",
+	        age:'30',
+	        city: '普陀区',
+	        address: '上海市普',
+	        zip: 200333
+	      })
+
+	      this.num1 ++
+	      if(this.num1===3){
+			this.$refs.zbTable.pullUpCompleteLoading('ok')
+	        this.flag2 = false
+	      }else {
+	        this.$refs.zbTable.pullUpCompleteLoading()
+	      }
+	    },1000)
+	  },
       buttonEdit(ite,index){
         uni.showToast({
           icon:'none',
@@ -391,6 +427,14 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
           title:'点击单选'
         })
         console.log('单选',checked,arr)
+      },
+      currentChange(row,index){
+        uni.showToast({
+          icon:'none',
+          duration:3000,
+          title:'选中当前一行'
+        })
+        console.log('单选',row,index)
       },
       rowClick(row,index){
         uni.showToast({

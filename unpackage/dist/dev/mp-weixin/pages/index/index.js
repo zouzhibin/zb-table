@@ -300,6 +300,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
 var _all = __webpack_require__(/*! ./all.js */ 16); //
 //
 //
@@ -439,15 +446,15 @@ var _all = __webpack_require__(/*! ./all.js */ 16); //
 //
 //
 //
-var that = null;var _default = { components: {}, data: function data() {return { column1: _all.column1, column2: _all.column2, column3: _all.column3, column4: _all.column4, title: 'Hello', column: [{ type: 'selection', fixed: true, width: 60 }, { name: 'name', label: '姓名', fixed: true, width: 80, emptyString: '--' }, { name: 'age', label: '年纪', sorter: true, align: 'right', fixed: false }, { name: 'sex', label: '性别', filters: { 0: '男', 1: '女' } }, { name: 'price', label: '价格' }, { name: 'address', label: '地址' }, { name: 'date', label: '日期', sorter: true }, { name: 'province', label: '省份' }, { name: 'city', label: '城市' }, { name: 'zip', label: '邮编' }, { name: 'img', label: '图片', type: "img", align: "center" }, { name: 'operation', type: 'operation', label: '操作', renders: [{ name: '编辑', func: 'edit' // func 代表子元素点击的事件 父元素接收的事件 父元素 @edit
-        }, { name: '删除', type: 'warn', func: "dele" }] }], data: [{ date: '2016-05-02', name: '', price: 1, province: '上海', sex: '1', checked: true, id: "20", img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", age: '', city: '普陀区', address: '上海市普上海市普上海市普上海市普', zip: 200333 }, { date: '2016-05-01', name: '王小虎2', province: '上海', sex: '0', price: 22, id: "2", age: 12, city: '普陀区', img: "https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-7a1ed80f6055.jpeg.a.jpeg", address: '上海市普', zip: 200333 }, { date: '2016-05-02', name: '王小虎3', province: '上海', sex: 1, price: 33, id: "3", age: '15', img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", city: '普陀区', address: '上海市普', zip: 200333 }, { date: '2016-04-02', name: '王小虎4', province: '上海', sex: 1, age: '11', price: 33, id: "4", img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", city: '普陀区', address: '上海市普', zip: 200333 }, { date: '2016-03-02', name: '王小虎5', province: '上海', price: 33, sex: 1, age: '14', img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", id: "5", city: '普陀区', address: '上海市普', zip: 200333 }, { date: '2014-05-02', name: '王小虎6', province: '上海', price: 33, sex: 1, id: "6", age: '12', img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", city: '普陀区', address: '上海市普', zip: 200333 }, { date: '2019-05-02', name: '王小虎7', price: 33, province: '上海', sex: 1, age: '10', id: "7", city: '普陀区', img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", address: '上海市普', zip: 200333 }, { date: '2012-05-02', name: '王小虎8', province: '上海', price: 33, sex: 1, age: '29', id: "8", city: '普陀区', img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", address: '上海市普', zip: 200333 }, { date: '2011-05-02', name: '王小虎91',
-        price: 33,
-        img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500",
-        province: '上海',
-        sex: 1,
-        id: "9",
-        age: '30',
-        city: '普陀区',
+//
+//
+//
+//
+//
+//
+//
+var that = null;var _default = { components: {}, data: function data() {return { column1: _all.column1, column2: _all.column2, column3: _all.column3, column4: _all.column4, title: 'Hello', column: [{ type: 'selection', fixed: true, width: 60 }, { name: 'name', label: '姓名', fixed: true, width: 80, emptyString: '--' }, { name: 'age', label: 'id', sorter: true, align: 'right', fixed: false }, { name: 'sex', label: '性别', filters: { 0: '男', 1: '女' } }, { name: 'price', label: '价格' }, { name: 'address', label: '地址' }, { name: 'date', label: '日期', sorter: true }, { name: 'province', label: '省份' }, { name: 'city', label: '城市' }, { name: 'zip', label: '邮编' }, { name: 'img', label: '图片', type: "img", align: "center" }, { name: 'operation', type: 'operation', label: '操作', renders: [{ name: '编辑', func: 'edit' // func 代表子元素点击的事件 父元素接收的事件 父元素 @edit
+        }, { name: '删除', type: 'warn', func: "dele" }] }], data: [{ date: '2016-05-02', name: '', price: 1, province: '上海', sex: '1', checked: true, id: "20", img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", age: '', city: '普陀区', address: '上海市普上海市普上海市普上海市普', zip: 200333 }, { date: '2016-05-01', name: '王小虎2', province: '上海', sex: '0', price: 22, id: "2", age: 12, city: '普陀区', img: "https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-7a1ed80f6055.jpeg.a.jpeg", address: '上海市普', zip: 200333 }, { date: '2016-05-02', name: '王小虎3', province: '上海', sex: 1, price: 33, id: "3", age: '15', img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", city: '普陀区', address: '上海市普', zip: 200333 }, { date: '2016-04-02', name: '王小虎4', province: '上海', sex: 1, age: '11', price: 33, id: "4", img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", city: '普陀区', address: '上海市普', zip: 200333 }, { date: '2016-03-02', name: '王小虎5', province: '上海', price: 33, sex: 1, age: '14', img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", id: "5", city: '普陀区', address: '上海市普', zip: 200333 }, { date: '2014-05-02', name: '王小虎6', province: '上海', price: 33, sex: 1, id: "6", age: '12', img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", city: '普陀区', address: '上海市普', zip: 200333 }, { date: '2019-05-02', name: '王小虎7', price: 33, province: '上海', sex: 1, age: '10', id: "7", city: '普陀区', img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", address: '上海市普', zip: 200333 }, { date: '2012-05-02', name: '王小虎8', province: '上海', price: 33, sex: 1, age: '29', id: "8", city: '普陀区', img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", address: '上海市普', zip: 200333 }, { date: '2011-05-02', name: '王小虎91', price: 33, img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", province: '上海', sex: 1, id: "9", age: '30', city: '普陀区',
         address: '上海市普',
         zip: 200333 },
       {
@@ -476,7 +483,9 @@ var that = null;var _default = { components: {}, data: function data() {return {
 
       data1: [],
       flag1: true,
+      flag2: true,
       num: 0,
+      num1: 0,
       isShowLoadMore: true };
 
   },
@@ -493,7 +502,6 @@ var that = null;var _default = { components: {}, data: function data() {return {
     // },3000)
   },
   methods: {
-
     pullUpLoading: function pullUpLoading(done) {var _this = this;
       if (!this.flag1) {
         return;
@@ -519,7 +527,35 @@ var that = null;var _default = { components: {}, data: function data() {return {
         } else {
           done();
         }
-      }, 3000);
+      }, 1000);
+    },
+
+    pullUpLoadingAction: function pullUpLoadingAction(done) {var _this2 = this;
+      if (!this.flag2) {
+        return;
+      }
+      setTimeout(function () {
+        _this2.data.push({
+          date: '2011-05-02',
+          name: '王小虎23',
+          province: '上海',
+          sex: 1,
+          price: 33,
+          id: "11111",
+          age: '30',
+          city: '普陀区',
+          address: '上海市普',
+          zip: 200333 });
+
+
+        _this2.num1++;
+        if (_this2.num1 === 3) {
+          _this2.$refs.zbTable.pullUpCompleteLoading('ok');
+          _this2.flag2 = false;
+        } else {
+          _this2.$refs.zbTable.pullUpCompleteLoading();
+        }
+      }, 1000);
     },
     buttonEdit: function buttonEdit(ite, index) {
       uni.showToast({
@@ -553,6 +589,14 @@ var that = null;var _default = { components: {}, data: function data() {return {
         title: '点击单选' });
 
       console.log('单选', checked, arr);
+    },
+    currentChange: function currentChange(row, index) {
+      uni.showToast({
+        icon: 'none',
+        duration: 3000,
+        title: '选中当前一行' });
+
+      console.log('单选', row, index);
     },
     rowClick: function rowClick(row, index) {
       uni.showToast({

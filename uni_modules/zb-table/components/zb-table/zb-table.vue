@@ -61,7 +61,7 @@
                      :style=" `height: calc(100% - ${showSummary?80:40}px)`" >
 	          <view class="zb-table-fixed">
 	            <view class="zb-table-tbody">
-	              <view  class="item-tr"
+	              <view  :class="['item-tr',highlight&&isHighlight(item,index)?'current-row':'']"
                        @click.stop="rowClick(item,index)"
 	                     v-for="(item,index) in transData" :key="item.key" >
 	                <view
@@ -95,16 +95,19 @@
                         <tableCheckbox @checkboxSelected="(e)=>checkboxSelected(e,item)" :cellData="item" :checked="item.checked"/>
                       </view>
                     </template>
-					<template v-else-if="ite.type==='img'">
-					  <view class="checkbox-item">
-					    <image
-						@click.stop="previewImage(item,item[ite.name],index)"
-						v-if="item[ite.name]"
-						:show-menu-by-longpress="false"
-						:src="item[ite.name]" style="width: 40px;height:30px; " mode="aspectFit"></image>
-						<text v-else>{{ite.emptyString}}</text>
-					  </view>
-					</template>
+                    <template v-else-if="ite.type==='index'">
+                      {{index+1}}
+                    </template>
+                  <template v-else-if="ite.type==='img'">
+                    <view class="checkbox-item">
+                      <image
+                    @click.stop="previewImage(item,item[ite.name],index)"
+                    v-if="item[ite.name]"
+                    :show-menu-by-longpress="false"
+                    :src="item[ite.name]" style="width: 40px;height:30px; " mode="aspectFit"></image>
+                    <text v-else>{{ite.emptyString}}</text>
+                    </view>
+                  </template>
 	                  <template  v-else>
 	                    {{ ite.filters?itemFilter(item,ite):item[ite.name]||ite.emptyString }}
 	                  </template>
@@ -171,7 +174,8 @@
             :style=" `height: calc(100% - ${showSummary?80:40}px)`">
           <view class="zb-table-fixed">
             <view class="zb-table-tbody">
-              <view :class="['item-tr',stripe?(i % 2) != 0?'odd':'even':'']"
+              <view
+                  :class="['item-tr',stripe?(i % 2) != 0?'odd':'even':'',highlight&&isHighlight(ite,i)?'current-row':'']"
                     v-for="(ite,i) in transData"
                     @click.stop="rowClick(ite,i)"
                     :key="ite.key"
@@ -188,6 +192,9 @@
                     <view class="checkbox-item">
                       <tableCheckbox @checkboxSelected="(e)=>checkboxSelected(e,ite)" :cellData="ite" :checked="ite.checked"/>
                     </view>
+                  </template>
+                  <template v-else-if="item.type==='index'">
+                    {{i+1}}
                   </template>
                   <template v-else>
                     {{ite[item.name]||item.emptyString}}
@@ -244,13 +251,12 @@
                         </view>
                       </template>
                       <template v-else>
-                        {{ item.label }}
+                        {{ item.label||'' }}
                         <view class="sorter-table" v-if="item.sorter">
                           <view :class="['sorter-table-icon',item.sorterMode==='_asc'&&`sorting${item.sorterMode||''}`]"></view>
                           <view :class="['sorter-table-icon',item.sorterMode==='_desc'&&`sorting${item.sorterMode||''}`]"></view>
                         </view>
                       </template>
-
                     </view>
 	                </view>
 	              </view>
@@ -262,7 +268,7 @@
 	      </template>
           <view class="zb-table-fixed">
             <view class="zb-table-tbody">
-              <view  class="item-tr"
+              <view  :class="['item-tr',highlight&&isHighlight(item,index)?'current-row':'']"
                      @click.stop="rowClick(item,index)"
                      v-for="(item,index) in transData" :key="item.key" >
                 <view
@@ -305,6 +311,9 @@
                         :src="item[ite.name]" style="width: 40px;height:30px; " mode="aspectFit"></image>
                     <text v-else>{{ite.emptyString}}</text>
                   </template>
+                  <template v-else-if="ite.type==='index'">
+                    {{index+1}}
+                  </template>
                   <template  v-else>
                     {{ ite.filters?itemFilter(item,ite):item[ite.name]||ite.emptyString }}
                   </template>
@@ -344,6 +353,10 @@ export default {
     ZbLoadMore
   },
   props:{
+    highlight:{
+      type:Boolean,
+      default:false
+    },
     itemDate:{
       type:Object,
       default:()=>{}
@@ -430,14 +443,18 @@ export default {
             column.width = this.getTextWidth(str)+column.renders.length*40
           }else if(column.type==="img"){
 			   }else if(column.type==="selection"){
-			    }else{
-            let arr = [this.getTextWidth(column.label)]
+			}else{
+			let arr = [this.getTextWidth(column.label)]
             this.data.forEach(data=>{
               let str = (data[column.name]+'')
-              let width = this.getTextWidth(str)
-              arr.push(width)
+			  if(str==='undefined'){
+				   arr.push(30)
+			  }else{
+				   let width = this.getTextWidth(str)
+				   arr.push(width)
+			  }
             })
-            column.width = Math.max(...arr)+12
+			column.width = Math.max(...arr)+20
           }
         })
         return this.columns
@@ -467,7 +484,16 @@ export default {
         }
       })
       return this.data
-    }
+    },
+    isHighlight(){
+      return (item,index)=>{
+        if(this.rowKey){
+          return item[this.rowKey] === this.currentRow[this.rowKey]
+        }else{
+          return index === this.currentRowIndex
+        }
+      }
+    },
   },
   data() {
     return {
@@ -482,6 +508,8 @@ export default {
       currentDriver:null,
       currentDriver1:null,
       bodyTime:null,
+      currentRowIndex:null,
+      currentRow: {},
       bodyTime1:null,
       headerTime:null,
       debounceTime:null,
@@ -499,6 +527,7 @@ export default {
   mounted(){
   },
   methods: {
+
     pullUpCompleteLoading(type){
       this.isLoadMore = false
       if(type==='ok'){
@@ -527,8 +556,18 @@ export default {
 			  urls:[url]
 		  })
 	  },
+    resetHighlight(){
+      this.currentRowIndex = null
+      this.currentRow = {}
+    },
     rowClick(row,index){
-      this.$emit('rowClick',row,index)
+      if(this.highlight){
+        this.currentRowIndex = index
+        this.currentRow = row
+        this.$emit('currentChange',row,index)
+      }else {
+        this.$emit('rowClick',row,index)
+      }
     },
     checkboxSelectedAll(e){
       this.indeterminate = false
@@ -595,17 +634,20 @@ export default {
     },
     // 默认字体为微软雅黑 Microsoft YaHei,字体大小为 14px
     getTextWidth(str) {
+      if(str.length<3){
+        return 40
+      }
       let flexWidth = 0
       for (const char of str) {
         if ((char >= 'A' && char <= 'Z') || (char >= 'a' && char <= 'z')) {
           // 如果是英文字符，为字符分配8个单位宽度
-          flexWidth += 8
+          flexWidth += 10
         } else if (char >= '\u4e00' && char <= '\u9fa5') {
           // 如果是中文字符，为字符分配15个单位宽度
           flexWidth += 18
         } else {
           // 其他种类字符，为字符分配8个单位宽度
-          flexWidth += 8
+          flexWidth += 11
         }
       }
       return flexWidth
@@ -1055,6 +1097,16 @@ export default {
       //height: 100%;
       width: 100%;
     }
+  }
+  .current-row{
+    .item-td{
+      background-color: #ecf5ff;
+    }
+  }
+}
+.current-row{
+  .item-td{
+    background-color: #ecf5ff;
   }
 }
 

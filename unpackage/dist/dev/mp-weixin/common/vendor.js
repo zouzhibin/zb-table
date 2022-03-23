@@ -2100,6 +2100,7 @@ uni$1;exports.default = _default;
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.column4 = exports.column3 = exports.column2 = exports.column1 = void 0;var column1 = [
+{ type: 'index', width: 60 },
 { name: 'name', label: '姓名', width: 80, emptyString: '--' },
 { name: 'age', label: '年纪' },
 { name: 'sex', label: '性别', filters: { 0: '男', 1: '女' } },
