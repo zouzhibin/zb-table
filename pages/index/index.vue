@@ -21,10 +21,8 @@
     <uni-card title="普通表格" >
       <view style="height: 200px">
         <zb-table
-            :show-header="true"
             :columns="column1"
             :stripe="true"
-            :fit="false"
             @rowClick="rowClick"
             :data="data"></zb-table>
       </view>
@@ -32,10 +30,8 @@
     <uni-card title="带边框表格" >
       <view style="height: 200px">
         <zb-table
-            :show-header="true"
             :columns="column1"
             :stripe="true"
-            :fit="false"
             @rowClick="rowClick"
             :border="true"
             :data="data"></zb-table>
@@ -44,10 +40,8 @@
     <uni-card title="多选，多行数据时使用 Checkbox" >
       <view style="height: 200px">
         <zb-table
-            :show-header="true"
             :columns="column2"
             :stripe="true"
-            :fit="false"
             @rowClick="rowClick"
             @toggleRowSelection="toggleRowSelection"
             @toggleAllSelection="toggleAllSelection"
@@ -60,10 +54,8 @@
     <uni-card title="固定多列和表头" >
       <view style="height: 200px">
         <zb-table
-            :show-header="true"
             :columns="column3"
             :stripe="true"
-            :fit="false"
             @rowClick="rowClick"
             @toggleRowSelection="toggleRowSelection"
             @toggleAllSelection="toggleAllSelection"
@@ -353,6 +345,7 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
     },
     methods:{
       cellStyle({row, column, rowIndex, columnIndex}){
+        // console.log('row, column, rowIndex, columnIndex')
         if(columnIndex === 2 || columnIndex === 4) {
           return{
             color:'red'
