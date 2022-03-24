@@ -11,18 +11,34 @@
 | fit | 列的宽度是否自撑开 | boolean |true,false | false |否 |
 | show-header | 是否显示表头 | boolean |true,false | true |否 |
 | border | 是否带有纵向边框 | boolean |true,false | true |否 |
+| highlight | 是否要高亮当前行 | boolean |true,false | false |否 |
 | show-summary | 是否在表尾显示合计行 | boolean |true,false | false |否 |
 | sum-text | 合计行第一列的文本 | String |- | 合计 |否 |
 | summary-method | 自定义的合计计算方法 | Function({ columns, data }) |- | - |否 |
+| isShowLoadMore | 是否开启上拉加载 | boolean |true,false | false |否 |
+| pullUpLoading | 开启上拉加载后的返回函数，接收参数done是函数,done(type),type为空代表还有数据，继续开启上拉加载，type='ok',代表结束上拉加载 | Function(done) |-- | -- |否 |
+
+```
+关闭上拉加载的方式1：pullUpLoading((done)=>{
+	done(type)
+})
+done 接收参数为 type ，type为空代表还有数据，可以继续加载，无数据的时候传入 'ok'代表结束
+```
 
 ## table 事件
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |是否必须|
 | ------ | ------ | ------ | ------ | ------ |------ |
 | 事件名自定义 | 取决于type类型为operation的 renders参数里面 func 的参数名 | Function |(row,index)=>{} | -- |否 |
+| currentChange | 当表格的当前行发生变化的时候会触发该事件，如果要高亮当前行，请打开表格的 highlight属性,this.$refs.table.resetHighlight()清除选中 | Function |(row,index)=>{} | -- |否 |
 | toggleRowSelection | 用于多选表格，切换某一行的选中状态，第一个参数代表选中状态，参数二代表选中的对象 | Function |(selected ,array)=>{} | -- |否 |
 | toggleAllSelection | 用于多选表格，切换所有行的选中状态 ，第一个参数代表选中状态，参数二代表选中的对象| Function |(selected ,array)=>{} | -- |否 |
 | rowClick | 单击某行 ，第一个参数代表选中对象，参数二代表选中的index| Function |(row ,index)=>{} | -- |否 |
+| pullUpLoading | 开启上拉加载后的返回函数，无参数| Function  | -- |-- |否 |
 
+```
+关闭上拉加载的方式2：this.$refs.zbTable.pullUpCompleteLoading('ok')
+接收参数为 type ，type为空代表还有数据，可以继续加载，无数据的时候传入 'ok'代表结束
+```
 
 ## data 属性
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
@@ -41,7 +57,7 @@
 | emptyString | 当值为空的时候默认显示的值 | string |  | -- |
 | filters | 对象过滤的选项，对象格式，对象中的元素需要有 key 和 value 属性。 | Object | {key:value} | -- |
 | align | 对齐方式 | String | left/center/right | left |
-| type | 为 operation 的时候代表为操作按钮,img的时候代表图片地址 | string | operation,img | -- |
+| type | 为 operation 的时候代表为操作按钮,img的时候代表图片地址,index代表序列号 | string | operation,img,index | -- |
 | renders | type 为operation的时候 必传 | Array | {name:'名字',func:"父元素接收事件名",type:"按钮的类型",size:"大小"} | -- |
 ```
 type 为 operation 的时候代表为操作按钮

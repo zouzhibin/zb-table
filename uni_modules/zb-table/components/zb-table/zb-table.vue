@@ -221,9 +221,20 @@
 	<!-- #ifndef H5 || APP-PLUS -->
 	<view class="zb-table-applet">
 	  <view class="zb-table-content">
-      <scroll-view @scrolltolower="scrolltolower"
-                   style=" height: 100%"
-                   scroll-y="true" scroll-x="true">
+      <scroll-view
+		<!-- #ifdef MP-ALIPAY -->
+		@scroll="scrollAlipay"
+		<!-- #endif  -->
+
+          @scrolltolower="scrolltolower"
+					<!-- #ifdef MP-ALIPAY -->
+                   style=" height: 100%;overflow-x:scroll"
+				   <!-- #endif  -->
+				   <!-- #ifndef MP-ALIPAY -->
+				   style=" height: 100%"
+				   <!-- #endif  -->
+                   scroll-y="true"
+				   scroll-x="true">
 	    <view class="zb-table-scroll" >
 	      <template v-if="showHeader">
 	        <view class="zb-table-header top-header-uni" style="height: 40px;">
@@ -494,10 +505,14 @@ export default {
         }
       }
     },
+
   },
   data() {
     return {
       button:[],
+	    alipayScrollTop:0,
+      alipayScrollOldTop:0,
+      alipayFlag:false,
       bodyTableLeft:0,
       headerTableLeft:0,
       lastScrollLeft:0,
@@ -519,6 +534,7 @@ export default {
       indeterminate:false,
       checkedAll:false,
       completeLoading:false,
+      aliTime:null,
     }
   },
   created(){
@@ -527,18 +543,7 @@ export default {
   mounted(){
   },
   methods: {
-    getCellStyle(row, column,rowIndex, columnIndex) {
-      const cellStyle = this.cellStyle;
-      if (typeof cellStyle === 'function') {
-        return cellStyle.call(null, {
-          rowIndex,
-          columnIndex,
-          row,
-          column
-        });
-      }
-      return cellStyle;
-    },
+
 
     pullUpCompleteLoading(type){
       this.isLoadMore = false
@@ -546,11 +551,24 @@ export default {
         this.completeLoading = true
       }
     },
-    scrolltolower(e){
-      if(e.detail.direction==='bottom'){
-        if(this.isShowLoadMore){
-          this.isLoadMore = true
+    scrollAlipay(e){
+
+      if(!this.alipayScrollOldTop){
+        this.alipayScrollOldTop = e.detail.scrollTop
+      }
+      this.aliTime&&clearTimeout(this.aliTime)
+      this.aliTime = setTimeout(()=>{
+
+        if(this.alipayFlag&&e.detail.scrollTop>this.alipayScrollOldTop){
+          this.pullLoad()
         }
+        this.alipayFlag = false
+        this.alipayScrollOldTop = null
+      },500)
+    },
+    pullLoad(){
+      if(this.isShowLoadMore){
+        this.isLoadMore = true
       }
       this.$emit('pullUpLoading')
       let that = this
@@ -560,6 +578,14 @@ export default {
           that.completeLoading=true
         }
       })
+    },
+
+    scrolltolower(e){
+      this.alipayFlag = true
+      if(e.detail.direction==='bottom'){
+        this.pullLoad()
+      }
+
       // this.pullUpLoading.call(this.$parent)
     },
 	  previewImage(item,url,current){

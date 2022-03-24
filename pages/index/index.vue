@@ -113,7 +113,6 @@
         <zb-table
             :show-header="true"
             :columns="column"
-            :highlight="true"
             :isShowLoadMore="true"
             ref="zbTable"
             @pullUpLoading="pullUpLoadingAction"
