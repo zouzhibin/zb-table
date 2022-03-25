@@ -52,7 +52,8 @@
 	      <template v-if="!data.length">
 	        <view class="no-data">暂无数据~~</view>
 	      </template>
-	      <scroll-view class="zb-table-body" ref="tableBody"	scroll-x="true"	scroll-y="true"	id="tableBody"
+	      <scroll-view
+            class="zb-table-body" ref="tableBody"	scroll-x="true"	scroll-y="true"	id="tableBody"
 	                   :lower-threshold="10"
 	                   :upper-threshold="10"
                      @scrolltolower="scrolltolower"
@@ -181,11 +182,11 @@
                     :key="ite.key"
                     style="">
                 <view class='item-td'
-                      :style="{
+                      :style="[{
 	                       width:`${item.width?item.width:'100'}px`,
 	                       borderRight:`${border?'1px solid #e8e8e8':''}`,
 	                       textAlign:item.align||'left'
-	                      }"
+	                      },cellStyle&&getCellStyle(ite,item,i,index)]"
                       :key="index"
                       v-for="(item,index) in fixedLeftColumns">
                   <template v-if="item.type==='selection'">
@@ -615,9 +616,8 @@ export default {
         this.currentRowIndex = index
         this.currentRow = row
         this.$emit('currentChange',row,index)
-      }else {
-        this.$emit('rowClick',row,index)
       }
+      this.$emit('rowClick',row,index)
     },
     checkboxSelectedAll(e){
       this.indeterminate = false

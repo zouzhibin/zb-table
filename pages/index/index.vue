@@ -346,7 +346,7 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
     methods:{
       cellStyle({row, column, rowIndex, columnIndex}){
         // console.log('row, column, rowIndex, columnIndex')
-        if(columnIndex === 2 || columnIndex === 4) {
+        if(columnIndex === 1 || columnIndex === 4) {
           return{
             color:'red'
           }
