@@ -5,6 +5,7 @@ table 表格 固定表头、固定首列、多列 上拉加载更多、 排序�
 已用于生产环境
 
 ## qq群 731805264
+## -- github 永远保持最新，有啥想法的可以提PR,共同开发 [地址](https://github.com/zouzhibin/zb-table)
 
 
 ## table 属性
