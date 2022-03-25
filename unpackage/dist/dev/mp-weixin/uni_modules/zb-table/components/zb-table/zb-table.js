@@ -537,6 +537,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 {
   components: {
     TableCheckbox: TableCheckbox,
@@ -590,7 +591,7 @@ __webpack_require__.r(__webpack_exports__);
       type: Boolean,
       default: false },
 
-    rowKey: Function,
+    rowKey: [String, Function],
     summaryMethod: Function,
     pullUpLoading: Function,
     cellStyle: Function },
@@ -674,20 +675,43 @@ __webpack_require__.r(__webpack_exports__);
       var flag = this.columns.some(function (item) {return item.type === 'selection';});
       this.data.forEach(function (item, index) {
         if (flag) {
-          if (item.checked == null) {item.checked = false;}
+          if (item.checked == null) {
+            item.checked = false;
+          }
+          if (item.checked) {
+            if (!_this2.selectArr.length) {
+              _this2.selectArr.push(item);
+            }
+          }
         }
         if (_this2.rowKey) {
-          item.key = Object.freeze(_this2.rowKey(item)) || Date.now();
+          if (typeof _this2.rowKey === 'function') {
+            item.key = Object.freeze(_this2.rowKey(item)) || Date.now();
+          } else {
+            item.key = Object.freeze(item[_this2.rowKey]) || Date.now();
+          }
         } else {
           item.key = index;
         }
       });
+      if (flag && this.data.length) {
+        var le = this.data.filter(function (item) {return item.checked;}).length;
+        if (le) {
+          if (le === this.data.length) {
+            this.checkedAll = true;
+          } else {
+            this.indeterminate = true;
+          }
+
+        }
+
+      }
       return this.data;
     },
     isHighlight: function isHighlight() {var _this3 = this;
       return function (item, index) {
         if (_this3.rowKey) {
-          return item[_this3.rowKey] === _this3.currentRow[_this3.rowKey];
+          return item.key === _this3.currentRow['key'];
         } else {
           return index === _this3.currentRowIndex;
         }
@@ -765,15 +789,16 @@ __webpack_require__.r(__webpack_exports__);
     pullLoad: function pullLoad() {
       if (this.isShowLoadMore) {
         this.isLoadMore = true;
+        this.$emit('pullUpLoading');
+        var that = this;
+        this.pullUpLoading && this.pullUpLoading.call(this.$parent.$parent, function (type) {
+          that.isLoadMore = false;
+          if (type === 'ok') {
+            that.completeLoading = true;
+          }
+        });
       }
-      this.$emit('pullUpLoading');
-      var that = this;
-      this.pullUpLoading && this.pullUpLoading.call(this.$parent.$parent, function (type) {
-        that.isLoadMore = false;
-        if (type === 'ok') {
-          that.completeLoading = true;
-        }
-      });
+
     },
 
     scrolltolower: function scrolltolower(e) {
@@ -799,9 +824,8 @@ __webpack_require__.r(__webpack_exports__);
         this.currentRowIndex = index;
         this.currentRow = row;
         this.$emit('currentChange', row, index);
-      } else {
-        this.$emit('rowClick', row, index);
       }
+      this.$emit('rowClick', row, index);
     },
     checkboxSelectedAll: function checkboxSelectedAll(e) {var _this6 = this;
       this.indeterminate = false;
@@ -835,7 +859,6 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
 
-
       item.checked = e.checked;
       e.data.checked = e.checked;
       if (e.checked) {
@@ -843,7 +866,8 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         this.selectArr = this.selectArr.filter(function (item) {return item.key !== e.data.key;});
       }
-      if (this.selectArr.length === this.data.length) {
+      console.log('this.selectArr', this.selectArr, this.transData);
+      if (this.selectArr.length === this.transData.length) {
         this.indeterminate = false;
         this.checkedAll = true;
       } else {

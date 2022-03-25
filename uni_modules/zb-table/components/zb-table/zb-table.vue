@@ -407,7 +407,7 @@ export default {
       type:Boolean,
       default:false
     },
-    rowKey:Function,
+    rowKey:[String, Function],
     summaryMethod:Function,
     pullUpLoading:Function,
     cellStyle:Function
@@ -491,20 +491,43 @@ export default {
       let flag = this.columns.some(item=>item.type==='selection')
       this.data.forEach((item,index)=>{
         if(flag){
-          if(item.checked==null){item.checked = false}
+          if(item.checked==null){
+            item.checked = false
+          }
+          if(item.checked){
+            if(!this.selectArr.length){
+              this.selectArr.push(item)
+            }
+          }
         }
         if(this.rowKey){
-          item.key = Object.freeze(this.rowKey(item))||Date.now()
+          if(typeof this.rowKey==='function'){
+            item.key = Object.freeze(this.rowKey(item))||Date.now()
+          }else {
+            item.key = Object.freeze(item[this.rowKey])||Date.now()
+          }
         }else {
           item.key = index
         }
       })
+      if(flag&&this.data.length){
+        let le = this.data.filter(item=>item.checked).length
+        if(le){
+          if(le===this.data.length){
+            this.checkedAll = true
+          }else {
+            this.indeterminate = true
+          }
+
+        }
+
+      }
       return this.data
     },
     isHighlight(){
       return (item,index)=>{
         if(this.rowKey){
-          return item[this.rowKey] === this.currentRow[this.rowKey]
+          return item.key === this.currentRow['key']
         }else{
           return index === this.currentRowIndex
         }
@@ -582,15 +605,16 @@ export default {
     pullLoad(){
       if(this.isShowLoadMore){
         this.isLoadMore = true
+        this.$emit('pullUpLoading')
+        let that = this
+        this.pullUpLoading&&this.pullUpLoading.call(this.$parent.$parent, (type)=>{
+          that.isLoadMore = false
+          if(type==='ok'){
+            that.completeLoading=true
+          }
+        })
       }
-      this.$emit('pullUpLoading')
-      let that = this
-      this.pullUpLoading&&this.pullUpLoading.call(this.$parent.$parent, (type)=>{
-        that.isLoadMore = false
-        if(type==='ok'){
-          that.completeLoading=true
-        }
-      })
+
     },
 
     scrolltolower(e){
@@ -651,7 +675,6 @@ export default {
         }
       })
       // #endif
-
       item.checked = e.checked
       e.data.checked = e.checked
       if(e.checked){
@@ -659,7 +682,8 @@ export default {
       }else{
         this.selectArr = this.selectArr.filter(item=>item.key!==e.data.key)
       }
-      if(this.selectArr.length===this.data.length){
+      console.log('this.selectArr',this.selectArr,this.transData)
+      if(this.selectArr.length===this.transData.length){
         this.indeterminate = false
         this.checkedAll = true
       }else{

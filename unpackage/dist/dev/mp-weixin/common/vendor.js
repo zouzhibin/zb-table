@@ -2100,6 +2100,7 @@ uni$1;exports.default = _default;
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.column4 = exports.column3 = exports.column2 = exports.column1 = void 0;var column1 = [
+{ type: 'index', width: 60 },
 { name: 'name', label: '姓名', width: 80, emptyString: '--' },
 { name: 'age', label: '年纪' },
 { name: 'sex', label: '性别', filters: { 0: '男', 1: '女' } },
@@ -8742,47 +8743,45 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
   },
   watch: {
-    'showSummary': {
+    'data': {
+      deep: true,
       immediate: true,
-      handler: function handler(newValue) {var _this = this;
-        console.log('========', newValue);
-        if (newValue) {
-          var sums = [];
-          if (this.summaryMethod) {
-            sums = this.summaryMethod({ columns: this.transColumns, data: this.data });
-          } else {
-            this.transColumns.forEach(function (column, index) {
-              if (index === 0) {
-                sums[index] = _this.sumText;
-                return;
-              }
-              var values = _this.data.map(function (item) {return Number(item[column.name]);});
-              var precisions = [];
-              var notNumber = true;
-              values.forEach(function (value) {
-                if (!isNaN(value)) {
-                  notNumber = false;
-                  var decimal = ('' + value).split('.')[1];
-                  precisions.push(decimal ? decimal.length : 0);
-                }
-              });
-              var precision = Math.max.apply(null, precisions);
-              if (!notNumber) {
-                sums[index] = values.reduce(function (prev, curr) {
-                  var value = Number(curr);
-                  if (!isNaN(value)) {
-                    return parseFloat((prev + curr).toFixed(Math.min(precision, 20)));
-                  } else {
-                    return prev;
-                  }
-                }, 0);
-              } else {
-                sums[index] = '';
+      handler: function handler(newValue, oldValue) {var _this = this;
+        var sums = [];
+        if (this.summaryMethod) {
+          sums = this.summaryMethod({ columns: this.transColumns, data: this.data });
+        } else {
+          this.transColumns.forEach(function (column, index) {
+            if (index === 0) {
+              sums[index] = _this.sumText;
+              return;
+            }
+            var values = _this.data.map(function (item) {return Number(item[column.name]);});
+            var precisions = [];
+            var notNumber = true;
+            values.forEach(function (value) {
+              if (!isNaN(value)) {
+                notNumber = false;
+                var decimal = ('' + value).split('.')[1];
+                precisions.push(decimal ? decimal.length : 0);
               }
             });
-          }
-          this.sums = sums;
+            var precision = Math.max.apply(null, precisions);
+            if (!notNumber) {
+              sums[index] = values.reduce(function (prev, curr) {
+                var value = Number(curr);
+                if (!isNaN(value)) {
+                  return parseFloat((prev + curr).toFixed(Math.min(precision, 20)));
+                } else {
+                  return prev;
+                }
+              }, 0);
+            } else {
+              sums[index] = '';
+            }
+          });
         }
+        this.sums = sums;
       } } } };exports.default = _default2;
 
 /***/ }),

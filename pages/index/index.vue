@@ -4,11 +4,12 @@
       <view style="height: 300px">
         <zb-table
             :pullUpLoading="pullUpLoading"
-            :highlight="true"
             :isShowLoadMore="true"
+            :highlight="true"
             :show-header="true"
             :columns="column"
             :fit="false"
+            row-key="id"
             @rowClick="rowClick"
             @toggleRowSelection="toggleRowSelection"
             @toggleAllSelection="toggleAllSelection"
@@ -339,9 +340,13 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
     },
     mounted(){
 		  this.data1 = JSON.parse(JSON.stringify(this.data))
-      // setTimeout(()=>{
-      //   this.data1.shift()
-      // },3000)
+		  let data2 = JSON.parse(JSON.stringify(this.data))
+      setTimeout(()=>{
+        //  data2.forEach(item=>{
+        //   item.checked = true
+        // })
+        // this.data = data2
+      },3000)
     },
     methods:{
       cellStyle({row, column, rowIndex, columnIndex}){
@@ -363,7 +368,7 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
             province: '上海',
             sex:1,
             price: 33,
-            id:"11111",
+            id:11111+this.num,
             age:'30',
             city: '普陀区',
             address: '上海市普',

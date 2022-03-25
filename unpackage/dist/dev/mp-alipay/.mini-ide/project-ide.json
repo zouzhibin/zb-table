@@ -1,3 +1,4 @@
 {
-  "disableRemoteDebugSourcePanel": false
+  "disableRemoteDebugSourcePanel": false,
+  "enableLegacyRemoteDebug": false
 }

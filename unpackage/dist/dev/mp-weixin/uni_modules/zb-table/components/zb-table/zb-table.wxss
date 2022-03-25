@@ -141,11 +141,13 @@
   height: 100%;
   overflow: hidden;
   width: 100%;
+  display: flex;
+  flex-direction: column;
   font-size: 12px;
 }
 .zb-table .zb-table-content.data-v-35b7ff72 {
-  height: 100%;
   position: relative;
+  overflow: hidden;
 }
 .zb-table .zb-table-fixed.data-v-35b7ff72 {
   min-width: 100%;
@@ -221,12 +223,14 @@
 }
 .zb-table-applet.data-v-35b7ff72 {
   height: 100%;
-  overflow: hidden;
   width: 100%;
+  display: flex;
+  flex-direction: column;
   font-size: 12px;
 }
 .zb-table-applet .zb-table-content.data-v-35b7ff72 {
-  height: 100%;
+  flex: 1;
+  overflow: hidden;
   position: relative;
 }
 .zb-table-applet .zb-table-fixed.data-v-35b7ff72 {
@@ -327,5 +331,11 @@
 .zb-table-applet .zb-table-tbody .even.data-v-35b7ff72 {
   background: white;
   width: 100%;
+}
+.zb-table-applet .current-row .item-td.data-v-35b7ff72 {
+  background-color: #ecf5ff;
+}
+.current-row .item-td.data-v-35b7ff72 {
+  background-color: #ecf5ff;
 }
 
