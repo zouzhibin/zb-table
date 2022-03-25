@@ -1,4 +1,5 @@
 export const column1 = [
+    { type:'index', width:60 },
     { name: 'name', label: '姓名',width:80,emptyString:'--' },
     { name: 'age', label: '年纪',},
     { name: 'sex', label: '性别',filters:{0:'男',1:'女'}},
@@ -43,3 +44,5 @@ export const column4 = [
     { name: 'city', label: '城市' },
     { name: 'zip', label: '邮编' },
 ]
+
+

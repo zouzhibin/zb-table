@@ -1,0 +1,10 @@
+{
+  "component": true,
+  "usingComponents": {
+    "table-checkbox": "/uni_modules/zb-table/components/zb-table/components/table-checkbox",
+    "table-summary": "/uni_modules/zb-table/components/zb-table/components/table-summary",
+    "table-side-summary": "/uni_modules/zb-table/components/zb-table/components/table-side-summary",
+    "table-h5-summary": "/uni_modules/zb-table/components/zb-table/components/table-h5-summary",
+    "zb-load-more": "/uni_modules/zb-table/components/zb-table/components/zb-load-more"
+  }
+}

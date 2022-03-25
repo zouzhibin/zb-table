@@ -1,7 +1,7 @@
 <template>
 	<!-- #ifdef H5 || APP-PLUS -->
 	<view :class="['zb-table','zb-table-fixed-header',!border&&(bodyTableLeft>50||headerTableLeft>50)&&'scroll-left-fixed']">
-	  <view class="zb-table-content">
+	  <view class="zb-table-content" style="flex: 1">
 	    <view class="zb-table-scroll" style="height: 100%;">
 	      <template v-if="showHeader">
 	        <view class="zb-table-header top-header-uni" style="height: 40px;">
@@ -55,12 +55,13 @@
 	      <scroll-view class="zb-table-body" ref="tableBody"	scroll-x="true"	scroll-y="true"	id="tableBody"
 	                   :lower-threshold="10"
 	                   :upper-threshold="10"
+                     @scrolltolower="scrolltolower"
 	                   @scrolltoupper="(e)=>debounce(scrollToLeft)(e)"
                      @scroll="handleBodyScroll"	:scroll-left="bodyTableLeft"	:scroll-top="bodyScrollTop"
                      :style=" `height: calc(100% - ${showSummary?80:40}px)`" >
 	          <view class="zb-table-fixed">
 	            <view class="zb-table-tbody">
-	              <view  class="item-tr"
+	              <view  :class="['item-tr',highlight&&isHighlight(item,index)?'current-row':'']"
                        @click.stop="rowClick(item,index)"
 	                     v-for="(item,index) in transData" :key="item.key" >
 	                <view
@@ -94,16 +95,19 @@
                         <tableCheckbox @checkboxSelected="(e)=>checkboxSelected(e,item)" :cellData="item" :checked="item.checked"/>
                       </view>
                     </template>
-					<template v-else-if="ite.type==='img'">
-					  <view class="checkbox-item">
-					    <image
-						@click.stop="previewImage(item,item[ite.name],index)"
-						v-if="item[ite.name]"
-						:show-menu-by-longpress="false"
-						:src="item[ite.name]" style="width: 40px;height:30px; " mode="aspectFit"></image>
-						<text v-else>{{ite.emptyString}}</text>
-					  </view>
-					</template>
+                    <template v-else-if="ite.type==='index'">
+                      {{index+1}}
+                    </template>
+                  <template v-else-if="ite.type==='img'">
+                    <view class="checkbox-item">
+                      <image
+                    @click.stop="previewImage(item,item[ite.name],index)"
+                    v-if="item[ite.name]"
+                    :show-menu-by-longpress="false"
+                    :src="item[ite.name]" style="width: 40px;height:30px; " mode="aspectFit"></image>
+                    <text v-else>{{ite.emptyString}}</text>
+                    </view>
+                  </template>
 	                  <template  v-else>
 	                    {{ ite.filters?itemFilter(item,ite):item[ite.name]||ite.emptyString }}
 	                  </template>
@@ -112,7 +116,6 @@
 	            </view>
 	          </view>
 	        </scroll-view>
-
        <table-h5-summary
            :data="data"
            :handleFooterTableScrollLeft="handleFooterTableScrollLeft"
@@ -124,8 +127,6 @@
            :summary-method="summaryMethod"
            :sumText="sumText"
            :fixedLeftColumns="fixedLeftColumns"/>
-
-
 	    </view>
 	    <view class="zb-table-fixed-left" v-if="isFixedLeft">
 	      <template v-if="showHeader">
@@ -141,7 +142,7 @@
 	               borderTop:`${border?'1px solid #e8e8e8':''}`,
                 textAlign:item.align||'left'
 	            }"
-	                @click.stop="sortAction(item,0)"
+	                @click.stop="sortAction(item,index)"
 	                class="item-th"
 	            >
                 <template v-if="item.type==='selection'">
@@ -173,7 +174,8 @@
             :style=" `height: calc(100% - ${showSummary?80:40}px)`">
           <view class="zb-table-fixed">
             <view class="zb-table-tbody">
-              <view :class="['item-tr',stripe?(i % 2) != 0?'odd':'even':'']"
+              <view
+                  :class="['item-tr',stripe?(i % 2) != 0?'odd':'even':'',highlight&&isHighlight(ite,i)?'current-row':'']"
                     v-for="(ite,i) in transData"
                     @click.stop="rowClick(ite,i)"
                     :key="ite.key"
@@ -190,6 +192,9 @@
                     <view class="checkbox-item">
                       <tableCheckbox @checkboxSelected="(e)=>checkboxSelected(e,ite)" :cellData="ite" :checked="ite.checked"/>
                     </view>
+                  </template>
+                  <template v-else-if="item.type==='index'">
+                    {{i+1}}
                   </template>
                   <template v-else>
                     {{ite[item.name]||item.emptyString}}
@@ -210,12 +215,27 @@
             :fixedLeftColumns="fixedLeftColumns"/>
 	    </view>
 	  </view>
+    <zb-load-more v-if="isLoadMore&&!completeLoading"/>
 	</view>
 	<!-- #endif -->
 	<!-- #ifndef H5 || APP-PLUS -->
 	<view class="zb-table-applet">
 	  <view class="zb-table-content">
-	    <view class="zb-table-scroll" style="height: 100%;overflow: scroll">
+      <scroll-view
+		<!-- #ifdef MP-ALIPAY -->
+		@scroll="scrollAlipay"
+		<!-- #endif  -->
+
+          @scrolltolower="scrolltolower"
+					<!-- #ifdef MP-ALIPAY -->
+                   style=" height: 100%;overflow-x:scroll"
+				   <!-- #endif  -->
+				   <!-- #ifndef MP-ALIPAY -->
+				   style=" height: 100%"
+				   <!-- #endif  -->
+                   scroll-y="true"
+				   scroll-x="true">
+	    <view class="zb-table-scroll" >
 	      <template v-if="showHeader">
 	        <view class="zb-table-header top-header-uni" style="height: 40px;">
 	            <view class="zb-table-fixed" >
@@ -241,13 +261,12 @@
                         </view>
                       </template>
                       <template v-else>
-                        {{ item.label }}
+                        {{ item.label||'' }}
                         <view class="sorter-table" v-if="item.sorter">
                           <view :class="['sorter-table-icon',item.sorterMode==='_asc'&&`sorting${item.sorterMode||''}`]"></view>
                           <view :class="['sorter-table-icon',item.sorterMode==='_desc'&&`sorting${item.sorterMode||''}`]"></view>
                         </view>
                       </template>
-
                     </view>
 	                </view>
 	              </view>
@@ -257,58 +276,61 @@
 	      <template v-if="!data.length">
 	        <view class="no-data">暂无数据~~</view>
 	      </template>
-	      <view class="zb-table-fixed">
-	            <view class="zb-table-tbody">
-	              <view  class="item-tr"
-                       @click.stop="rowClick(item,index)"
-	                     v-for="(item,index) in transData" :key="item.key" >
-	                <view
-	                    :style="{
+          <view class="zb-table-fixed">
+            <view class="zb-table-tbody">
+              <view  :class="['item-tr',highlight&&isHighlight(item,index)?'current-row':'']"
+                     @click.stop="rowClick(item,index)"
+                     v-for="(item,index) in transData" :key="item.key" >
+                <view
+                    :style="{
 	                              left:`${ite.left}px`,
 									              width:`${ite.width?ite.width:'100'}px`,
 															  flex:i===transColumns.length-1?1:'none',
 															  minWidth:`${ite.width?ite.width:'100'}px`,
 															   borderRight:`${border?'1px solid #e8e8e8':''}`,
-                                textAlign:ite.align||'left'
-														  }"
-
-	                    :class="['item-td', i <fixedLeftColumns.length&&'zb-stick-side',stripe?(index % 2) != 0?'odd':'even':'']"
-	                    v-for="(ite,i) in transColumns" :key="i">
-	                  <template  v-if="ite.type==='operation'">
-	                    <view style="display: flex;align-items: center;height: 100%">
-	                      <view
-	                          v-for="ren,ind in ite.renders"
-	                          :key="ind"
-	                          @click.stop="$emit(ren.func,item,index)"
-	                          :style="{
+                                textAlign:ite.align||'left',
+														  }
+"
+                    :class="['item-td', i <fixedLeftColumns.length&&'zb-stick-side',stripe?(index % 2) != 0?'odd':'even':'']"
+                    v-for="(ite,i) in transColumns" :key="i">
+                  <template  v-if="ite.type==='operation'">
+                    <view style="display: flex;align-items: center;height: 100%">
+                      <view
+                          v-for="ren,ind in ite.renders"
+                          :key="ind"
+                          @click.stop="$emit(ren.func,item,index)"
+                          :style="{
 	                          display:'flex',
 	                          alignItems: 'center',
 	                          marginRight:ite.renders.length>1?'8px':'0'
 	                        }">
-	                        <button :type="ren.type||'primary'" :size="ren.size||'mini'">{{ren.name}}</button>
-	                      </view>
-	                    </view>
-	                  </template>
-                    <template v-else-if="ite.type==='selection'">
-                      <view class="checkbox-item">
-                        <tableCheckbox @checkboxSelected="(e)=>checkboxSelected(e,item)" :cellData="item" :checked="item.checked"/>
+                        <button :type="ren.type||'primary'" :size="ren.size||'mini'">{{ren.name}}</button>
                       </view>
-                    </template>
-                    <template v-else-if="ite.type==='img'">
-                      <image
-                      @click.stop="previewImage(item,item[ite.name],index)"
-                      v-if="item[ite.name]"
-                      :show-menu-by-longpress="false"
-                      :src="item[ite.name]" style="width: 40px;height:30px; " mode="aspectFit"></image>
-                      <text v-else>{{ite.emptyString}}</text>
-                    </template>
-	                  <template  v-else>
-	                    {{ ite.filters?itemFilter(item,ite):item[ite.name]||ite.emptyString }}
-	                  </template>
-	                </view>
-	              </view>
-	            </view>
-	          </view>
+                    </view>
+                  </template>
+                  <template v-else-if="ite.type==='selection'">
+                    <view class="checkbox-item">
+                      <tableCheckbox @checkboxSelected="(e)=>checkboxSelected(e,item)" :cellData="item" :checked="item.checked"/>
+                    </view>
+                  </template>
+                  <template v-else-if="ite.type==='img'">
+                    <image
+                        @click.stop="previewImage(item,item[ite.name],index)"
+                        v-if="item[ite.name]"
+                        :show-menu-by-longpress="false"
+                        :src="item[ite.name]" style="width: 40px;height:30px; " mode="aspectFit"></image>
+                    <text v-else>{{ite.emptyString}}</text>
+                  </template>
+                  <template v-else-if="ite.type==='index'">
+                    {{index+1}}
+                  </template>
+                  <template  v-else>
+                    {{ ite.filters?itemFilter(item,ite):item[ite.name]||ite.emptyString }}
+                  </template>
+                </view>
+              </view>
+            </view>
+          </view>
         <table-summary
             v-if="showSummary"
             :data="data"
@@ -320,7 +342,9 @@
             :sumText="sumText"
         />
 	    </view>
+      </scroll-view>
 	  </view>
+    <zb-load-more v-if="isLoadMore&&!completeLoading"/>
 	</view>
 	<!-- #endif -->
 </template>
@@ -329,25 +353,33 @@ import TableCheckbox from './components/table-checkbox.vue'
 import TableSummary from "./components/table-summary.vue";
 import TableSideSummary from "./components/table-side-summary.vue";
 import TableH5Summary from './components/table-h5-summary'
+import ZbLoadMore from './components/zb-load-more'
 export default {
   components:{
     TableCheckbox,
     TableSummary,
     TableSideSummary,
-    TableH5Summary
+    TableH5Summary,
+    ZbLoadMore
   },
   props:{
+    highlight:{
+      type:Boolean,
+      default:false
+    },
     itemDate:{
       type:Object,
       default:()=>{}
     },
-    rowKey:Function,
-    summaryMethod:Function,
     columns:{
       type:Array,
       default:()=>[]
     },
     showSummary:{
+      type:Boolean,
+      default:false
+    },
+    isShowLoadMore:{
       type:Boolean,
       default:false
     },
@@ -375,18 +407,10 @@ export default {
       type:Boolean,
       default:false
     },
-  },
-  watch:{
-    'showSummary':{
-      immediate:true,
-      handler(newValue){
-        if(newValue){
-          // this.data.push({
-          //   type:'total-last-table'
-          // })
-        }
-      }
-    }
+    rowKey:Function,
+    summaryMethod:Function,
+    pullUpLoading:Function,
+    cellStyle:Function
   },
   computed:{
     fixedLeftColumns(){
@@ -430,14 +454,18 @@ export default {
             column.width = this.getTextWidth(str)+column.renders.length*40
           }else if(column.type==="img"){
 			   }else if(column.type==="selection"){
-			    }else{
-            let arr = [this.getTextWidth(column.label)]
+			}else{
+			let arr = [this.getTextWidth(column.label)]
             this.data.forEach(data=>{
               let str = (data[column.name]+'')
-              let width = this.getTextWidth(str)
-              arr.push(width)
+			  if(str==='undefined'){
+				   arr.push(30)
+			  }else{
+				   let width = this.getTextWidth(str)
+				   arr.push(width)
+			  }
             })
-            column.width = Math.max(...arr)+12
+			column.width = Math.max(...arr)+20
           }
         })
         return this.columns
@@ -454,9 +482,12 @@ export default {
       })
       return this.columns
     },
-
     transData(){
+      let flag = this.columns.some(item=>item.type==='selection')
       this.data.forEach((item,index)=>{
+        if(flag){
+          if(item.checked==null){item.checked = false}
+        }
         if(this.rowKey){
           item.key = Object.freeze(this.rowKey(item))||Date.now()
         }else {
@@ -464,20 +495,36 @@ export default {
         }
       })
       return this.data
-    }
+    },
+    isHighlight(){
+      return (item,index)=>{
+        if(this.rowKey){
+          return item[this.rowKey] === this.currentRow[this.rowKey]
+        }else{
+          return index === this.currentRowIndex
+        }
+      }
+    },
+
   },
   data() {
     return {
       button:[],
+	    alipayScrollTop:0,
+      alipayScrollOldTop:0,
+      alipayFlag:false,
       bodyTableLeft:0,
       headerTableLeft:0,
       lastScrollLeft:0,
+      isLoadMore:false,
       headerFooterTableLeft:0,
       leftFiexScrollTop:0,
       bodyScrollTop:0,
       currentDriver:null,
       currentDriver1:null,
       bodyTime:null,
+      currentRowIndex:null,
+      currentRow: {},
       bodyTime1:null,
       headerTime:null,
       debounceTime:null,
@@ -485,28 +532,80 @@ export default {
       completedFlag:false,
       selectArr:[],
       indeterminate:false,
-      checkedAll:false
+      checkedAll:false,
+      completeLoading:false,
+      aliTime:null,
     }
   },
   created(){
-    let flag = this.columns.some(item=>item.type==='selection')
-    if(flag){
-      this.data.forEach(item=> {
-        if(item.checked==null){item.checked = false}
-      })
-    }
+
   },
   mounted(){
   },
   methods: {
+
+
+    pullUpCompleteLoading(type){
+      this.isLoadMore = false
+      if(type==='ok'){
+        this.completeLoading = true
+      }
+    },
+    scrollAlipay(e){
+
+      if(!this.alipayScrollOldTop){
+        this.alipayScrollOldTop = e.detail.scrollTop
+      }
+      this.aliTime&&clearTimeout(this.aliTime)
+      this.aliTime = setTimeout(()=>{
+
+        if(this.alipayFlag&&e.detail.scrollTop>this.alipayScrollOldTop){
+          this.pullLoad()
+        }
+        this.alipayFlag = false
+        this.alipayScrollOldTop = null
+      },500)
+    },
+    pullLoad(){
+      if(this.isShowLoadMore){
+        this.isLoadMore = true
+      }
+      this.$emit('pullUpLoading')
+      let that = this
+      this.pullUpLoading&&this.pullUpLoading.call(this.$parent.$parent, (type)=>{
+        that.isLoadMore = false
+        if(type==='ok'){
+          that.completeLoading=true
+        }
+      })
+    },
+
+    scrolltolower(e){
+      this.alipayFlag = true
+      if(e.detail.direction==='bottom'){
+        this.pullLoad()
+      }
+
+      // this.pullUpLoading.call(this.$parent)
+    },
 	  previewImage(item,url,current){
 		  uni.previewImage({
 			  current,
 			  urls:[url]
 		  })
 	  },
+    resetHighlight(){
+      this.currentRowIndex = null
+      this.currentRow = {}
+    },
     rowClick(row,index){
-      this.$emit('rowClick',row,index)
+      if(this.highlight){
+        this.currentRowIndex = index
+        this.currentRow = row
+        this.$emit('currentChange',row,index)
+      }else {
+        this.$emit('rowClick',row,index)
+      }
     },
     checkboxSelectedAll(e){
       this.indeterminate = false
@@ -573,17 +672,20 @@ export default {
     },
     // 默认字体为微软雅黑 Microsoft YaHei,字体大小为 14px
     getTextWidth(str) {
+      if(str.length<3){
+        return 40
+      }
       let flexWidth = 0
       for (const char of str) {
         if ((char >= 'A' && char <= 'Z') || (char >= 'a' && char <= 'z')) {
           // 如果是英文字符，为字符分配8个单位宽度
-          flexWidth += 8
+          flexWidth += 10
         } else if (char >= '\u4e00' && char <= '\u9fa5') {
           // 如果是中文字符，为字符分配15个单位宽度
           flexWidth += 18
         } else {
           // 其他种类字符，为字符分配8个单位宽度
-          flexWidth += 8
+          flexWidth += 11
         }
       }
       return flexWidth
@@ -614,14 +716,13 @@ export default {
       return false
     },
     sortAction(item,index){
+      if(!item.sorter){return false}
       this.$set(item,'sorterMode',item.sorterMode==='_asc'?'_desc':'_asc')
       this.sortData(item)
-	  // #ifndef H5 || APP-PLUS
-	  this.$forceUpdate()
-	  // #endif
-
+      // #ifndef H5 || APP-PLUS
+      this.$forceUpdate()
+      // #endif
     },
-
     sortData(item){
       let key = item.name
       if(item.sorterMode==='_asc'){
@@ -822,10 +923,14 @@ export default {
   height: 100%;
   overflow: hidden;
   width: 100%;
+  display: flex;
+  flex-direction: column;
   font-size: 12px;
   .zb-table-content{
-    height: 100%;
+    //height: 100%;
+    //flex: 1;
     position: relative;
+    overflow: hidden;
   }
   .zb-table-fixed{
     min-width: 100%;
@@ -909,12 +1014,17 @@ export default {
 }
 .zb-table-applet{
   height: 100%;
-  overflow: hidden;
+  //overflow: hidden;
   width: 100%;
+  display: flex;
+  flex-direction: column;
   font-size: 12px;
   .zb-table-content{
-    height: 100%;
+    //height: 100%;
+    flex: 1;
+    overflow: hidden;
     position: relative;
+
   }
   .zb-table-fixed{
     min-width: 100%;
@@ -1024,6 +1134,16 @@ export default {
       //height: 100%;
       width: 100%;
     }
+  }
+  .current-row{
+    .item-td{
+      background-color: #ecf5ff;
+    }
+  }
+}
+.current-row{
+  .item-td{
+    background-color: #ecf5ff;
   }
 }
 
