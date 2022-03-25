@@ -1,6 +1,11 @@
 
 ## 介绍
-基于uni-app开发的一个普通的表格组件，功能有固定首列和表头、排序、操作按钮、已用于生产环境
+基于uni-app开发的一个普通的表格组件，功能有固定首列和表头、排序、操作按钮、
+table 表格 固定表头、固定首列、多列 上拉加载更多、 排序、自适应列宽、多选checkbox、编辑、删除、按钮、合计
+已用于生产环境
+
+## qq群 731805264
+
 
 ## table 属性
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |是否必须|
@@ -10,6 +15,7 @@
 | stripe | 是否为斑马纹 table| boolean | - |false | 否 |
 | fit | 列的宽度是否自撑开 | boolean |true,false | false |否 |
 | show-header | 是否显示表头 | boolean |true,false | true |否 |
+| cell-style | 单元格的 style 的回调方法，也可以使用一个固定的 Object 为所有单元格设置一样的 Style。 | Function({row, column, rowIndex, columnIndex})/Object |-- | -- |否 |
 | border | 是否带有纵向边框 | boolean |true,false | true |否 |
 | highlight | 是否要高亮当前行 | boolean |true,false | false |否 |
 | show-summary | 是否在表尾显示合计行 | boolean |true,false | false |否 |
