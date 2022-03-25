@@ -675,9 +675,6 @@ __webpack_require__.r(__webpack_exports__);
       var flag = this.columns.some(function (item) {return item.type === 'selection';});
       this.data.forEach(function (item, index) {
         if (flag) {
-          if (item.checked == null) {
-            item.checked = false;
-          }
           if (item.checked) {
             if (!_this2.selectArr.length) {
               _this2.selectArr.push(item);
@@ -702,9 +699,7 @@ __webpack_require__.r(__webpack_exports__);
           } else {
             this.indeterminate = true;
           }
-
         }
-
       }
       return this.data;
     },
@@ -833,7 +828,8 @@ __webpack_require__.r(__webpack_exports__);
         this.selectArr = [];
         this.checkedAll = true;
         this.data.forEach(function (item) {
-          _this6.$set(item, 'checked', true);
+          // this.$set(item,'checked',true)
+          item.checked = true;
           _this6.selectArr.push(item);
         });
       } else {
@@ -866,7 +862,6 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         this.selectArr = this.selectArr.filter(function (item) {return item.key !== e.data.key;});
       }
-      console.log('this.selectArr', this.selectArr, this.transData);
       if (this.selectArr.length === this.transData.length) {
         this.indeterminate = false;
         this.checkedAll = true;

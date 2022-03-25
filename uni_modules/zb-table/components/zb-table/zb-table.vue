@@ -491,9 +491,6 @@ export default {
       let flag = this.columns.some(item=>item.type==='selection')
       this.data.forEach((item,index)=>{
         if(flag){
-          if(item.checked==null){
-            item.checked = false
-          }
           if(item.checked){
             if(!this.selectArr.length){
               this.selectArr.push(item)
@@ -518,9 +515,7 @@ export default {
           }else {
             this.indeterminate = true
           }
-
         }
-
       }
       return this.data
     },
@@ -649,7 +644,8 @@ export default {
         this.selectArr = []
         this.checkedAll = true
         this.data.forEach(item=>{
-          this.$set(item,'checked',true)
+          // this.$set(item,'checked',true)
+          item.checked = true
           this.selectArr.push(item)
         })
       }else{
@@ -682,7 +678,6 @@ export default {
       }else{
         this.selectArr = this.selectArr.filter(item=>item.key!==e.data.key)
       }
-      console.log('this.selectArr',this.selectArr,this.transData)
       if(this.selectArr.length===this.transData.length){
         this.indeterminate = false
         this.checkedAll = true
