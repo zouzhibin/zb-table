@@ -52,7 +52,8 @@
 	      <template v-if="!data.length">
 	        <view class="no-data">暂无数据~~</view>
 	      </template>
-	      <scroll-view class="zb-table-body" ref="tableBody"	scroll-x="true"	scroll-y="true"	id="tableBody"
+	      <scroll-view
+            class="zb-table-body" ref="tableBody"	scroll-x="true"	scroll-y="true"	id="tableBody"
 	                   :lower-threshold="10"
 	                   :upper-threshold="10"
                      @scrolltolower="scrolltolower"
@@ -65,13 +66,13 @@
                        @click.stop="rowClick(item,index)"
 	                     v-for="(item,index) in transData" :key="item.key" >
 	                <view
-	                    :style="{
+	                    :style="[{
 									              width:`${ite.width?ite.width:'100'}px`,
 															  flex:i===transColumns.length-1?1:'none',
 															  minWidth:`${ite.width?ite.width:'100'}px`,
 															  borderRight:`${border?'1px solid #e8e8e8':''}`,
-                                textAlign:ite.align||'left'
-														  }"
+                                textAlign:ite.align||'left',
+														  },cellStyle&&getCellStyle(item,ite,index,i)]"
 
 	                    :class="['item-td',stripe?(index % 2) != 0?'odd':'even':'']"
 	                    v-for="(ite,i) in transColumns" :key="i">
@@ -181,11 +182,11 @@
                     :key="ite.key"
                     style="">
                 <view class='item-td'
-                      :style="{
+                      :style="[{
 	                       width:`${item.width?item.width:'100'}px`,
 	                       borderRight:`${border?'1px solid #e8e8e8':''}`,
 	                       textAlign:item.align||'left'
-	                      }"
+	                      },cellStyle&&getCellStyle(ite,item,i,index)]"
                       :key="index"
                       v-for="(item,index) in fixedLeftColumns">
                   <template v-if="item.type==='selection'">
@@ -282,15 +283,14 @@
                      @click.stop="rowClick(item,index)"
                      v-for="(item,index) in transData" :key="item.key" >
                 <view
-                    :style="{
-	                              left:`${ite.left}px`,
-									              width:`${ite.width?ite.width:'100'}px`,
-															  flex:i===transColumns.length-1?1:'none',
-															  minWidth:`${ite.width?ite.width:'100'}px`,
-															   borderRight:`${border?'1px solid #e8e8e8':''}`,
-                                textAlign:ite.align||'left',
-														  }
-"
+                    :style="[{
+                      left:`${ite.left}px`,
+                      width:`${ite.width?ite.width:'100'}px`,
+                      flex:i===transColumns.length-1?1:'none',
+                      minWidth:`${ite.width?ite.width:'100'}px`,
+                      borderRight:`${border?'1px solid #e8e8e8':''}`,
+                      textAlign:ite.align||'left',
+                    },getCellStyle(item,ite,index,i)]"
                     :class="['item-td', i <fixedLeftColumns.length&&'zb-stick-side',stripe?(index % 2) != 0?'odd':'even':'']"
                     v-for="(ite,i) in transColumns" :key="i">
                   <template  v-if="ite.type==='operation'">
@@ -415,17 +415,9 @@ export default {
   computed:{
     fixedLeftColumns(){
       let arr = []
-      let number = 0
       for(let i=0;i<this.columns.length;i++){
         let item = this.columns[i]
         if(item.fixed){
-          if(i===0){
-            item.left = 0
-            number+=item.width
-          }else {
-            item.left = number
-            number+=item.width
-          }
           arr.push(item)
         }else {
           break
@@ -465,19 +457,32 @@ export default {
 				   arr.push(width)
 			  }
             })
-			column.width = Math.max(...arr)+20
+			      column.width = Math.max(...arr)+20
           }
         })
         return this.columns
       }
-      this.columns.forEach(item=>{
+
+      let number = 0
+
+      this.columns.forEach((item,index)=>{
         if(item.type==="operation"&&item.renders&&!item.width){
-		  let str = ''
-		  item.renders.map((item)=>{
-		    str+=item.name
-		  })
+          let str = ''
+          item.renders.map((item)=>{
+            str+=item.name
+          })
           item.width = this.getTextWidth(str)+item.renders.length*40
         }
+        if(item.fixed){
+          if(index===0){
+            item.left = 0
+            number+=item.width
+          }else {
+            item.left = number
+            number+=item.width
+          }
+        }
+
         item.emptyString = item.emptyString||'--'
       })
       return this.columns
@@ -505,7 +510,15 @@ export default {
         }
       }
     },
-
+    getCellStyle() {
+     return (row, column, rowIndex, columnIndex)=>{
+       const cellStyle = this.cellStyle;
+       if(typeof cellStyle==='function'){
+         return cellStyle({row, column, rowIndex, columnIndex})
+       }
+       return {}
+     }
+    },
   },
   data() {
     return {
@@ -603,9 +616,8 @@ export default {
         this.currentRowIndex = index
         this.currentRow = row
         this.$emit('currentChange',row,index)
-      }else {
-        this.$emit('rowClick',row,index)
       }
+      this.$emit('rowClick',row,index)
     },
     checkboxSelectedAll(e){
       this.indeterminate = false
