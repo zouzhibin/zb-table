@@ -1,5 +1,9 @@
 export default {
     props:{
+        scrollbarSize:{
+            type:Number,
+            default:0
+        },
         fixedLeftColumns:{
             type:Array,
             default:()=>[]

@@ -1,5 +1,5 @@
 <template>
-  <view class="zb-table-header" style="height: 40px;display: flex">
+  <view class="zb-table-header" style="display: flex;" >
     <view class="item-tr" >
       <view class='item-td'
             :style="{

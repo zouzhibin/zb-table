@@ -1,5 +1,5 @@
 <template>
-  <view class="table-h5-footer top-header-uni" style="height: 40px;">
+  <view class="table-h5-footer top-header-uni" :style="{paddingRight:`${scrollbarSize}px`}">
     <scroll-view class="zb-table-headers"
                  @scroll="handleFooterTableScrollLeft"
                  scroll-x="true"

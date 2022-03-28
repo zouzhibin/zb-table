@@ -4,7 +4,8 @@
 	  <view class="zb-table-content" style="flex: 1">
 	    <view class="zb-table-scroll" style="height: 100%;">
 	      <template v-if="showHeader">
-	        <view class="zb-table-header top-header-uni" style="height: 40px;">
+	        <view class="zb-table-header top-header-uni" :style="{paddingRight:`${scrollbarSize}px`}"
+          >
 	          <scroll-view class="zb-table-headers"
 	                       @scroll="handleTableScrollLeft"
 	                       scroll-x="true"
@@ -12,8 +13,8 @@
 	                       id="tableHeaders"
 	                       scroll-anchoring="true"
 	                       :scroll-left="headerTableLeft"
-	                       style="min-width: 17px;padding-bottom: 0px;
-						background: #fafafa;height: 100%">
+	                       style="
+						height: 100%">
 	            <view class="zb-table-fixed" >
 	              <view class="zb-table-thead" style="position: relative;" >
 	                <view class="item-tr">
@@ -25,6 +26,7 @@
 															  flex:index===transColumns.length-1?1:'none',
 															  minWidth:`${item.width?item.width:'100'}px`,
 															  borderRight:`${border?'1px solid #e8e8e8':''}`,
+															  borderRight:`${!border&&scrollbarSize&&index===transColumns.length-1?'':'1px solid #e8e8e8'}`,
 															  borderTop:`${border?'1px solid #e8e8e8':''}`,
 															  textAlign:item.align||'left'
 														  }"
@@ -118,6 +120,7 @@
 	          </view>
 	        </scroll-view>
        <table-h5-summary
+           :scrollbarSize="scrollbarSize"
            :data="data"
            :handleFooterTableScrollLeft="handleFooterTableScrollLeft"
            :headerFooterTableLeft="headerFooterTableLeft"
@@ -129,9 +132,12 @@
            :sumText="sumText"
            :fixedLeftColumns="fixedLeftColumns"/>
 	    </view>
-	    <view class="zb-table-fixed-left" v-if="isFixedLeft">
+	    <view class="zb-table-fixed-left"
+            v-if="isFixedLeft"
+            :style=" {height:  `calc(100% - ${scrollbarSize}px)`}"
+      >
 	      <template v-if="showHeader">
-	        <view class="zb-table-header" style="height: 40px;display: flex">
+	        <view class="zb-table-header" style="display: flex">
 	          <view class="item-tr"
                   style=""
                   @click.stop="rowClick(item,index)"
@@ -206,7 +212,8 @@
           </view>
         </scroll-view>
         <table-side-summary
-            v-if="showSummary"
+            :scrollbarSize="scrollbarSize"
+            v-if="showSummary&&!(scrollbarSize>0)"
             :data="data"
             :showSummary="showSummary"
             :transColumns="transColumns"
@@ -238,7 +245,7 @@
 				   scroll-x="true">
 	    <view class="zb-table-scroll" >
 	      <template v-if="showHeader">
-	        <view class="zb-table-header top-header-uni" style="height: 40px;">
+	        <view class="zb-table-header top-header-uni" style="">
 	            <view class="zb-table-fixed" >
 	              <view class="zb-table-thead" style="position: relative;" >
 	                <view class="item-tr">
@@ -354,6 +361,8 @@ import TableSummary from "./components/table-summary.vue";
 import TableSideSummary from "./components/table-side-summary.vue";
 import TableH5Summary from './components/table-h5-summary'
 import ZbLoadMore from './components/zb-load-more'
+
+import {getScrollbarSize} from "./js/util";
 export default {
   components:{
     TableCheckbox,
@@ -424,6 +433,15 @@ export default {
         }
       }
       return arr
+    },
+    scrollbarSize(){
+		// #ifdef H5
+      return getScrollbarSize()
+	  // #endif
+
+	  // #ifndef H5
+	  return 0
+	  // #endif
     },
     isFixedLeft(){
       if(!this.columns.length){
@@ -569,7 +587,7 @@ export default {
     }
   },
   created(){
-
+    console.log('scrollbarSize======',getScrollbarSize())
   },
   mounted(){
   },
@@ -749,13 +767,18 @@ export default {
     sortAction(item,index){
       if(!item.sorter){return false}
       this.$set(item,'sorterMode',item.sorterMode==='_asc'?'_desc':'_asc')
-      this.sortData(item)
+      if(item.sorter==='custom'){
+        this.$emit('sort-change',item,item.sorterMode.replace('_',''),index)
+      }else {
+        this.sortData(item)
+      }
       // #ifndef H5 || APP-PLUS
       this.$forceUpdate()
       // #endif
     },
     sortData(item){
       let key = item.name
+
       if(item.sorterMode==='_asc'){
         this.data.sort((a,b)=>{
           if(this.checkNumber(a[key])){
@@ -869,31 +892,23 @@ export default {
 </script>
 <style lang="scss">
 .zb-table-fixed-left{
-  /*每个页面公共css */
+  /*去除左边滚动条 */
   scroll-view ::-webkit-scrollbar {
     display: none !important;
     width: 0 !important;
     height: 0 !important;
     -webkit-appearance: none;
     background: transparent;
-  }
-  //第二种
-  ::-webkit-scrollbar{
-    display: none;
   }
 }
 .zb-table-header{
-  /*每个页面公共css */
+  ///*去除头部滚动条 */
   scroll-view ::-webkit-scrollbar {
     display: none !important;
     width: 0 !important;
     height: 0 !important;
     -webkit-appearance: none;
     background: transparent;
-  }
-  //第二种
-  ::-webkit-scrollbar{
-    display: none;
   }
 }
 
@@ -1177,5 +1192,7 @@ export default {
     background-color: #ecf5ff;
   }
 }
-
+.zb-table-header{
+  height: 40px;
+}
 </style>

@@ -25,7 +25,7 @@
 /* 透明度 */
 /* 文章场景相关 */
 .zb-table-fixed-left {
-  /*每个页面公共css */
+  /*去除左边滚动条 */
 }
 .zb-table-fixed-left scroll-view ::-webkit-scrollbar {
   display: none !important;
@@ -34,21 +34,12 @@
   -webkit-appearance: none;
   background: transparent;
 }
-.zb-table-fixed-left ::-webkit-scrollbar {
-  display: none;
-}
-.zb-table-header {
-  /*每个页面公共css */
-}
 .zb-table-header scroll-view ::-webkit-scrollbar {
   display: none !important;
   width: 0 !important;
   height: 0 !important;
   -webkit-appearance: none;
   background: transparent;
-}
-.zb-table-header ::-webkit-scrollbar {
-  display: none;
 }
 
 @charset "UTF-8";
@@ -337,5 +328,8 @@
 }
 .current-row .item-td.data-v-35b7ff72 {
   background-color: #ecf5ff;
+}
+.zb-table-header.data-v-35b7ff72 {
+  height: 40px;
 }
 
