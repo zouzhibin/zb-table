@@ -546,6 +546,24 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var _util = __webpack_require__(/*! ./js/util */ 31);function _createForOfIteratorHelper(o, allowArrayLike) {var it;if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {if (it) o = it;var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e2) {throw _e2;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var normalCompletion = true,didErr = false,err;return { s: function s() {it = o[Symbol.iterator]();}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e3) {didErr = true;err = _e3;}, f: function f() {try {if (!normalCompletion && it.return != null) it.return();} finally {if (didErr) throw err;}} };}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}var TableCheckbox = function TableCheckbox() {__webpack_require__.e(/*! require.ensure | uni_modules/zb-table/components/zb-table/components/table-checkbox */ "uni_modules/zb-table/components/zb-table/components/table-checkbox").then((function () {return resolve(__webpack_require__(/*! ./components/table-checkbox.vue */ 36));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var TableSummary = function TableSummary() {Promise.all(/*! require.ensure | uni_modules/zb-table/components/zb-table/components/table-summary */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/zb-table/components/zb-table/components/table-summary")]).then((function () {return resolve(__webpack_require__(/*! ./components/table-summary.vue */ 43));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var TableSideSummary = function TableSideSummary() {Promise.all(/*! require.ensure | uni_modules/zb-table/components/zb-table/components/table-side-summary */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/zb-table/components/zb-table/components/table-side-summary")]).then((function () {return resolve(__webpack_require__(/*! ./components/table-side-summary.vue */ 51));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var TableH5Summary = function TableH5Summary() {Promise.all(/*! require.ensure | uni_modules/zb-table/components/zb-table/components/table-h5-summary */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/zb-table/components/zb-table/components/table-h5-summary")]).then((function () {return resolve(__webpack_require__(/*! ./components/table-h5-summary */ 58));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var ZbLoadMore = function ZbLoadMore() {__webpack_require__.e(/*! require.ensure | uni_modules/zb-table/components/zb-table/components/zb-load-more */ "uni_modules/zb-table/components/zb-table/components/zb-load-more").then((function () {return resolve(__webpack_require__(/*! ./components/zb-load-more */ 65));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default2 =
 {
   components: {
@@ -774,13 +792,10 @@ var _util = __webpack_require__(/*! ./js/util */ 31);function _createForOfIterat
 
   },
   created: function created() {
-    console.log('scrollbarSize======', (0, _util.getScrollbarSize)());
   },
   mounted: function mounted() {
   },
   methods: {
-
-
     pullUpCompleteLoading: function pullUpCompleteLoading(type) {
       this.isLoadMore = false;
       if (type === 'ok') {

@@ -89,9 +89,16 @@
 	                          alignItems: 'center',
 	                          marginRight:ite.renders.length>1?'8px':'0'
 	                        }">
-	                        <button
-                              :class="ren.class"
-                              :type="ren.type||'primary'" :size="ren.size||'mini'">{{ren.name}}</button>
+                          <template v-if="ren.type==='custom'">
+                            <view :class="ren.class||''" style="cursor: pointer">
+                              {{ren.name}}
+                            </view>
+                          </template>
+                          <template v-else>
+                            <button
+                                :class="ren.class||''"
+                                :type="ren.type||'primary'" :size="ren.size||'mini'">{{ren.name}}</button>
+                          </template>
 	                      </view>
 	                    </view>
 	                  </template>
@@ -313,9 +320,16 @@
 	                          alignItems: 'center',
 	                          marginRight:ite.renders.length>1?'8px':'0'
 	                        }">
-                        <button
-                            :class="ren.class"
-                            :type="ren.type||'primary'" :size="ren.size||'mini'">{{ren.name}}</button>
+                        <template v-if="ren.type==='custom'">
+                          <view :class="ren.class||''" style="cursor: pointer">
+                            {{ren.name}}
+                          </view>
+                        </template>
+                        <template v-else>
+                          <button
+                              :class="ren.class||''"
+                              :type="ren.type||'primary'" :size="ren.size||'mini'">{{ren.name}}</button>
+                        </template>
                       </view>
                     </view>
                   </template>
@@ -594,13 +608,10 @@ export default {
     }
   },
   created(){
-    console.log('scrollbarSize======',getScrollbarSize())
   },
   mounted(){
   },
   methods: {
-
-
     pullUpCompleteLoading(type){
       this.isLoadMore = false
       if(type==='ok'){

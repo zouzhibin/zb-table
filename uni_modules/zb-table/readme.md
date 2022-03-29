@@ -73,7 +73,7 @@ renders 代表传入的按钮  Array  =>[
     {
         name:'编辑',
         class:"", // 添加class
-        type:'primary',代表按钮的类型
+        type:'primary',代表按钮的类型  type 为custom的时候自定义按钮 其他类型取决于uniapp buttom组件按钮
         size:'mini',代表按钮的大小
         func:'edit' // func 代表操作按钮点击的事件名字 父元素接收的事件 父元素 @edit
         例如：// <zb-table @edit=""/> 

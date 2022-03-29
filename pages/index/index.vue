@@ -15,6 +15,7 @@
             @toggleRowSelection="toggleRowSelection"
             @toggleAllSelection="toggleAllSelection"
             :border="true"
+            @custom="custom"
             @edit="buttonEdit"
             @dele="dele"
             :data="data"></zb-table>
@@ -178,13 +179,21 @@
           { name: 'operation', type:'operation',label: '操作',renders:[
               {
                 name:'编辑',
-                class:'class',
+                class:'edit',
+                type:"primary",
                 func:'edit' // func 代表子元素点击的事件 父元素接收的事件 父元素 @edit
               },
               {
+                name:'自定义按钮',
+                type:'custom', // type 为custom的时候自定义按钮
+                class:"custom",
+                func:'custom'
+              },
+              {
                 name:'删除',
-                type:'warn',
-                func:"dele"
+                type:'warn', // type 为custom的时候自定义按钮
+                class:"del",
+                func:'dele',
               },
             ]},
         ],
@@ -434,6 +443,13 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
         })
         // alert('点击删除')
         console.log(ite,index)
+      },
+      custom(){
+        uni.showToast({
+          icon:'none',
+          duration:3000,
+          title:'点击自定义'
+        })
       },
       toggleAllSelection(checked,arr){
         uni.showToast({
