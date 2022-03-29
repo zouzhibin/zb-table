@@ -606,6 +606,9 @@ var _util = __webpack_require__(/*! ./js/util */ 31);function _createForOfIterat
     cellStyle: Function },
 
   computed: {
+    loadMoreHeight: function loadMoreHeight() {
+      return this.isLoadMore ? 40 : 0;
+    },
     fixedLeftColumns: function fixedLeftColumns() {
       var arr = [];
       for (var i = 0; i < this.columns.length; i++) {

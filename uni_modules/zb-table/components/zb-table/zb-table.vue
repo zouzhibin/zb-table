@@ -56,7 +56,7 @@
 	      </template>
 	      <scroll-view
             class="zb-table-body" ref="tableBody"	scroll-x="true"	scroll-y="true"	id="tableBody"
-	                   :lower-threshold="10"
+	                   :lower-threshold="40"
 	                   :upper-threshold="10"
                      @scrolltolower="scrolltolower"
 	                   @scrolltoupper="(e)=>debounce(scrollToLeft)(e)"
@@ -89,7 +89,9 @@
 	                          alignItems: 'center',
 	                          marginRight:ite.renders.length>1?'8px':'0'
 	                        }">
-	                        <button :type="ren.type||'primary'" :size="ren.size||'mini'">{{ren.name}}</button>
+	                        <button
+                              :class="ren.class"
+                              :type="ren.type||'primary'" :size="ren.size||'mini'">{{ren.name}}</button>
 	                      </view>
 	                    </view>
 	                  </template>
@@ -311,7 +313,9 @@
 	                          alignItems: 'center',
 	                          marginRight:ite.renders.length>1?'8px':'0'
 	                        }">
-                        <button :type="ren.type||'primary'" :size="ren.size||'mini'">{{ren.name}}</button>
+                        <button
+                            :class="ren.class"
+                            :type="ren.type||'primary'" :size="ren.size||'mini'">{{ren.name}}</button>
                       </view>
                     </view>
                   </template>
@@ -422,6 +426,9 @@ export default {
     cellStyle:Function
   },
   computed:{
+    loadMoreHeight(){
+      return this.isLoadMore?40:0
+    },
     fixedLeftColumns(){
       let arr = []
       for(let i=0;i<this.columns.length;i++){
@@ -972,6 +979,7 @@ export default {
   display: flex;
   flex-direction: column;
   font-size: 12px;
+  position: relative;
   .zb-table-content{
     //height: 100%;
     //flex: 1;
@@ -1062,6 +1070,7 @@ export default {
   height: 100%;
   //overflow: hidden;
   width: 100%;
+  position: relative;
   display: flex;
   flex-direction: column;
   font-size: 12px;

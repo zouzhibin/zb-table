@@ -178,6 +178,7 @@
           { name: 'operation', type:'operation',label: '操作',renders:[
               {
                 name:'编辑',
+                class:'class',
                 func:'edit' // func 代表子元素点击的事件 父元素接收的事件 父元素 @edit
               },
               {
@@ -387,7 +388,7 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
           }else {
             done()
           }
-        },1000)
+        },2000)
       },
 
 	  pullUpLoadingAction(done){

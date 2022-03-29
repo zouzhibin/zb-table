@@ -549,7 +549,7 @@ var that = null;var _default = { components: {}, data: function data() {return {
         } else {
           done();
         }
-      }, 1000);
+      }, 2000);
     },
 
     pullUpLoadingAction: function pullUpLoadingAction(done) {var _this2 = this;

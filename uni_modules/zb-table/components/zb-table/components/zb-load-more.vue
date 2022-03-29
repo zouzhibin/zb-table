@@ -17,14 +17,12 @@ export default {
 <style lang="scss" scoped>
 .zb-load-more {
   width: 100%;
-  background: white;
-  position: sticky;
+  position: absolute;
   bottom: 0;
-  z-index: 99;
-  /* #ifndef APP-NVUE */
+  left: 0;
+  z-index: 999;
+  background: white;
   display: flex;
-  /* #endif */
-  flex-direction: row;
   height: 40px;
   flex-shrink: 0;
   align-items: center;
