@@ -639,6 +639,14 @@ var _util = __webpack_require__(/*! ./js/util */ 31);function _createForOfIterat
       }
       return arr;
     },
+    itemfilters: function itemfilters() {
+      return function (item, ite) {
+        if (item[ite.name] == null) {
+          return ite.emptyString;
+        }
+        return item[ite.name];
+      };
+    },
     scrollbarSize: function scrollbarSize() {
 
 
@@ -683,11 +691,8 @@ var _util = __webpack_require__(/*! ./js/util */ 31);function _createForOfIterat
             column.width = Math.max.apply(Math, arr) + 20;
           }
         });
-        return this.columns;
       }
-
       var number = 0;
-
       this.columns.forEach(function (item, index) {
         if (item.type === "operation" && item.renders && !item.width) {
           var str = '';
@@ -705,7 +710,6 @@ var _util = __webpack_require__(/*! ./js/util */ 31);function _createForOfIterat
             number += item.width;
           }
         }
-
         item.emptyString = item.emptyString || '--';
       });
       return this.columns;
@@ -831,7 +835,6 @@ var _util = __webpack_require__(/*! ./js/util */ 31);function _createForOfIterat
       }
 
     },
-
     scrolltolower: function scrolltolower(e) {
       this.alipayFlag = true;
       if (e.detail.direction === 'bottom') {

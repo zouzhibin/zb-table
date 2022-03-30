@@ -4,8 +4,9 @@
     <list default="true" id="be7958c3-0d1c-4f74-a433-b590462e7034" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/index/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uni_modules/zb-table/changelog.md" beforeDir="false" afterPath="$PROJECT_DIR$/uni_modules/zb-table/changelog.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/uni_modules/zb-table/components/zb-table/zb-table.vue" beforeDir="false" afterPath="$PROJECT_DIR$/uni_modules/zb-table/components/zb-table/zb-table.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uni_modules/zb-table/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/uni_modules/zb-table/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uni_modules/zb-table/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/uni_modules/zb-table/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/index/index.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/index/index.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/uni_modules/uni-card/components/uni-card/uni-card.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/uni_modules/uni-card/components/uni-card/uni-card.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-checkbox.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/uni_modules/zb-table/components/zb-table/components/table-checkbox.js.map" afterDir="false" />
@@ -16,11 +17,8 @@
       <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/uni_modules/zb-table/components/zb-table/zb-table.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/uni_modules/zb-table/components/zb-table/zb-table.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/app.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/index/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/index/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/project.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/project.config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/components/zb-load-more.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/components/zb-load-more.wxss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/zb-table.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/zb-table.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/zb-table.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/zb-table.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/zb-table.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/zb-table.wxss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,6 +60,7 @@
       <workItem from="1648193590822" duration="594000" />
       <workItem from="1648431030503" duration="8382000" />
       <workItem from="1648520959363" duration="615000" />
+      <workItem from="1648538538979" duration="595000" />
     </task>
     <task id="LOCAL-00001" summary="修改 回显问题">
       <created>1648190576831</created>

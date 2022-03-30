@@ -121,7 +121,7 @@
                     </view>
                   </template>
 	                  <template  v-else>
-	                    {{ ite.filters?itemFilter(item,ite):item[ite.name]||ite.emptyString }}
+                      {{ ite.filters?itemFilter(item,ite):(item[ite.name]==null)?ite.emptyString:item[ite.name] }}
 	                  </template>
 	                </view>
 	              </view>
@@ -350,7 +350,7 @@
                     {{index+1}}
                   </template>
                   <template  v-else>
-                    {{ ite.filters?itemFilter(item,ite):item[ite.name]||ite.emptyString }}
+                    {{ ite.filters?itemFilter(item,ite):(item[ite.name]==null)?ite.emptyString:item[ite.name] }}
                   </template>
                 </view>
               </view>
@@ -455,6 +455,14 @@ export default {
       }
       return arr
     },
+    itemfilters(){
+      return(item,ite)=>{
+        if(item[ite.name]==null){
+          return ite.emptyString
+        }
+        return item[ite.name]
+      }
+    },
     scrollbarSize(){
 		// #ifdef H5
       return getScrollbarSize()
@@ -499,11 +507,8 @@ export default {
 			      column.width = Math.max(...arr)+20
           }
         })
-        return this.columns
       }
-
       let number = 0
-
       this.columns.forEach((item,index)=>{
         if(item.type==="operation"&&item.renders&&!item.width){
           let str = ''
@@ -521,7 +526,6 @@ export default {
             number+=item.width
           }
         }
-
         item.emptyString = item.emptyString||'--'
       })
       return this.columns
@@ -647,7 +651,6 @@ export default {
       }
 
     },
-
     scrolltolower(e){
       this.alipayFlag = true
       if(e.detail.direction==='bottom'){
