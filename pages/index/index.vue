@@ -170,6 +170,7 @@
           { name: 'age', label: '年龄',sorter:'custom',align:'right',fixed:false, },
           { name: 'sex', label: '性别',filters:{0:'男',1:'女'}},
           { name: 'price', label: '价格'},
+          { name: 'admin', label: '账号'},
           { name: 'address', label: '地址' },
           { name: 'date', label: '日期',sorter:true },
           { name: 'province', label: '省份' },
@@ -203,10 +204,11 @@
             name: '',
             price: 0,
             province: '上海',
+            admin:"admin",
             sex:'1',
             checked:true,
             id:"20",
-			img:"https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500",
+			      img:"https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500",
             age:0,
             city: '普陀区',
             address: '上海市普上海市普上海市普上海市普',
@@ -226,7 +228,7 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
             zip: 200333
           },
           {
-            date: '2016-05-02',
+            date: '2022-03-25T09:27:42',
             name: '王小虎3',
             province: '上海',
             sex:1,
@@ -236,7 +238,7 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
 			img:"https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500",
             city: '普陀区',
             address: '上海市普',
-            zip: 200333
+            zip: 200333555
           },
           {
             date: '2016-04-02',

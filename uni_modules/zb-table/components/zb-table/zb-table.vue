@@ -26,7 +26,7 @@
 															  flex:index===transColumns.length-1?1:'none',
 															  minWidth:`${item.width?item.width:'100'}px`,
 															  borderRight:`${border?'1px solid #e8e8e8':''}`,
-															  borderRight:`${!border&&scrollbarSize&&index===transColumns.length-1?'':'1px solid #e8e8e8'}`,
+															  borderRight:`${(scrollbarSize&&index===transColumns.length-1)?'':border?'1px solid #e8e8e8':''}`,
 															  borderTop:`${border?'1px solid #e8e8e8':''}`,
 															  textAlign:item.align||'left'
 														  }"
@@ -745,6 +745,7 @@ export default {
       if(str.length<3){
         return 40
       }
+      let regx = /^[0-9]+.?[0-9]*$/
       let flexWidth = 0
       for (const char of str) {
         if ((char >= 'A' && char <= 'Z') || (char >= 'a' && char <= 'z')) {
@@ -752,10 +753,12 @@ export default {
           flexWidth += 10
         } else if (char >= '\u4e00' && char <= '\u9fa5') {
           // 如果是中文字符，为字符分配15个单位宽度
-          flexWidth += 18
-        } else {
+          flexWidth += 15
+        } else if(regx.test(char)){
+          flexWidth += 9
+        }else {
           // 其他种类字符，为字符分配8个单位宽度
-          flexWidth += 11
+          flexWidth += 7
         }
       }
       return flexWidth
