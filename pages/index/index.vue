@@ -18,13 +18,30 @@
             @custom="custom"
             @edit="buttonEdit"
             @dele="dele"
-            :data="data"></zb-table>
+            :data="data">
+          <template v-slot:age>
+            <view >
+<!--              <div style="color: red">{{scope.label}}</div>-->
+              <div style="color: red">1</div>
+            </view>
+          </template>
+        </zb-table>
       </view>
     </uni-card>
     <uni-card title="普通表格" >
       <view style="height: 200px">
         <zb-table
             :columns="column1"
+            :stripe="true"
+            @rowClick="rowClick"
+            :data="data"></zb-table>
+      </view>
+    </uni-card>
+    <uni-card title="多级表头" >
+      <view style="height: 200px">
+        <zb-table
+            :border="true"
+            :columns="column5"
             :stripe="true"
             @rowClick="rowClick"
             :data="data"></zb-table>
@@ -152,7 +169,7 @@
 </template>
 
 <script>
-  import {column1,column2,column3,column4} from './all.js'
+  import {column1,column2,column3,column4,column5} from './all.js'
   let that = null
 	export default {
 		components:{
@@ -163,11 +180,12 @@
         column2,
         column3,
         column4,
+        column5,
 				title: 'Hello',
         column:[
           { type:'selection', fixed:true,width:60 },
-          { name: 'name', label: '姓名',fixed:true,width:80,emptyString:'--' },
-          { name: 'age', label: '年龄',sorter:'custom',align:'right',fixed:false, },
+          { name: 'name', label: '姓名',fixed:false,width:80,emptyString:'--' },
+          { name: 'age', label: '年龄',sorter:'custom',align:'right',fixed:false },
           { name: 'sex', label: '性别',filters:{0:'男',1:'女'}},
           { name: 'price', label: '价格'},
           { name: 'admin', label: '账号'},

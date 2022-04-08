@@ -5,6 +5,8 @@
     "table-summary": "/uni_modules/zb-table/components/zb-table/components/table-summary",
     "table-side-summary": "/uni_modules/zb-table/components/zb-table/components/table-side-summary",
     "table-h5-summary": "/uni_modules/zb-table/components/zb-table/components/table-h5-summary",
-    "zb-load-more": "/uni_modules/zb-table/components/zb-table/components/zb-load-more"
+    "zb-load-more": "/uni_modules/zb-table/components/zb-table/components/zb-load-more",
+    "table-header-item": "/uni_modules/zb-table/components/zb-table/components/table-header-item",
+    "app-header-item": "/uni_modules/zb-table/components/zb-table/components/app-header-item"
   }
 }
