@@ -121,7 +121,7 @@
                     </view>
                   </template>
 	                  <template  v-else>
-                      {{ ite.filters?itemFilter(item,ite):(item[ite.name]==null)?ite.emptyString:item[ite.name] }}
+                      {{ ite.filters?itemFilter(item,ite):(item[ite.name]==null||item[ite.name]==='')?ite.emptyString:item[ite.name] }}
 	                  </template>
 	                </view>
 	              </view>
@@ -350,7 +350,7 @@
                     {{index+1}}
                   </template>
                   <template  v-else>
-                    {{ ite.filters?itemFilter(item,ite):(item[ite.name]==null)?ite.emptyString:item[ite.name] }}
+                    {{ ite.filters?itemFilter(item,ite):(item[ite.name]==null||item[ite.name]==='')?ite.emptyString:item[ite.name] }}
                   </template>
                 </view>
               </view>
