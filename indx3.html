@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+  .mask{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    transition: opacity 4s;
+  }
+  .mask__vie{
+    opacity: 1;
+  }
+</style>
+<body>
+<div class="mask"> </div>
+
+<script>
+  let mask = document.getElementsByClassName('mask')[0]
+  document.addEventListener('click',()=>{
+    console.log(11)
+    mask.style.display='block'
+    mask.classList.add("mask__vie");
+  })
+</script>
+</body>
+</html>

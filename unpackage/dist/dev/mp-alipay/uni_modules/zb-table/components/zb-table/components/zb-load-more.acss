@@ -26,14 +26,14 @@
 /* 文章场景相关 */
 .zb-load-more.data-v-7fe9f33c {
   width: 100%;
-  background: white;
-  position: -webkit-sticky;
-  position: sticky;
+  position: absolute;
   bottom: 0;
-  z-index: 99;
+  left: 0;
+  z-index: 999;
+  background: white;
   display: flex;
-  flex-direction: row;
   height: 40px;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
 }
