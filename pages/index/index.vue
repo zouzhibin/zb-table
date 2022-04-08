@@ -10,6 +10,7 @@
             :show-header="true"
             :columns="column"
             :fit="false"
+            :permissionBtn="permissionBtn"
             row-key="id"
             @rowClick="rowClick"
             @toggleRowSelection="toggleRowSelection"
@@ -184,7 +185,7 @@
 				title: 'Hello',
         column:[
           { type:'selection', fixed:true,width:60 },
-          { name: 'name', label: '姓名',fixed:false,width:80,emptyString:'--' },
+          { name: 'name', label: '姓名',fixed:true,width:80,emptyString:'--' },
           { name: 'age', label: '年龄',sorter:'custom',align:'right',fixed:false },
           { name: 'sex', label: '性别',filters:{0:'男',1:'女'}},
           { name: 'price', label: '价格'},
@@ -380,6 +381,13 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
       },3000)
     },
     methods:{
+      permissionBtn (row,renders,rowIndex){
+        if(row.id==2){
+          let arr = renders.filter(item=>item.func==='edit')
+          return arr
+        }
+        return renders
+      },
       sortChange(item,sorterMode,index){
 
         console.log('触发排序',item,sorterMode,index)

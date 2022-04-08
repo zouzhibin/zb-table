@@ -68,7 +68,7 @@
 	                  <template  v-if="ite.type==='operation'">
 	                    <view style="display: flex;align-items: center;height: 100%">
 	                      <view
-	                          v-for="ren,ind in ite.renders"
+	                          v-for="ren,ind in permission(item,ite.renders,index)"
 	                          :key="ind"
 	                          @click.stop="$emit(ren.func,item,index)"
 	                          :style="{
@@ -297,7 +297,7 @@
                   <template  v-if="ite.type==='operation'">
                     <view style="display: flex;align-items: center;height: 100%">
                       <view
-                          v-for="ren,ind in ite.renders"
+                          v-for="ren,ind in permission(item,ite.renders,index)"
                           :key="ind"
                           @click.stop="$emit(ren.func,item,index)"
                           :style="{
@@ -379,6 +379,7 @@ export default {
     AppHeaderItem
   },
   props:{
+    permissionBtn:Function,
     highlight:{
       type:Boolean,
       default:false
@@ -639,6 +640,12 @@ export default {
   mounted(){
   },
   methods: {
+    permission(item,renders,index){
+      if(this.permissionBtn&&typeof this.permissionBtn==='function'){
+        return this.permissionBtn(item,renders,index)
+      }
+      return renders
+    },
     getHeaderHeight(){
       return new Promise((resolve, reject)=>{
         this.$nextTick(()=>{

@@ -22,6 +22,7 @@ table 表格 固定表头、固定首列、多列 上拉加载更多、 排序�
 | show-summary | 是否在表尾显示合计行 | boolean |true,false | false |否 |
 | sum-text | 合计行第一列的文本 | String |- | 合计 |否 |
 | summary-method | 自定义的合计计算方法 | Function({ columns, data }) |- | - |否 |
+| permissionBtn | 是否动态控制按钮的显示隐藏 | Function({ row, renders,index }) |- | - |否 |
 | isShowLoadMore | 是否开启上拉加载 | boolean |true,false | false |否 |
 | pullUpLoading | 开启上拉加载后的返回函数，接收参数done是函数,done(type),type为空代表还有数据，继续开启上拉加载，type='ok',代表结束上拉加载 | Function(done) |-- | -- |否 |
 
@@ -117,6 +118,12 @@ column:[
               {
                 name:'编辑',
                 func:'edit' // func 代表子元素点击的事件 父元素接收的事件 父元素 @edit
+              },
+              {
+                name:'自定义按钮',
+                type:'custom', // type 为custom的时候自定义按钮 其他类型取决于uniapp buttom组件按钮
+                class:"custom",
+                func:'custom'
               },
               {
                 name:'删除',
