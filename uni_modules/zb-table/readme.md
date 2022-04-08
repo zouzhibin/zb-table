@@ -4,8 +4,12 @@
 table 表格 固定表头、固定首列、多列 上拉加载更多、 排序、自适应列宽、多选checkbox、编辑、删除、按钮、合计
 已用于生产环境
 
-## qq群 731805264
+## qq群 731805264  -》支持私人定制-》 1135957121
 ## -- github 永远保持最新，有啥想法的可以提PR,共同开发 [地址](https://github.com/zouzhibin/zb-table)
+
+## 友情链接
+#### vue-admin-perfect —— [企业级、通用型中后台前端解决方案（基于vue3.0+TS+Element-Plus  最新版，同时支持电脑，手机，平板)](https://github.com/zouzhibin/vue-admin-perfect)
+
 
 
 ## table 属性
