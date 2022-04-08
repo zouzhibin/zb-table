@@ -1,7 +1,6 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/table/index"
+    "pages/index/index"
   ],
   "subPackages": [],
   "window": {
@@ -9,26 +8,6 @@
     "navigationBarTitleText": "uni-app",
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
-  },
-  "tabBar": {
-    "color": "#7A7E83",
-    "selectedColor": "#007AFF",
-    "borderStyle": "black",
-    "backgroundColor": "#F8F8F8",
-    "list": [
-      {
-        "pagePath": "pages/index/index",
-        "iconPath": "static/home.png",
-        "selectedIconPath": "static/home-active.png",
-        "text": "主页"
-      },
-      {
-        "pagePath": "pages/table/index",
-        "iconPath": "static/component.png",
-        "selectedIconPath": "static/componentHL.png",
-        "text": "表格组件"
-      }
-    ]
   },
   "usingComponents": {}
 }
