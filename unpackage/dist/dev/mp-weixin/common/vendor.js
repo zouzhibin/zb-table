@@ -2122,7 +2122,7 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 24:
+/***/ 26:
 /*!*************************************************!*\
   !*** E:/dingw/pr2/zzb-table/pages/table/all.js ***!
   \*************************************************/
@@ -8230,18 +8230,18 @@ internalMixin(Vue);
 
 /***/ }),
 
-/***/ 32:
+/***/ 34:
 /*!**********************************************************!*\
   !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
   \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! regenerator-runtime */ 33);
+module.exports = __webpack_require__(/*! regenerator-runtime */ 35);
 
 /***/ }),
 
-/***/ 33:
+/***/ 35:
 /*!************************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime-module.js ***!
   \************************************************************/
@@ -8272,7 +8272,7 @@ var oldRuntime = hadRuntime && g.regeneratorRuntime;
 // Force reevalutation of runtime.js.
 g.regeneratorRuntime = undefined;
 
-module.exports = __webpack_require__(/*! ./runtime */ 34);
+module.exports = __webpack_require__(/*! ./runtime */ 36);
 
 if (hadRuntime) {
   // Restore the original runtime.
@@ -8289,7 +8289,7 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ 34:
+/***/ 36:
 /*!*****************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime.js ***!
   \*****************************************************/
@@ -9485,7 +9485,18 @@ function resolveLocaleChain(locale) {
 
 /***/ }),
 
-/***/ 49:
+/***/ 5:
+/*!*****************************************!*\
+  !*** E:/dingw/pr2/zzb-table/pages.json ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+
+/***/ }),
+
+/***/ 51:
 /*!**********************************************************************************!*\
   !*** E:/dingw/pr2/zzb-table/uni_modules/zb-table/components/zb-table/js/util.js ***!
   \**********************************************************************************/
@@ -9547,18 +9558,7 @@ var getScrollbarSize = function getScrollbarSize(fresh) {
 
 /***/ }),
 
-/***/ 5:
-/*!*****************************************!*\
-  !*** E:/dingw/pr2/zzb-table/pages.json ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-
-
-/***/ }),
-
-/***/ 66:
+/***/ 68:
 /*!*************************************************************************************!*\
   !*** E:/dingw/pr2/zzb-table/uni_modules/zb-table/components/zb-table/js/summary.js ***!
   \*************************************************************************************/
