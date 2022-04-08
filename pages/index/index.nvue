@@ -1,0 +1,113 @@
+<template>
+	<view>
+		<view @click="btn('left')" class="item">
+			<button type="primary">左边弹出</button>
+		</view>
+		<view @click="btn('right')" class="item">
+			<button type="primary">右边弹出</button>
+		</view>
+		<view @click="btn1('top')" class="item">
+			<button type="primary">顶部弹出</button>
+		</view>
+		<view @click="btn1('bottom')" class="item">
+			<button type="primary">底部弹出</button>
+		</view>
+		<zb-drawer :mode="mode" width="80%" :visible.sync="isShow" ref="btn1">
+			<view class="wrap">
+				<view class="center">
+					<scroll-view scroll-y>
+						<view >
+							<view v-for="item in list" class="item-child">{{item}}</view>
+						</view>
+					</scroll-view>
+				</view>
+				<view class="footer">
+					<button style="flex: 1;" size="mini">取消</button>
+					<button type="primary" style="flex: 1;" size="mini">确定</button>
+				</view>
+			</view>
+		</zb-drawer>
+		
+		<zb-drawer :mode="mode" width="80%" :visible.sync="isShow1" ref="btn1">
+			<view class="top-content"></view>
+		</zb-drawer>
+	</view>
+</template>
+
+<script>
+	const list = []
+	for(let i=0;i<40;i++){
+		list.push(`数据${i}`)
+	}
+	export default {
+		data() {
+			return {
+				list,
+				isShow: false,
+				isShow1:false,
+				mode: 'left'
+			}
+		},
+		methods: {
+			click() {
+				uni.showToast({
+					icon: 'none',
+					duration: 3000,
+					title: '点击自定义'
+				})
+			},
+			btn1(type){
+				this.mode = type
+				this.isShow1 = true
+			},
+			btn(type) {
+				// uni.showToast({
+				// 	icon: 'none',
+				// 	duration: 3000,
+				// 	title: '点击自定义1'
+				// })
+				console.log('==========', type)
+				this.isShow = true
+				this.mode = type
+				// uni.hideTabBar()
+
+
+				// uni.hideTabBar(); //隐藏tab
+				// uni.showTabBar(); //显示tab
+			},
+			// btn1() {
+			// 	this.$refs.btn.open()
+			// }
+		}
+	}
+</script>
+
+<style scoped lang="scss">
+	.wrap{
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		overflow:hidden;
+		.center{
+			flex: 1;
+			overflow:auto;
+		}
+	}
+	.item{
+		margin-bottom: 20rpx;
+	}
+	.item-child{
+		height: 60rpx;
+		display: flex;
+		align-items: center;
+	}
+	.footer{
+		flex-shrink: 0;
+	    margin-top: 10px;	
+		display: flex;
+		flex-direction: row;
+	}
+	.top-content{
+		height: 300rpx;
+	}
+</style>

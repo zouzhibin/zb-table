@@ -1,3 +1,36 @@
+
+view,
+label,
+swiper-item,
+scroll-view {
+  display:flex;
+  flex-direction:column;
+  flex-shrink: 0;
+  flex-grow: 0;
+  flex-basis: auto;
+  align-items: stretch;
+  align-content: flex-start;
+}
+view,
+image,
+input,
+scroll-view,
+swiper,
+swiper-item,
+text,
+textarea,
+video {
+  position: relative;
+  border: 0px solid #000000;
+  box-sizing: border-box;
+}
+swiper-item {
+  position: absolute;
+}
+button {
+  margin: 0;
+}
+
 @charset "UTF-8";
 /**
  * 这里是uni-app内置的常用样式变量
@@ -24,11 +57,31 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.data-v-57280228 .uni-card {
-  margin: 8px !important;
-  padding: 0 !important;
+.wrap.data-v-8ddf7c9c {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
-.data-v-57280228 .uni-card .uni-card__content {
-  padding: 0 !important;
+.wrap .center.data-v-8ddf7c9c {
+  flex: 1;
+  overflow: auto;
+}
+.item.data-v-8ddf7c9c {
+  margin-bottom: 20rpx;
+}
+.item-child.data-v-8ddf7c9c {
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+}
+.footer.data-v-8ddf7c9c {
+  flex-shrink: 0;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+}
+.top-content.data-v-8ddf7c9c {
+  height: 300rpx;
 }
 
