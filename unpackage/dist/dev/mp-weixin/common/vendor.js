@@ -2091,9 +2091,9 @@ uni$1;exports.default = _default;
 
 /***/ }),
 
-/***/ 18:
+/***/ 16:
 /*!*************************************************!*\
-  !*** E:/dingw/pr2/zzb-table/pages/table/all.js ***!
+  !*** E:/dingw/pr2/zzb-table/pages/index/all.js ***!
   \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2194,6 +2194,81 @@ try {
 
 module.exports = g;
 
+
+/***/ }),
+
+/***/ 26:
+/*!*************************************************!*\
+  !*** E:/dingw/pr2/zzb-table/pages/table/all.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.column4 = exports.column3 = exports.column2 = exports.column1 = exports.column5 = void 0;
+
+var column5 = [
+{ type: 'index', width: 60, label: '序号', fixed: true },
+{ name: 'date', label: '日期', sorter: true },
+{ name: 'address', label: '地址' },
+{
+  label: '配送信息',
+  children: [
+  { name: 'province', label: '省份', width: 130 },
+  { name: 'city', label: '城市' },
+  { name: 'zip', label: '邮编' }] }];exports.column5 = column5;
+
+
+
+
+
+
+
+var column1 = [
+{ type: 'index', width: 60, label: '序号' },
+{ name: 'name', label: '姓名', width: 80, emptyString: '--' },
+{ name: 'age', label: '年纪' },
+{ name: 'sex', label: '性别', filters: { 0: '男', 1: '女' } },
+{ name: 'address', label: '地址' },
+{ name: 'date', label: '日期' },
+{ name: 'province', label: '省份' },
+{ name: 'city', label: '城市' },
+{ name: 'zip', label: '邮编' }];exports.column1 = column1;
+
+var column2 = [
+{ type: 'selection', width: 50 },
+{ name: 'name', label: '姓名', width: 80, emptyString: '--' },
+{ name: 'age', label: '年纪' },
+{ name: 'sex', label: '性别', filters: { 0: '男', 1: '女' } },
+{ name: 'address', label: '地址' },
+{ name: 'date', label: '日期' },
+{ name: 'province', label: '省份' },
+{ name: 'city', label: '城市' },
+{ name: 'zip', label: '邮编' }];exports.column2 = column2;
+
+
+var column3 = [
+{ type: 'selection', fixed: true, width: 50 },
+{ name: 'name', label: '姓名', fixed: true, width: 80, emptyString: '--' },
+{ name: 'age', label: '年纪' },
+{ name: 'sex', label: '性别', filters: { 0: '男', 1: '女' } },
+{ name: 'address', label: '地址' },
+{ name: 'date', label: '日期' },
+{ name: 'province', label: '省份' },
+{ name: 'city', label: '城市' },
+{ name: 'zip', label: '邮编' }];exports.column3 = column3;
+
+
+var column4 = [
+{ type: 'selection', fixed: true, width: 50 },
+{ name: 'name', label: '姓名', fixed: true, width: 80, emptyString: '--' },
+{ name: 'age', label: '年纪', sorter: true },
+{ name: 'sex', label: '性别', filters: { 0: '男', 1: '女' } },
+{ name: 'address', label: '地址' },
+{ name: 'date', label: '日期', sorter: true },
+{ name: 'province', label: '省份' },
+{ name: 'city', label: '城市' },
+{ name: 'zip', label: '邮编' }];exports.column4 = column4;
 
 /***/ }),
 
