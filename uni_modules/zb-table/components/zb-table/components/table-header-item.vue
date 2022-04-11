@@ -1,23 +1,27 @@
 <template>
   <view
-
+      :style="{
+         flex:(wrapIndex===transColumns.length-1||(multify.length&&isMulitiLastLength))?1:'none',
+         flexDirection:multify.length?'column':'row'
+      }"
       class="zb__item-inner"
+
   >
     <view
         @click.stop="sortAction(item,index)"
         class="item-th"
-        :style="{
+        :style="[{
                   width:`${item.width?item.width+'px':'100%'}`,
-                  flex:index===transColumns.length-1?1:'none',
+                  flex:(index===transColumns.length-1)?1:'none',
                   minWidth:`${item.width?item.width:'100'}px`,
                   borderRight:`${border?'1px solid #e8e8e8':''}`,
-				  <!-- #ifndef H5 || APP-PLUS -->
-                  borderRight:`${(scrollbarSize&&index===transColumns.length-1)?'':border?'1px solid #e8e8e8':''}`,
+				  <!-- #ifdef H5 || APP-PLUS -->
+                  borderRight:`${(scrollbarSize&&wrapIndex===transColumns.length-1)?'':border?'1px solid #e8e8e8':''}`,
 				  <!-- #endif -->
                   borderBottom:`${border?'1px solid #e8e8e8':''}`,
                   justifyContent:textPosition(item)
 
-                }"
+                },getCellStyle(item,wrapIndex)]"
         >
 
         <template v-if="item.type==='selection'">
@@ -45,12 +49,15 @@
           :item="ite"
           @sortAction="sortAction"
           :border="border"
+          wrapIndex=""
           @checkboxSelectedAll="checkboxSelectedAll"
           :indeterminate="indeterminate"
           :checkedAll="checkedAll"
           :transColumns="transColumns"
           :index='`${i}-1-${index}`'
           :key='i'
+          :multify="multify"
+          :isMulitiLastLength="(item.children.length-1)===i"
           :scrollbarSize="scrollbarSize"
           v-for="(ite,i) in item.children"/>
     </view>
@@ -67,9 +74,19 @@
       TableCheckbox
     },
     props:{
+
       item:{
         type:Object,
         default:()=>{}
+      },
+      cellHeaderStyle:Function,
+      multify:{
+        type:Array,
+        default:()=>[]
+      },
+      isMulitiLastLength:{
+        type:Boolean,
+        default:false
       },
       border:{
         type:Boolean,
@@ -85,7 +102,13 @@
         type:Number,
         default:0
       },
+      realColumns:{
+        type:Array,
+        default:()=>[]
+      },
       index:[Number,String],
+      wrapIndex:[Number,String],
+      childIndex:[Number,String],
       fixedLeftColumns:{
         type:Array,
         default:()=>[]
@@ -98,7 +121,16 @@
           if(item.align==='left') return 'flex-start'
           if(item.align==='center') return 'center'
         }
-      }
+      },
+      getCellStyle() {
+        return (column,  columnIndex,childIndex)=>{
+          const cellStyle = this.cellHeaderStyle;
+          if(typeof cellStyle==='function'){
+            return cellStyle({ column, columnIndex})
+          }
+          return {}
+        }
+      },
     },
     data(){
       return{
@@ -106,6 +138,7 @@
       }
     },
     methods:{
+
       sortAction(item,index){
         this.$emit('sortAction',item,index)
       },

@@ -3,6 +3,7 @@
     <uni-card title="全部功能" >
       <view style="height: 300px">
         <zb-table
+            :isLoading="isLoading"
             @sort-change="sortChange"
             :pullUpLoading="pullUpLoading"
             :isShowLoadMore="true"
@@ -156,6 +157,7 @@
     <uni-card title="支持设置单元格样式" >
       <view style="height: 300px">
         <zb-table
+            :cell-header-style="cellHeaderStyle"
             :cell-style="cellStyle"
             :show-header="true"
             :columns="column1"
@@ -358,9 +360,10 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
         ],
         data1:[],
         flag1:true,
-		flag2:true,
+		    flag2:true,
         num:0,
-		num1:0,
+		    num1:0,
+        isLoading:true,
         isShowLoadMore:true
 			}
 		},
@@ -374,11 +377,8 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
 		  this.data1 = JSON.parse(JSON.stringify(this.data))
 		  let data2 = JSON.parse(JSON.stringify(this.data))
       setTimeout(()=>{
-        //  data2.forEach(item=>{
-        //   item.checked = true
-        // })
-        // this.data = data2
-      },3000)
+        this.isLoading = false
+      },1500)
     },
     methods:{
       permissionBtn (row,renders,rowIndex){
@@ -389,8 +389,30 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
         return renders
       },
       sortChange(item,sorterMode,index){
-
+        uni.showToast({
+          icon:'none',
+          duration:3000,
+          title:'触发自定义排序，通过接口返回排序，不默认排序'
+        })
         console.log('触发排序',item,sorterMode,index)
+      },
+      cellHeaderStyle({column,columnIndex}){
+        if(columnIndex === 1 || columnIndex === 4) {
+          return{
+            color:'red'
+          }
+        }
+
+        // if(column.children){
+        //   for(let item of column.children){
+        //     if(item.name==='province'){
+        //       return{
+        //         color:'red'
+        //       }
+        //     }
+        //   }
+        // }
+
       },
       cellStyle({row, column, rowIndex, columnIndex}){
         // console.log('row, column, rowIndex, columnIndex')

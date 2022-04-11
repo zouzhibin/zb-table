@@ -1,6 +1,7 @@
 {
   "component": true,
   "usingComponents": {
+    "zb-loading": "/uni_modules/zb-table/components/zb-table/components/zb-loading",
     "table-checkbox": "/uni_modules/zb-table/components/zb-table/components/table-checkbox",
     "table-summary": "/uni_modules/zb-table/components/zb-table/components/table-summary",
     "table-side-summary": "/uni_modules/zb-table/components/zb-table/components/table-side-summary",

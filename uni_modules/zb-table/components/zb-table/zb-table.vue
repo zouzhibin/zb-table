@@ -21,6 +21,10 @@
                     <table-header-item
                         :item="item"
                         :key="index"
+                        :cellHeaderStyle="cellHeaderStyle"
+                        :multify="multify"
+                        :realColumns="transColumns.realColumns"
+                        :wrapIndex ='index'
                         @sortAction="sortAction"
                         :border="border"
                         @checkboxSelectedAll="checkboxSelectedAll"
@@ -41,6 +45,7 @@
 	      <template v-if="!data.length">
 	        <view class="no-data">暂无数据~~</view>
 	      </template>
+
 	      <scroll-view
             class="zb-table-body" ref="tableBody"	scroll-x="true"	scroll-y="true"	id="tableBody"
 	                   :lower-threshold="40"
@@ -49,7 +54,9 @@
 	                   @scrolltoupper="(e)=>debounce(scrollToLeft)(e)"
                      @scroll="handleBodyScroll"	:scroll-left="bodyTableLeft"	:scroll-top="bodyScrollTop"
                      :style=" `height: calc(100% - ${showSummary?80:40}px)`" >
-	          <view class="zb-table-fixed">
+
+          <zb-loading v-if="isLoading"/>
+	          <view class="zb-table-fixed" v-else>
 	            <view class="zb-table-tbody">
 	              <view  :class="['item-tr',highlight&&isHighlight(item,index)?'current-row':'']"
                        @click.stop="rowClick(item,index)"
@@ -114,6 +121,7 @@
 	              </view>
 	            </view>
 	          </view>
+
 	        </scroll-view>
        <table-h5-summary
            :scrollbarSize="scrollbarSize"
@@ -227,8 +235,10 @@
 	<!-- #endif -->
 	<!-- #ifndef H5 || APP-PLUS -->
 	<view class="zb-table-applet">
+    <zb-loading v-if="isLoading"/>
 	  <view class="zb-table-content">
       <scroll-view
+
 		<!-- #ifdef MP-ALIPAY -->
 		@scroll="scrollAlipay"
 		<!-- #endif  -->
@@ -242,9 +252,9 @@
 				   <!-- #endif  -->
                    scroll-y="true"
 				   scroll-x="true">
-	    <view class="zb-table-scroll" >
+	    <view class="zb-table-scroll">
 	      <template v-if="showHeader">
-	        <view class="zb-table-header top-header-uni" style="">
+	        <view class="zb-table-header top-header-uni">
 	            <view class="zb-table-fixed thead-calculation" >
 	              <view class="zb-table-thead" style="position: relative;" >
 	                <view class="item-tr">
@@ -257,9 +267,12 @@
                         v-for="(item,index) in transColumns.columns">
                       <table-header-item
                           :item="item"
+                          :cellHeaderStyle="cellHeaderStyle"
                           @sortAction="sortAction"
                           :border="border"
-
+                          :multify="multify"
+                          :realColumns="transColumns.realColumns"
+                          :wrapIndex ='index'
                           @checkboxSelectedAll="checkboxSelectedAll"
                           :indeterminate="indeterminate"
                           :checkedAll="checkedAll"
@@ -278,8 +291,9 @@
 	      <template v-if="!data.length">
 	        <view class="no-data">暂无数据~~</view>
 	      </template>
-          <view class="zb-table-fixed">
-            <view class="zb-table-tbody">
+          <view class="zb-table-fixed" >
+
+            <view class="zb-table-tbody" >
               <view  :class="['item-tr',highlight&&isHighlight(item,index)?'current-row':'']"
                      @click.stop="rowClick(item,index)"
                      v-for="(item,index) in transData" :key="item.key" >
@@ -364,12 +378,14 @@ import TableSummary from "./components/table-summary.vue";
 import TableSideSummary from "./components/table-side-summary.vue";
 import TableH5Summary from './components/table-h5-summary'
 import ZbLoadMore from './components/zb-load-more'
+import ZbLoading from './components/zb-loading'
 import TableHeaderItem from './components/table-header-item'
 import AppHeaderItem from './components/app-header-item'
 
 import {getScrollbarSize} from "./js/util";
 export default {
   components:{
+    ZbLoading,
     TableCheckbox,
     TableSummary,
     TableSideSummary,
@@ -381,6 +397,10 @@ export default {
   props:{
     permissionBtn:Function,
     highlight:{
+      type:Boolean,
+      default:false
+    },
+    isLoading:{
       type:Boolean,
       default:false
     },
@@ -427,7 +447,8 @@ export default {
     rowKey:[String, Function],
     summaryMethod:Function,
     pullUpLoading:Function,
-    cellStyle:Function
+    cellStyle:Function,
+    cellHeaderStyle:Function
   },
   watch:{
     columns:{
@@ -540,7 +561,7 @@ export default {
         }
         item.emptyString = item.emptyString||'--'
       })
-      let realColumns = this.renderRealColumns(JSON.parse(JSON.stringify(this.columns)))
+      let realColumns = this.renderRealColumns(this.columns)
       return {
         columns:this.columns,
         realColumns:realColumns
@@ -611,6 +632,7 @@ export default {
       alipayScrollOldTop:0,
       alipayFlag:false,
       bodyTableLeft:0,
+      multify:[],
       h5HeaderHeight:'auto',
       headerTableLeft:0,
       lastScrollLeft:0,
@@ -659,10 +681,11 @@ export default {
     renderRealColumns(list=[]){
       if(!list.length) return []
       let arr = []
-      function deep(data){
+      const deep = (data)=>{
         data.forEach(item=>{
           let { children, ...obj } = item
           if(children&&children.length){
+            this.multify.push(item)
             deep(children)
           }else {
             arr.push({...obj})
@@ -690,7 +713,7 @@ export default {
         }
         this.alipayFlag = false
         this.alipayScrollOldTop = null
-      },500)
+      },60)
     },
     pullLoad(){
       if(this.isShowLoadMore){
@@ -844,16 +867,29 @@ export default {
       return false
     },
     sortAction(item,index){
+
       if(!item.sorter){return false}
+
+
+      let obj = item
+      // #ifndef H5 || APP-PLUS
+     for(let ite of this.transColumns.columns){
+       if(item.name===item.name&&item.label===ite.label){
+         ite.sorterMode = item.sorterMode==='_asc'?'_desc':'_asc'
+         obj = ite
+          break
+       }
+     }
+      this.$forceUpdate()
+      // #endif
+      // #ifdef H5 || APP-PLUS
       this.$set(item,'sorterMode',item.sorterMode==='_asc'?'_desc':'_asc')
+        // #endif
       if(item.sorter==='custom'){
-        this.$emit('sort-change',item,item.sorterMode.replace('_',''),index)
+        this.$emit('sort-change',obj,obj.sorterMode.replace('_',''),index)
       }else {
         this.sortData(item)
       }
-      // #ifndef H5 || APP-PLUS
-      this.$forceUpdate()
-      // #endif
     },
     sortData(item){
       let key = item.name

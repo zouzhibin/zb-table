@@ -332,7 +332,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 var _all = __webpack_require__(/*! ./all.js */ 16); //
+//
+//
 //
 //
 //
@@ -506,9 +510,7 @@ var _all = __webpack_require__(/*! ./all.js */ 16); //
 var that = null;var _default = { components: {}, data: function data() {return { column1: _all.column1, column2: _all.column2, column3: _all.column3, column4: _all.column4, column5: _all.column5, title: 'Hello', column: [{ type: 'selection', fixed: true, width: 60 }, { name: 'name', label: '姓名', fixed: true, width: 80, emptyString: '--' }, { name: 'age', label: '年龄', sorter: 'custom', align: 'right', fixed: false }, { name: 'sex', label: '性别', filters: { 0: '男', 1: '女' } }, { name: 'price', label: '价格' }, { name: 'admin', label: '账号' }, { name: 'address', label: '地址' }, { name: 'date', label: '日期', sorter: true }, { name: 'province', label: '省份' }, { name: 'city', label: '城市' }, { name: 'zip', label: '邮编' }, { name: 'img', label: '图片', type: "img", align: "center" }, { name: 'operation', type: 'operation', label: '操作', renders: [{ name: '编辑', class: 'edit', type: "primary", func: 'edit' // func 代表子元素点击的事件 父元素接收的事件 父元素 @edit
         }, { name: '自定义按钮', type: 'custom', // type 为custom的时候自定义按钮
           class: "custom", func: 'custom' }, { name: '删除', type: 'warn', // type 为custom的时候自定义按钮
-          class: "del", func: 'dele' }] }], data: [{ date: '2016-05-02', name: '', price: 0, province: '上海', admin: "admin", sex: '1', checked: true, id: "20", img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", age: 0, city: '普陀区', address: '上海市普上海市普上海市普上海市普', zip: 200333 }, { date: '2016-05-01', name: '王小虎2', province: '上海', sex: '0', price: 0, id: "2", age: 12, city: '普陀区', img: "https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-7a1ed80f6055.jpeg.a.jpeg", address: '上海市普', zip: 200333 }, { date: '2022-03-25T09:27:42', name: '王小虎3', province: '上海', sex: 1, price: 33, id: "3", age: '15', img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", city: '普陀区', address: '上海市普', zip: 200333555 }, { date: '2016-04-02', name: '王小虎4', province: '上海', sex: 1, age: '11', price: 33, id: "4", img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", city: '普陀区', address: '上海市普', zip: 200333 }, { date: '2016-03-02', name: '王小虎5', province: '上海', price: 0, sex: 1, age: '14', img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", id: "5", city: '普陀区', address: '上海市普', zip: 200333 }, { date: '2014-05-02', name: '王小虎6', province: '上海', price: 33, sex: 1, id: "6", age: '12', img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", city: '普陀区', address: '上海市普', zip: 0 }, { date: '2019-05-02', name: '王小虎7', price: 33, province: '上海', sex: 1, age: 0, id: "7", city: '普陀区', img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", address: '上海市普', zip: 200333 }, { date: '2012-05-02', name: '王小虎8', province: '上海', price: 0, sex: 1, age: '29', id: "8", city: '普陀区', img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", address: '上海市普', zip: 200333 }, { date: '2011-05-02', name: '王小虎91', price: 33, img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", province: '上海', sex: 1, id: "9", age: '30', city: '普陀区', address: '上海市普', zip: 200333 }, { date: '2011-05-02', name: '王小虎10', province: '上海', sex: 1, id: "10", age: '30', img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", city: '普陀区', address: '上海市普', zip: 200333 }, { date: '2011-05-02',
-        name: '王小虎20',
-        province: '上海',
+          class: "del", func: 'dele' }] }], data: [{ date: '2016-05-02', name: '', price: 0, province: '上海', admin: "admin", sex: '1', checked: true, id: "20", img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", age: 0, city: '普陀区', address: '上海市普上海市普上海市普上海市普', zip: 200333 }, { date: '2016-05-01', name: '王小虎2', province: '上海', sex: '0', price: 0, id: "2", age: 12, city: '普陀区', img: "https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-7a1ed80f6055.jpeg.a.jpeg", address: '上海市普', zip: 200333 }, { date: '2022-03-25T09:27:42', name: '王小虎3', province: '上海', sex: 1, price: 33, id: "3", age: '15', img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", city: '普陀区', address: '上海市普', zip: 200333555 }, { date: '2016-04-02', name: '王小虎4', province: '上海', sex: 1, age: '11', price: 33, id: "4", img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", city: '普陀区', address: '上海市普', zip: 200333 }, { date: '2016-03-02', name: '王小虎5', province: '上海', price: 0, sex: 1, age: '14', img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", id: "5", city: '普陀区', address: '上海市普', zip: 200333 }, { date: '2014-05-02', name: '王小虎6', province: '上海', price: 33, sex: 1, id: "6", age: '12', img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", city: '普陀区', address: '上海市普', zip: 0 }, { date: '2019-05-02', name: '王小虎7', price: 33, province: '上海', sex: 1, age: 0, id: "7", city: '普陀区', img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", address: '上海市普', zip: 200333 }, { date: '2012-05-02', name: '王小虎8', province: '上海', price: 0, sex: 1, age: '29', id: "8", city: '普陀区', img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", address: '上海市普', zip: 200333 }, { date: '2011-05-02', name: '王小虎91', price: 33, img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", province: '上海', sex: 1, id: "9", age: '30', city: '普陀区', address: '上海市普', zip: 200333 }, { date: '2011-05-02', name: '王小虎10', province: '上海', sex: 1, id: "10", age: '30', img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500", city: '普陀区', address: '上海市普', zip: 200333 }, { date: '2011-05-02', name: '王小虎20', province: '上海',
         sex: 1,
         price: 33,
         id: "11",
@@ -523,6 +525,7 @@ var that = null;var _default = { components: {}, data: function data() {return {
       flag2: true,
       num: 0,
       num1: 0,
+      isLoading: true,
       isShowLoadMore: true };
 
   },
@@ -532,15 +535,12 @@ var that = null;var _default = { components: {}, data: function data() {return {
   created: function created() {
     that = this;
   },
-  mounted: function mounted() {
+  mounted: function mounted() {var _this = this;
     this.data1 = JSON.parse(JSON.stringify(this.data));
     var data2 = JSON.parse(JSON.stringify(this.data));
     setTimeout(function () {
-      //  data2.forEach(item=>{
-      //   item.checked = true
-      // })
-      // this.data = data2
-    }, 3000);
+      _this.isLoading = false;
+    }, 1500);
   },
   methods: {
     permissionBtn: function permissionBtn(row, renders, rowIndex) {
@@ -551,10 +551,32 @@ var that = null;var _default = { components: {}, data: function data() {return {
       return renders;
     },
     sortChange: function sortChange(item, sorterMode, index) {
+      uni.showToast({
+        icon: 'none',
+        duration: 3000,
+        title: '触发自定义排序，通过接口返回排序，不默认排序' });
 
       console.log('触发排序', item, sorterMode, index);
     },
-    cellStyle: function cellStyle(_ref) {var row = _ref.row,column = _ref.column,rowIndex = _ref.rowIndex,columnIndex = _ref.columnIndex;
+    cellHeaderStyle: function cellHeaderStyle(_ref) {var column = _ref.column,columnIndex = _ref.columnIndex;
+      if (columnIndex === 1 || columnIndex === 4) {
+        return {
+          color: 'red' };
+
+      }
+
+      // if(column.children){
+      //   for(let item of column.children){
+      //     if(item.name==='province'){
+      //       return{
+      //         color:'red'
+      //       }
+      //     }
+      //   }
+      // }
+
+    },
+    cellStyle: function cellStyle(_ref2) {var row = _ref2.row,column = _ref2.column,rowIndex = _ref2.rowIndex,columnIndex = _ref2.columnIndex;
       // console.log('row, column, rowIndex, columnIndex')
       if (columnIndex === 1 || columnIndex === 4) {
         return {
@@ -562,40 +584,40 @@ var that = null;var _default = { components: {}, data: function data() {return {
 
       }
     },
-    pullUpLoading: function pullUpLoading(done) {var _this = this;
+    pullUpLoading: function pullUpLoading(done) {var _this2 = this;
       if (!this.flag1) {
         return;
       }
       setTimeout(function () {
-        _this.data.push({
+        _this2.data.push({
           date: '2011-05-02',
           name: '王小虎23',
           province: '上海',
           sex: 1,
           price: 33,
-          id: 11111 + _this.num,
+          id: 11111 + _this2.num,
           age: '30',
           city: '普陀区',
           address: '上海市普',
           zip: 200333 });
 
 
-        _this.num++;
-        if (_this.num === 3) {
+        _this2.num++;
+        if (_this2.num === 3) {
           done('ok');
-          _this.flag1 = false;
+          _this2.flag1 = false;
         } else {
           done();
         }
       }, 2000);
     },
 
-    pullUpLoadingAction: function pullUpLoadingAction(done) {var _this2 = this;
+    pullUpLoadingAction: function pullUpLoadingAction(done) {var _this3 = this;
       if (!this.flag2) {
         return;
       }
       setTimeout(function () {
-        _this2.data.push({
+        _this3.data.push({
           date: '2011-05-02',
           name: '王小虎23',
           province: '上海',
@@ -608,12 +630,12 @@ var that = null;var _default = { components: {}, data: function data() {return {
           zip: 200333 });
 
 
-        _this2.num1++;
-        if (_this2.num1 === 3) {
-          _this2.$refs.zbTable.pullUpCompleteLoading('ok');
-          _this2.flag2 = false;
+        _this3.num1++;
+        if (_this3.num1 === 3) {
+          _this3.$refs.zbTable.pullUpCompleteLoading('ok');
+          _this3.flag2 = false;
         } else {
-          _this2.$refs.zbTable.pullUpCompleteLoading();
+          _this3.$refs.zbTable.pullUpCompleteLoading();
         }
       }, 1000);
     },
