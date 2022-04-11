@@ -5,7 +5,7 @@
 
 
 ## qq群 731805264
-## -- github 永远保持最新，有啥想法的可以提PR,共同开发 [地址](https://github.com/zouzhibin/zb-table.git)
+## -- github 永远保持最新，有啥想法的可以提PR,共同开发 [地址](https://github.com/zouzhibin/zb-ui.git)
 
 ## drawer属性
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |是否必须|

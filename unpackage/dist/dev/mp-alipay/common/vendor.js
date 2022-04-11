@@ -1,6 +1,6 @@
-(my["webpackJsonp"] = my["webpackJsonp"] || []).push([["common/vendor"],[
-/* 0 */,
-/* 1 */
+(my["webpackJsonp"] = my["webpackJsonp"] || []).push([["common/vendor"],{
+
+/***/ 1:
 /*!************************************************************!*\
   !*** ./node_modules/@dcloudio/uni-mp-alipay/dist/index.js ***!
   \************************************************************/
@@ -1638,7 +1638,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_NAME":"zzb-table","VUE_APP_PLATFORM":"mp-alipay","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"zzb-table","VUE_APP_PLATFORM":"mp-alipay","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -3043,7 +3043,83 @@ uni$1;exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../webpack/buildin/global.js */ 2)))
 
 /***/ }),
-/* 2 */
+
+/***/ 16:
+/*!*************************************************!*\
+  !*** E:/dingw/pr2/zzb-table/pages/index/all.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.column4 = exports.column3 = exports.column2 = exports.column1 = exports.column5 = void 0;
+
+var column5 = [
+{ type: 'index', width: 60, label: '序号', fixed: true },
+{ name: 'date', label: '日期', sorter: true },
+{ name: 'address', label: '地址' },
+{
+  label: '配送信息',
+  children: [
+  { name: 'province', label: '省份', width: 130 },
+  { name: 'city', label: '城市' },
+  { name: 'zip', label: '邮编' }] }];exports.column5 = column5;
+
+
+
+
+
+
+
+var column1 = [
+{ type: 'index', width: 60, label: '序号' },
+{ name: 'name', label: '姓名', width: 80, emptyString: '--' },
+{ name: 'age', label: '年纪' },
+{ name: 'sex', label: '性别', filters: { 0: '男', 1: '女' } },
+{ name: 'address', label: '地址' },
+{ name: 'date', label: '日期' },
+{ name: 'province', label: '省份' },
+{ name: 'city', label: '城市' },
+{ name: 'zip', label: '邮编' }];exports.column1 = column1;
+
+var column2 = [
+{ type: 'selection', width: 50 },
+{ name: 'name', label: '姓名', width: 80, emptyString: '--' },
+{ name: 'age', label: '年纪' },
+{ name: 'sex', label: '性别', filters: { 0: '男', 1: '女' } },
+{ name: 'address', label: '地址' },
+{ name: 'date', label: '日期' },
+{ name: 'province', label: '省份' },
+{ name: 'city', label: '城市' },
+{ name: 'zip', label: '邮编' }];exports.column2 = column2;
+
+
+var column3 = [
+{ type: 'selection', fixed: true, width: 50 },
+{ name: 'name', label: '姓名', fixed: true, width: 80, emptyString: '--' },
+{ name: 'age', label: '年纪' },
+{ name: 'sex', label: '性别', filters: { 0: '男', 1: '女' } },
+{ name: 'address', label: '地址' },
+{ name: 'date', label: '日期' },
+{ name: 'province', label: '省份' },
+{ name: 'city', label: '城市' },
+{ name: 'zip', label: '邮编' }];exports.column3 = column3;
+
+
+var column4 = [
+{ type: 'selection', fixed: true, width: 50 },
+{ name: 'name', label: '姓名', fixed: true, width: 80, emptyString: '--' },
+{ name: 'age', label: '年纪', sorter: true },
+{ name: 'sex', label: '性别', filters: { 0: '男', 1: '女' } },
+{ name: 'address', label: '地址' },
+{ name: 'date', label: '日期', sorter: true },
+{ name: 'province', label: '省份' },
+{ name: 'city', label: '城市' },
+{ name: 'zip', label: '邮编' }];exports.column4 = column4;
+
+/***/ }),
+
+/***/ 2:
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
   \***********************************/
@@ -3073,7 +3149,8 @@ module.exports = g;
 
 
 /***/ }),
-/* 3 */
+
+/***/ 3:
 /*!******************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js ***!
   \******************************************************************************************/
@@ -8600,7 +8677,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_NAME":"zzb-table","VUE_APP_PLATFORM":"mp-alipay","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"NODE_ENV":"development","VUE_APP_NAME":"zzb-table","VUE_APP_PLATFORM":"mp-alipay","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -8621,14 +8698,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_NAME":"zzb-table","VUE_APP_PLATFORM":"mp-alipay","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"zzb-table","VUE_APP_PLATFORM":"mp-alipay","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_NAME":"zzb-table","VUE_APP_PLATFORM":"mp-alipay","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"zzb-table","VUE_APP_PLATFORM":"mp-alipay","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -8714,7 +8791,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_NAME":"zzb-table","VUE_APP_PLATFORM":"mp-alipay","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"zzb-table","VUE_APP_PLATFORM":"mp-alipay","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -9124,7 +9201,8 @@ internalMixin(Vue);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../webpack/buildin/global.js */ 2)))
 
 /***/ }),
-/* 4 */
+
+/***/ 4:
 /*!*************************************************************!*\
   !*** ./node_modules/@dcloudio/uni-i18n/dist/uni-i18n.es.js ***!
   \*************************************************************/
@@ -9587,7 +9665,70 @@ function resolveLocaleChain(locale) {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-alipay/dist/index.js */ 1)["default"], __webpack_require__(/*! ./../../../webpack/buildin/global.js */ 2)))
 
 /***/ }),
-/* 5 */
+
+/***/ 42:
+/*!**********************************************************************************!*\
+  !*** E:/dingw/pr2/zzb-table/uni_modules/zb-table/components/zb-table/js/util.js ***!
+  \**********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.getScrollbarSize = void 0; /**
+                                                                                                               * 获取滚动条宽度
+                                                                                                               */
+var cached = undefined;
+
+var getScrollbarSize = function getScrollbarSize(fresh) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  return cached;
+};exports.getScrollbarSize = getScrollbarSize;
+
+/***/ }),
+
+/***/ 5:
 /*!*****************************************!*\
   !*** E:/dingw/pr2/zzb-table/pages.json ***!
   \*****************************************/
@@ -9597,10 +9738,104 @@ function resolveLocaleChain(locale) {
 
 
 /***/ }),
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */
+
+/***/ 66:
+/*!*************************************************************************************!*\
+  !*** E:/dingw/pr2/zzb-table/uni_modules/zb-table/components/zb-table/js/summary.js ***!
+  \*************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default2 = {
+  props: {
+    scrollbarSize: {
+      type: Number,
+      default: 0 },
+
+    fixedLeftColumns: {
+      type: Array,
+      default: function _default() {return [];} },
+
+    data: {
+      type: Array,
+      default: function _default() {return [];} },
+
+    transColumns: {
+      type: Array,
+      default: function _default() {return [];} },
+
+    border: {
+      type: Boolean,
+      default: false },
+
+    showSummary: {
+      type: Boolean,
+      default: false },
+
+    summaryMethod: {
+      type: Function },
+
+    sumText: {
+      type: String,
+      default: '合计' },
+
+    headerFooterTableLeft: {
+      type: Number,
+      default: 0 },
+
+    handleFooterTableScrollLeft: Function },
+
+  data: function data() {
+    return {
+      sums: [] };
+
+  },
+  watch: {
+    'data': {
+      deep: true,
+      immediate: true,
+      handler: function handler(newValue, oldValue) {var _this = this;
+        var sums = [];
+        if (this.summaryMethod) {
+          sums = this.summaryMethod({ columns: this.transColumns, data: this.data });
+        } else {
+          this.transColumns.forEach(function (column, index) {
+            if (index === 0) {
+              sums[index] = _this.sumText;
+              return;
+            }
+            var values = _this.data.map(function (item) {return Number(item[column.name]);});
+            var precisions = [];
+            var notNumber = true;
+            values.forEach(function (value) {
+              if (!isNaN(value)) {
+                notNumber = false;
+                var decimal = ('' + value).split('.')[1];
+                precisions.push(decimal ? decimal.length : 0);
+              }
+            });
+            var precision = Math.max.apply(null, precisions);
+            if (!notNumber) {
+              sums[index] = values.reduce(function (prev, curr) {
+                var value = Number(curr);
+                if (!isNaN(value)) {
+                  return parseFloat((prev + curr).toFixed(Math.min(precision, 20)));
+                } else {
+                  return prev;
+                }
+              }, 0);
+            } else {
+              sums[index] = '';
+            }
+          });
+        }
+        this.sums = sums;
+      } } } };exports.default = _default2;
+
+/***/ }),
+
+/***/ 9:
 /*!**********************************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
   \**********************************************************************************************************/
@@ -9728,4 +9963,5 @@ function normalizeComponent (
 
 
 /***/ })
-]]);
+
+}]);
