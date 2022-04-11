@@ -675,7 +675,7 @@ export default {
   },
   methods: {
     formatterAction(row,column,rowIndex,columnIndex){
-      if(column.formatter){
+      if(column.formatter&&typeof this.formatter==='function'){
         return this.formatter(row,column,rowIndex,columnIndex)
       }
       return (row[column.name]==null||row[column.name]==='')?column.emptyString:row[column.name]

@@ -22,12 +22,6 @@
             @edit="buttonEdit"
             @dele="dele"
             :data="data">
-          <template v-slot:age>
-            <view >
-<!--              <div style="color: red">{{scope.label}}</div>-->
-              <div style="color: red">1</div>
-            </view>
-          </template>
         </zb-table>
       </view>
     </uni-card>
