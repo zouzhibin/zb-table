@@ -30,7 +30,15 @@
 			</view>
 		</view>
 		
-		
+		<view class="item-block">
+			<view class="title">展示圆角</view>
+			<view class="card">
+				<view class="inner" @click="btn4('bottom')">
+					<view class="text">展示圆角</view>
+				</view>
+
+			</view>
+		</view>
 		
 		
 		<zb-drawer 
@@ -63,6 +71,8 @@
 		
 		<zb-drawer :mode="mode" width="80%" :visible.sync="isShow3" :withHeader="false">
 		</zb-drawer>
+		<zb-drawer :mode="mode" width="80%" :visible.sync="isShow4" :radius="true">
+		</zb-drawer>
 	</view>
 </template>
 
@@ -79,6 +89,7 @@
 				isShow1: false,
 				isShow2:false,
 				isShow3:false,
+				isShow4:false,
 				mode: 'left'
 			}
 		},
@@ -97,6 +108,10 @@
 			btn3(type){
 				this.mode = type
 				this.isShow3 = true
+			},
+			btn4(type){
+				this.mode = type
+				this.isShow4 = true
 			},
 			btn2(type) {
 				this.mode = type
