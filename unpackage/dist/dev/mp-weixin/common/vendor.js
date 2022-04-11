@@ -2091,9 +2091,9 @@ uni$1;exports.default = _default;
 
 /***/ }),
 
-/***/ 16:
+/***/ 18:
 /*!*************************************************!*\
-  !*** E:/dingw/pr2/zzb-table/pages/index/all.js ***!
+  !*** E:/dingw/pr2/zzb-table/pages/table/all.js ***!
   \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
