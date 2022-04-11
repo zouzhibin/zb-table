@@ -115,7 +115,8 @@
                     </view>
                   </template>
 	                  <template  v-else>
-                      {{ ite.filters?itemFilter(item,ite):(item[ite.name]==null||item[ite.name]==='')?ite.emptyString:item[ite.name] }}
+                      {{ ite.filters?itemFilter(item,ite):formatterAction(item,ite,index,i) }}
+<!--                      {{ ite.filters?itemFilter(item,ite):(item[ite.name]==null||item[ite.name]==='')?ite.emptyString:item[ite.name] }}-->
 	                  </template>
 	                </view>
 	              </view>
@@ -349,7 +350,8 @@
                     {{index+1}}
                   </template>
                   <template  v-else>
-                    {{ ite.filters?itemFilter(item,ite):(item[ite.name]==null||item[ite.name]==='')?ite.emptyString:item[ite.name] }}
+<!--                    {{ ite.filters?itemFilter(item,ite):formatter?formatterAction(item,ite):(item[ite.name]==null||item[ite.name]==='')?ite.emptyString:item[ite.name] }}-->
+                    {{ ite.filters?itemFilter(item,ite):formatterAction(item,ite,index,i) }}
                   </template>
                 </view>
               </view>
@@ -446,6 +448,7 @@ export default {
     },
     rowKey:[String, Function],
     summaryMethod:Function,
+    formatter:Function,
     pullUpLoading:Function,
     cellStyle:Function,
     cellHeaderStyle:Function
@@ -463,6 +466,15 @@ export default {
     }
   },
   computed:{
+    itemFilter(){
+     return (item,ite)=>{
+       if(ite.filters&&ite.name){
+         let key = item[ite.name]
+         return ite.filters[key]||''
+       }
+       return item[ite.name]||ite.emptyString
+     }
+    },
     loadMoreHeight(){
       return this.isLoadMore?40:0
     },
@@ -662,6 +674,12 @@ export default {
   mounted(){
   },
   methods: {
+    formatterAction(row,column,rowIndex,columnIndex){
+      if(column.formatter){
+        return this.formatter(row,column,rowIndex,columnIndex)
+      }
+      return (row[column.name]==null||row[column.name]==='')?column.emptyString:row[column.name]
+    },
     permission(item,renders,index){
       if(this.permissionBtn&&typeof this.permissionBtn==='function'){
         return this.permissionBtn(item,renders,index)
@@ -811,13 +829,7 @@ export default {
       // #endif
       this.$emit('toggleRowSelection',e.checked,this.selectArr)
     },
-    itemFilter(item,ite){
-      if(ite.filters&&ite.name){
-        let key = item[ite.name]
-        return ite.filters[key]||''
-      }
-      return item[ite.name]||ite.emptyString
-    },
+
     // 默认字体为微软雅黑 Microsoft YaHei,字体大小为 14px
     getTextWidth(str) {
       if(str.length<3){

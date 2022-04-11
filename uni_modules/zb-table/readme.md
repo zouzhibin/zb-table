@@ -23,6 +23,7 @@ table 表格 固定表头、固定首列、多列 上拉加载更多、 排序�
 | show-header | 是否显示表头 | boolean |true,false | true |否 |
 | cell-style | 单元格的 style 的回调方法，也可以使用一个固定的 Object 为所有单元格设置一样的 Style。 | Function({row, column, rowIndex, columnIndex})/Object |-- | -- |否 |
 | cell-header-style | 头部单元格的 style 的回调方法，也可以使用一个固定的 Object 为所有单元格设置一样的 Style。 | Function({ column, columnIndex})/Object |-- | -- |否 |
+| formatter | colomn =》formatter 必须设置为true,才有作用，进行格式化数据，进行数据的转换 | Function({row, column, rowIndex, columnIndex})/Object |-- | -- |否 |
 | border | 是否带有纵向边框 | boolean |true,false | true |否 |
 | highlight | 是否要高亮当前行 | boolean |true,false | false |否 |
 | show-summary | 是否在表尾显示合计行 | boolean |true,false | false |否 |
@@ -68,6 +69,7 @@ done 接收参数为 type ，type为空代表还有数据，可以继续加载�
 | label | 显示的标题 | string |-- | 无 |
 | width | 列的宽度 | number |-- | 100 |
 | fixed | 列是否固定在左侧，true 表示固定在左侧 | boolean |true,false | true |
+| formatter | 是否进行格式化转换数据 | boolean |true,false | false |
 | sorter | 排序，当设置为custom的时候代表自定义排序，不会再触发默认排序，会触发table事件@sort-change,可以通过接口来进行排序 | boolean |true,false,'custom' | false |
 | emptyString | 当值为空的时候默认显示的值 | string |  | -- |
 | filters | 对象过滤的选项，对象格式，对象中的元素需要有 key 和 value 属性。 | Object | {key:value} | -- |

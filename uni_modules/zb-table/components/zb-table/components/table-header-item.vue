@@ -80,6 +80,7 @@
         default:()=>{}
       },
       cellHeaderStyle:Function,
+      formatter:Function,
       multify:{
         type:Array,
         default:()=>[]
