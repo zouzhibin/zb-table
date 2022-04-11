@@ -7,7 +7,7 @@
         @click.stop="sortAction(item,index)"
         class="item-th"
         :style="{
-                  width:`${item.width?item.width:'auto'}px`,
+                  width:`${item.width?item.width+'px':'100%'}`,
                   flex:index===transColumns.length-1?1:'none',
                   minWidth:`${item.width?item.width:'100'}px`,
                   borderRight:`${border?'1px solid #e8e8e8':''}`,
@@ -71,13 +71,25 @@
         type:Object,
         default:()=>{}
       },
-      border:Boolean,
+      border:{
+        type:Boolean,
+        default:false
+      },
       indeterminate:Boolean,
       checkedAll:Boolean,
-      transColumns:Array,
-      scrollbarSize:Number,
+      transColumns:{
+        type:Array,
+        default:()=>[]
+      },
+      scrollbarSize:{
+        type:Number,
+        default:0
+      },
       index:[Number,String],
-      fixedLeftColumns:Array
+      fixedLeftColumns:{
+        type:Array,
+        default:()=>[]
+      }
     },
     computed:{
       textPosition(){
@@ -123,7 +135,7 @@
   display: flex;
   flex-direction: column;
   .item-th{
-    height: 100%;
+    height: 100%!important;
     position: relative;
     display: flex;
    background: #fafafa;

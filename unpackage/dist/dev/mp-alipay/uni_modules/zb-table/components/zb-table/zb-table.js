@@ -83,12 +83,12 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var l1 = _vm.__map(_vm.transData, function(item, index) {
+  var l2 = _vm.__map(_vm.transData, function(item, index) {
     var $orig = _vm.__get_orig(item)
 
     var m0 = _vm.highlight && _vm.isHighlight(item, index)
 
-    var l0 = _vm.__map(_vm.transColumns.realColumns, function(ite, i) {
+    var l1 = _vm.__map(_vm.transColumns.realColumns, function(ite, i) {
       var $orig = _vm.__get_orig(ite)
 
       var s0 = _vm.__get_style([
@@ -103,6 +103,10 @@ var render = function() {
         _vm.getCellStyle(item, ite, index, i)
       ])
 
+      var l0 =
+        ite.type === "operation"
+          ? _vm.permission(item, ite.renders, index)
+          : null
       var m1 =
         !(ite.type === "operation") &&
         !(ite.type === "selection") &&
@@ -114,6 +118,7 @@ var render = function() {
       return {
         $orig: $orig,
         s0: s0,
+        l0: l0,
         m1: m1
       }
     })
@@ -121,21 +126,34 @@ var render = function() {
     return {
       $orig: $orig,
       m0: m0,
-      l0: l0
+      l1: l1
     }
   })
 
   if (!_vm._isMounted) {
-    _vm.e0 = function(e, item) {
+    _vm.e0 = function($event, ren, item, index) {
+      var _temp = arguments[arguments.length - 1].currentTarget.dataset,
+        _temp2 = _temp.eventParams || _temp["event-params"],
+        ren = _temp2.ren,
+        item = _temp2.item,
+        index = _temp2.index
+
+      var _temp, _temp2
+
+      $event.stopPropagation()
+      return _vm.$emit(ren.func, item, index)
+    }
+
+    _vm.e1 = function(e, item) {
       var args = [],
         len = arguments.length - 2
       while (len-- > 0) args[len] = arguments[len + 2]
 
-      var _temp = args[args.length - 1].currentTarget.dataset,
-        _temp2 = _temp.eventParams || _temp["event-params"],
-        item = _temp2.item
+      var _temp3 = args[args.length - 1].currentTarget.dataset,
+        _temp4 = _temp3.eventParams || _temp3["event-params"],
+        item = _temp4.item
 
-      var _temp, _temp2
+      var _temp3, _temp4
 
       return _vm.checkboxSelected(e, item)
     }
@@ -145,7 +163,7 @@ var render = function() {
     {},
     {
       $root: {
-        l1: l1
+        l2: l2
       }
     }
   )
@@ -563,6 +581,7 @@ var _util = __webpack_require__(/*! ./js/util */ 42);function _interopRequireDef
     AppHeaderItem: AppHeaderItem },
 
   props: {
+    permissionBtn: Function,
     highlight: {
       type: Boolean,
       default: false },
@@ -823,6 +842,12 @@ var _util = __webpack_require__(/*! ./js/util */ 42);function _interopRequireDef
   mounted: function mounted() {
   },
   methods: {
+    permission: function permission(item, renders, index) {
+      if (this.permissionBtn && typeof this.permissionBtn === 'function') {
+        return this.permissionBtn(item, renders, index);
+      }
+      return renders;
+    },
     getHeaderHeight: function getHeaderHeight() {var _this5 = this;
       return new Promise(function (resolve, reject) {
         _this5.$nextTick(function () {
