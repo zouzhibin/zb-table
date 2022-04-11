@@ -1,7 +1,7 @@
 <template>
 	<!-- #ifdef H5 || APP-PLUS -->
 	<view :class="['zb-table','zb-table-fixed-header',!border&&(bodyTableLeft>50||headerTableLeft>50)&&'scroll-left-fixed']">
-	  <view class="zb-table-content" style="flex: 1">
+    <view class="zb-table-content" style="flex: 1">
 	    <view class="zb-table-scroll" style="height: 100%;">
 	      <template v-if="showHeader">
 	        <view class="zb-table-header top-header-uni" :style="{paddingRight:`${scrollbarSize}px`}"
@@ -16,35 +16,26 @@
 	                       style="
 						height: 100%">
 	            <view class="zb-table-fixed" >
-	              <view class="zb-table-thead" style="position: relative;" >
+	              <view class="zb-table-thead thead-calculation" style="position: relative;" >
 	                <view class="item-tr">
-	                  <view
-	                      @click.stop="sortAction(item,index)"
-	                      class="item-th"
-	                      :style="{
-	                              width:`${item.width?item.width:'100'}px`,
-															  flex:index===transColumns.length-1?1:'none',
-															  minWidth:`${item.width?item.width:'100'}px`,
-															  borderRight:`${border?'1px solid #e8e8e8':''}`,
-															  borderRight:`${(scrollbarSize&&index===transColumns.length-1)?'':border?'1px solid #e8e8e8':''}`,
-															  borderTop:`${border?'1px solid #e8e8e8':''}`,
-															  textAlign:item.align||'left'
-														  }"
-	                      v-for="(item,index) in transColumns" :key="index">
-                      <template v-if="item.type==='selection'">
-                        <view class="checkbox-item">
-                          <tableCheckbox
-                              :indeterminate="indeterminate" :checked="checkedAll" @checkboxSelected="checkboxSelectedAll"></tableCheckbox>
-                        </view>
-                      </template>
-                      <template v-else>
-                        {{ item.label }}
-                        <view class="sorter-table" v-if="item.sorter">
-                          <view :class="['sorter-table-icon',item.sorterMode==='_asc'&&`sorting${item.sorterMode||''}`]"></view>
-                          <view :class="['sorter-table-icon',item.sorterMode==='_desc'&&`sorting${item.sorterMode||''}`]"></view>
-                        </view>
-                      </template>
-                    </view>
+                    <table-header-item
+                        :item="item"
+                        :key="index"
+                        :cellHeaderStyle="cellHeaderStyle"
+                        :multify="multify"
+                        :realColumns="transColumns.realColumns"
+                        :wrapIndex ='index'
+                        @sortAction="sortAction"
+                        :border="border"
+                        @checkboxSelectedAll="checkboxSelectedAll"
+                        :indeterminate="indeterminate"
+                        :checkedAll="checkedAll"
+                        :transColumns="transColumns.columns"
+                        :index="index"
+                        :scrollbarSize="scrollbarSize"
+                        v-for="(item,index) in transColumns.columns"
+                    >
+                    </table-header-item>
 	                </view>
 	              </view>
 	            </view>
@@ -54,6 +45,7 @@
 	      <template v-if="!data.length">
 	        <view class="no-data">暂无数据~~</view>
 	      </template>
+
 	      <scroll-view
             class="zb-table-body" ref="tableBody"	scroll-x="true"	scroll-y="true"	id="tableBody"
 	                   :lower-threshold="40"
@@ -62,7 +54,9 @@
 	                   @scrolltoupper="(e)=>debounce(scrollToLeft)(e)"
                      @scroll="handleBodyScroll"	:scroll-left="bodyTableLeft"	:scroll-top="bodyScrollTop"
                      :style=" `height: calc(100% - ${showSummary?80:40}px)`" >
-	          <view class="zb-table-fixed">
+
+          <zb-loading v-if="isLoading"/>
+	          <view class="zb-table-fixed" v-else>
 	            <view class="zb-table-tbody">
 	              <view  :class="['item-tr',highlight&&isHighlight(item,index)?'current-row':'']"
                        @click.stop="rowClick(item,index)"
@@ -70,18 +64,18 @@
 	                <view
 	                    :style="[{
 									              width:`${ite.width?ite.width:'100'}px`,
-															  flex:i===transColumns.length-1?1:'none',
+															  flex:i===transColumns.columns.length-1?1:'none',
 															  minWidth:`${ite.width?ite.width:'100'}px`,
 															  borderRight:`${border?'1px solid #e8e8e8':''}`,
                                 textAlign:ite.align||'left',
 														  },cellStyle&&getCellStyle(item,ite,index,i)]"
 
 	                    :class="['item-td',stripe?(index % 2) != 0?'odd':'even':'']"
-	                    v-for="(ite,i) in transColumns" :key="i">
+	                    v-for="(ite,i) in transColumns.realColumns" :key="i">
 	                  <template  v-if="ite.type==='operation'">
 	                    <view style="display: flex;align-items: center;height: 100%">
 	                      <view
-	                          v-for="ren,ind in ite.renders"
+	                          v-for="ren,ind in permission(item,ite.renders,index)"
 	                          :key="ind"
 	                          @click.stop="$emit(ren.func,item,index)"
 	                          :style="{
@@ -121,12 +115,13 @@
                     </view>
                   </template>
 	                  <template  v-else>
-                      {{ ite.filters?itemFilter(item,ite):(item[ite.name]==null)?ite.emptyString:item[ite.name] }}
+                      {{ ite.filters?itemFilter(item,ite):(item[ite.name]==null||item[ite.name]==='')?ite.emptyString:item[ite.name] }}
 	                  </template>
 	                </view>
 	              </view>
 	            </view>
 	          </view>
+
 	        </scroll-view>
        <table-h5-summary
            :scrollbarSize="scrollbarSize"
@@ -135,7 +130,7 @@
            :headerFooterTableLeft="headerFooterTableLeft"
            v-if="showSummary"
            :showSummary="showSummary"
-           :transColumns="transColumns"
+           :transColumns="transColumns.columns"
            :border="border"
            :summary-method="summaryMethod"
            :sumText="sumText"
@@ -153,10 +148,13 @@
                   v-for="(item,index) in fixedLeftColumns" :key="index">
 	            <view
 	                :style="{
+	               height:h5HeaderHeight+'px',
+	               display:'flex',
+	               alignItems:'center',
 	               width:`${item.width?item.width:'100'}px`,
 	               borderRight:`${border?'1px solid #e8e8e8':''}`,
 	               borderTop:`${border?'1px solid #e8e8e8':''}`,
-                textAlign:item.align||'left'
+                 justifyContent:textPosition(item)
 	            }"
 	                @click.stop="sortAction(item,index)"
 	                class="item-th"
@@ -225,7 +223,7 @@
             v-if="showSummary&&!(scrollbarSize>0)"
             :data="data"
             :showSummary="showSummary"
-            :transColumns="transColumns"
+            :transColumns="transColumns.columns"
             :border="border"
             :summary-method="summaryMethod"
             :sumText="sumText"
@@ -237,8 +235,10 @@
 	<!-- #endif -->
 	<!-- #ifndef H5 || APP-PLUS -->
 	<view class="zb-table-applet">
+    <zb-loading v-if="isLoading"/>
 	  <view class="zb-table-content">
       <scroll-view
+
 		<!-- #ifdef MP-ALIPAY -->
 		@scroll="scrollAlipay"
 		<!-- #endif  -->
@@ -252,38 +252,36 @@
 				   <!-- #endif  -->
                    scroll-y="true"
 				   scroll-x="true">
-	    <view class="zb-table-scroll" >
+	    <view class="zb-table-scroll">
 	      <template v-if="showHeader">
-	        <view class="zb-table-header top-header-uni" style="">
-	            <view class="zb-table-fixed" >
+	        <view class="zb-table-header top-header-uni">
+	            <view class="zb-table-fixed thead-calculation" >
 	              <view class="zb-table-thead" style="position: relative;" >
 	                <view class="item-tr">
-	                  <view
-	                      @click.stop="sortAction(item,index)"
-	                      :class="['item-th',index <fixedLeftColumns.length&&'zb-stick-side']"
-	                      :style="{
-	                              left:`${item.left}px`,
-	                              width:`${item.width?item.width:'100'}px`,
-															  flex:index===transColumns.length-1?1:'none',
-															  minWidth:`${item.width?item.width:'100'}px`,
-															   borderRight:`${border?'1px solid #e8e8e8':''}`,
-															  borderTop:`${border?'1px solid #e8e8e8':''}`,
-															   textAlign:item.align||'left'
-														  }"
-	                      v-for="(item,index) in transColumns" :key="index">
-                      <template v-if="item.type==='selection'">
-                        <view class="checkbox-item">
-                          <tableCheckbox
-                              :indeterminate="indeterminate" :checked="checkedAll" @checkboxSelected="checkboxSelectedAll"></tableCheckbox>
-                        </view>
-                      </template>
-                      <template v-else>
-                        {{ item.label||'' }}
-                        <view class="sorter-table" v-if="item.sorter">
-                          <view :class="['sorter-table-icon',item.sorterMode==='_asc'&&`sorting${item.sorterMode||''}`]"></view>
-                          <view :class="['sorter-table-icon',item.sorterMode==='_desc'&&`sorting${item.sorterMode||''}`]"></view>
-                        </view>
-                      </template>
+                    <view
+                        :style="{
+                      left:`${item.left}px`
+                        }"
+                        :key="index"
+                        :class="[index <fixedLeftColumns.length&&'zb-stick-side']"
+                        v-for="(item,index) in transColumns.columns">
+                      <table-header-item
+                          :item="item"
+                          :cellHeaderStyle="cellHeaderStyle"
+                          @sortAction="sortAction"
+                          :border="border"
+                          :multify="multify"
+                          :realColumns="transColumns.realColumns"
+                          :wrapIndex ='index'
+                          @checkboxSelectedAll="checkboxSelectedAll"
+                          :indeterminate="indeterminate"
+                          :checkedAll="checkedAll"
+                          :transColumns="transColumns.columns"
+                          :index="index"
+                          :fixedLeftColumns="fixedLeftColumns"
+                          :scrollbarSize="scrollbarSize"
+
+                      ></table-header-item>
                     </view>
 	                </view>
 	              </view>
@@ -293,8 +291,9 @@
 	      <template v-if="!data.length">
 	        <view class="no-data">暂无数据~~</view>
 	      </template>
-          <view class="zb-table-fixed">
-            <view class="zb-table-tbody">
+          <view class="zb-table-fixed" >
+
+            <view class="zb-table-tbody" >
               <view  :class="['item-tr',highlight&&isHighlight(item,index)?'current-row':'']"
                      @click.stop="rowClick(item,index)"
                      v-for="(item,index) in transData" :key="item.key" >
@@ -302,17 +301,17 @@
                     :style="[{
                       left:`${ite.left}px`,
                       width:`${ite.width?ite.width:'100'}px`,
-                      flex:i===transColumns.length-1?1:'none',
+                      flex:i===transColumns.columns.length-1?1:'none',
                       minWidth:`${ite.width?ite.width:'100'}px`,
                       borderRight:`${border?'1px solid #e8e8e8':''}`,
                       textAlign:ite.align||'left',
                     },getCellStyle(item,ite,index,i)]"
                     :class="['item-td', i <fixedLeftColumns.length&&'zb-stick-side',stripe?(index % 2) != 0?'odd':'even':'']"
-                    v-for="(ite,i) in transColumns" :key="i">
+                    v-for="(ite,i) in transColumns.realColumns" :key="i">
                   <template  v-if="ite.type==='operation'">
                     <view style="display: flex;align-items: center;height: 100%">
                       <view
-                          v-for="ren,ind in ite.renders"
+                          v-for="ren,ind in permission(item,ite.renders,index)"
                           :key="ind"
                           @click.stop="$emit(ren.func,item,index)"
                           :style="{
@@ -350,7 +349,7 @@
                     {{index+1}}
                   </template>
                   <template  v-else>
-                    {{ ite.filters?itemFilter(item,ite):(item[ite.name]==null)?ite.emptyString:item[ite.name] }}
+                    {{ ite.filters?itemFilter(item,ite):(item[ite.name]==null||item[ite.name]==='')?ite.emptyString:item[ite.name] }}
                   </template>
                 </view>
               </view>
@@ -361,7 +360,7 @@
             :data="data"
             :showSummary="showSummary"
             :fixedLeftColumns="fixedLeftColumns"
-            :transColumns="transColumns"
+            :transColumns="transColumns.columns"
             :border="border"
             :summary-method="summaryMethod"
             :sumText="sumText"
@@ -379,18 +378,29 @@ import TableSummary from "./components/table-summary.vue";
 import TableSideSummary from "./components/table-side-summary.vue";
 import TableH5Summary from './components/table-h5-summary'
 import ZbLoadMore from './components/zb-load-more'
+import ZbLoading from './components/zb-loading'
+import TableHeaderItem from './components/table-header-item'
+import AppHeaderItem from './components/app-header-item'
 
 import {getScrollbarSize} from "./js/util";
 export default {
   components:{
+    ZbLoading,
     TableCheckbox,
     TableSummary,
     TableSideSummary,
     TableH5Summary,
-    ZbLoadMore
+    ZbLoadMore,
+    TableHeaderItem,
+    AppHeaderItem
   },
   props:{
+    permissionBtn:Function,
     highlight:{
+      type:Boolean,
+      default:false
+    },
+    isLoading:{
       type:Boolean,
       default:false
     },
@@ -437,23 +447,42 @@ export default {
     rowKey:[String, Function],
     summaryMethod:Function,
     pullUpLoading:Function,
-    cellStyle:Function
+    cellStyle:Function,
+    cellHeaderStyle:Function
+  },
+  watch:{
+    columns:{
+      handler(){
+        (async ()=>{
+	      // #ifdef H5 || APP-PLUS
+          this.h5HeaderHeight = await this.getHeaderHeight()
+		  // #endif
+        })()
+      },
+      immediate:true
+    }
   },
   computed:{
     loadMoreHeight(){
       return this.isLoadMore?40:0
     },
-    fixedLeftColumns(){
-      let arr = []
-      for(let i=0;i<this.columns.length;i++){
-        let item = this.columns[i]
-        if(item.fixed){
-          arr.push(item)
-        }else {
-          break
+    fixedLeftColumns:{
+      get(){
+        let arr = []
+        for(let i=0;i<this.columns.length;i++){
+          let item = this.columns[i]
+          if(item.fixed){
+            arr.push(item)
+          }else {
+            break
+          }
         }
+        return arr
+      },
+      set(val){
+
       }
-      return arr
+
     },
     itemfilters(){
       return(item,ite)=>{
@@ -490,23 +519,27 @@ export default {
             column.renders.map((item)=>{
               str+=item.name
             })
-            column.width = this.getTextWidth(str)+column.renders.length*40
+            if(column.name){
+              column.width = this.getTextWidth(str)+column.renders.length*40
+            }
           }else if(column.type==="img"){
 			   }else if(column.type==="selection"){
 			}else{
 			let arr = [this.getTextWidth(column.label)]
             this.data.forEach(data=>{
               let str = (data[column.name]+'')
-			  if(str==='undefined'){
-				   arr.push(30)
-			  }else{
-				   let width = this.getTextWidth(str)
-				   arr.push(width)
-			  }
-            })
-			      column.width = Math.max(...arr)+20
-          }
-        })
+              if(str==='undefined'){
+                 arr.push(30)
+              }else{
+                 let width = this.getTextWidth(str)
+                 arr.push(width)
+              }
+                  })
+            if(column.name){
+              column.width = Math.max(...arr)+20
+            }
+                }
+              })
       }
       let number = 0
       this.columns.forEach((item,index)=>{
@@ -528,7 +561,11 @@ export default {
         }
         item.emptyString = item.emptyString||'--'
       })
-      return this.columns
+      let realColumns = this.renderRealColumns(this.columns)
+      return {
+        columns:this.columns,
+        realColumns:realColumns
+      }
     },
     transData(){
       let flag = this.columns.some(item=>item.type==='selection')
@@ -562,6 +599,13 @@ export default {
       }
       return this.data
     },
+    textPosition(){
+      return(item)=>{
+        if(item.align==='right') return 'flex-end'
+        if(item.align==='left') return 'flex-start'
+        if(item.align==='center') return 'center'
+      }
+    },
     isHighlight(){
       return (item,index)=>{
         if(this.rowKey){
@@ -588,6 +632,8 @@ export default {
       alipayScrollOldTop:0,
       alipayFlag:false,
       bodyTableLeft:0,
+      multify:[],
+      h5HeaderHeight:'auto',
       headerTableLeft:0,
       lastScrollLeft:0,
       isLoadMore:false,
@@ -616,6 +662,39 @@ export default {
   mounted(){
   },
   methods: {
+    permission(item,renders,index){
+      if(this.permissionBtn&&typeof this.permissionBtn==='function'){
+        return this.permissionBtn(item,renders,index)
+      }
+      return renders
+    },
+    getHeaderHeight(){
+      return new Promise((resolve, reject)=>{
+        this.$nextTick(()=>{
+          let info = uni.createSelectorQuery().in(this).select(".thead-calculation")
+          info.boundingClientRect(function(data) { //data - 各种参数
+            resolve(data.height)
+          }).exec()
+        })
+      })
+    },
+    renderRealColumns(list=[]){
+      if(!list.length) return []
+      let arr = []
+      const deep = (data)=>{
+        data.forEach(item=>{
+          let { children, ...obj } = item
+          if(children&&children.length){
+            this.multify.push(item)
+            deep(children)
+          }else {
+            arr.push({...obj})
+          }
+        })
+      }
+      deep(list)
+      return arr
+    },
     pullUpCompleteLoading(type){
       this.isLoadMore = false
       if(type==='ok'){
@@ -623,7 +702,6 @@ export default {
       }
     },
     scrollAlipay(e){
-
       if(!this.alipayScrollOldTop){
         this.alipayScrollOldTop = e.detail.scrollTop
       }
@@ -635,7 +713,7 @@ export default {
         }
         this.alipayFlag = false
         this.alipayScrollOldTop = null
-      },500)
+      },60)
     },
     pullLoad(){
       if(this.isShowLoadMore){
@@ -789,16 +867,29 @@ export default {
       return false
     },
     sortAction(item,index){
+
       if(!item.sorter){return false}
+
+
+      let obj = item
+      // #ifndef H5 || APP-PLUS
+     for(let ite of this.transColumns.columns){
+       if(item.name===item.name&&item.label===ite.label){
+         ite.sorterMode = item.sorterMode==='_asc'?'_desc':'_asc'
+         obj = ite
+          break
+       }
+     }
+      this.$forceUpdate()
+      // #endif
+      // #ifdef H5 || APP-PLUS
       this.$set(item,'sorterMode',item.sorterMode==='_asc'?'_desc':'_asc')
+        // #endif
       if(item.sorter==='custom'){
-        this.$emit('sort-change',item,item.sorterMode.replace('_',''),index)
+        this.$emit('sort-change',obj,obj.sorterMode.replace('_',''),index)
       }else {
         this.sortData(item)
       }
-      // #ifndef H5 || APP-PLUS
-      this.$forceUpdate()
-      // #endif
     },
     sortData(item){
       let key = item.name
@@ -937,7 +1028,7 @@ export default {
 }
 
 </style>
-<style lang="scss" scoped>
+<style lang="scss" >
 .sorter-table{
   position: absolute;
   right: 6px;
@@ -1218,7 +1309,7 @@ export default {
     background-color: #ecf5ff;
   }
 }
-.zb-table-header{
-  height: 40px;
-}
+//.zb-table-header{
+//  height: 40px;
+//}
 </style>

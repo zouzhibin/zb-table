@@ -1,5 +1,5 @@
 <template>
-  <view class="zb-table-footer" style="height: 40px;">
+  <view class="zb-table-footer" style="height: 40px;flex-shrink: 0">
     <view class="zb-table-fixed" >
       <view class="zb-table-thead" style="position: relative;" >
         <view class="item-tr">
