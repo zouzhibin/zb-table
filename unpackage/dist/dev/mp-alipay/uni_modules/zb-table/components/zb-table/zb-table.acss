@@ -331,7 +331,4 @@
 .current-row .item-td {
   background-color: #ecf5ff;
 }
-.zb-table-header.data-v-35b7ff72 {
-  height: 40px;
-}
 
