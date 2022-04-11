@@ -20,17 +20,17 @@
             width:(mode==='left'||mode==='right')?getWidth:'100%',
             height:(mode==='top'||mode==='bottom')?height:'100%',
           }">
-        <view class="zb_drawer__header">
+        <view class="zb_drawer__header" v-if="withHeader">
           <slot name="title">
             <view class="title">{{ title }}</view>
           </slot>
 
-          <view class="close-wrap" v-if="showClose" @click="close('mask')">
+          <view class="close-wrap" v-if="showClose" @click="close('cancel')">
 			  <!-- #ifndef APP-NVUE||APP-PLUS-NVUE -->
 			<view class="close"></view>
 			  <!-- #endif -->
             <!-- #ifdef APP-NVUE||APP-PLUS-NVUE -->
-            <view class="close">
+            <view class="close" v-if="showClose">
 				<view class="before"></view>
 				<view class="after"></view>
 			</view>
@@ -51,10 +51,15 @@ export default {
       type:Boolean,
       default:true
     },
+      wrapperClosable:{
+          type:Boolean,
+          default:true
+      },
     modal:{
       type:Boolean,
       default:true
     },
+    beforeClose:Function,
     showClose:{
       type:Boolean,
       default:true
@@ -66,7 +71,7 @@ export default {
     visible: Boolean,
     width:{
       type:[Number,String],
-      default:'30%'
+      default:'50%'
     },
     height: {
       type:[Number,String],
@@ -125,8 +130,21 @@ export default {
         this.$emit('change',status)
       }, status ? 50 : 300)
     },
-    close(){
-      this._change('mask','show',false)
+    close(type){
+      if(this.beforeClose&&typeof this.beforeClose==='function'){
+          return this.beforeClose(()=>{
+              this._change('mask','show',false)
+          },type)
+      }
+
+      if(this.wrapperClosable&&type==='mask'){
+          this._change('mask','show',false)
+      }
+      if(type==='cancel'){
+          this._change('mask','show',false)
+      }
+      this.$emit('closeDrawer')
+
     }
   }
 }
@@ -143,7 +161,7 @@ export default {
   left: 0;
   overflow: hidden;
   margin: 0;
-  z-index: 20078;
+  z-index: 999;
 }
 
 
