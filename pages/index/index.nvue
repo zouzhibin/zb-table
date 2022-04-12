@@ -1,22 +1,55 @@
 <template>
-	<view>
-		<view @click="btn('left')" class="item">
-			<button type="primary">左边弹出</button>
+	<view class="m-drawer">
+		<view class="item-block">
+			<view class="title">弹出位置</view>
+			<view class="card">
+				<view class="inner" @click="btn('left')">
+					<view class="text">左边弹出</view>
+				</view>
+				<view class="inner" @click="btn('right')">
+					<view class="text">右边弹出</view>
+				</view>
+				<view class="inner" @click="btn3('top')">
+					<view class="text">顶部弹出</view>
+				</view>
+				<view class="inner" @click="btn3('bottom')">
+					<view class="text">底部弹出</view>
+				</view>
+			</view>
 		</view>
-		<view @click="btn('right')" class="item">
-			<button type="primary">右边弹出</button>
+
+		<view class="item-block">
+			<view class="title">关闭图标和头部标题显示</view>
+			<view class="card">
+				<view class="inner" @click="btn1('bottom')">
+					<view class="text">关闭按钮</view>
+				</view>
+				<view class="inner" @click="btn2('bottom')">
+					<view class="text">显示标题</view>
+				</view>
+			</view>
 		</view>
-		<view @click="btn1('top')" class="item">
-			<button type="primary">顶部弹出</button>
+
+		<view class="item-block">
+			<view class="title">展示圆角</view>
+			<view class="card">
+				<view class="inner" @click="btn4('bottom')">
+					<view class="text">展示圆角</view>
+				</view>
+
+			</view>
 		</view>
-		<view @click="btn1('bottom')" class="item">
-			<button type="primary">底部弹出</button>
-		</view>
-		<zb-drawer :mode="mode" width="80%" :visible.sync="isShow" ref="btn1">
+
+
+		<zb-drawer
+		:beforeClose="beforeClose"
+		:mode="mode" width="80%"
+		:withHeader="false"
+		:visible.sync="isShow" >
 			<view class="wrap">
 				<view class="center">
 					<scroll-view scroll-y>
-						<view >
+						<view>
 							<view v-for="item in list" class="item-child">{{item}}</view>
 						</view>
 					</scroll-view>
@@ -27,8 +60,19 @@
 				</view>
 			</view>
 		</zb-drawer>
-		
-		<zb-drawer :mode="mode" width="80%" :visible.sync="isShow1" ref="btn1">
+
+		<zb-drawer :mode="mode" width="80%" :visible.sync="isShow1" :title="null">
+<view class="top-content"></view>
+		</zb-drawer>
+
+		<zb-drawer :mode="mode" width="80%" :visible.sync="isShow2">
+			<view class="top-content"></view>
+		</zb-drawer>
+
+		<zb-drawer :mode="mode" width="80%" :visible.sync="isShow3" :withHeader="false">
+			<view class="top-content"></view>
+		</zb-drawer>
+		<zb-drawer :mode="mode" width="80%" :visible.sync="isShow4" :radius="true">
 			<view class="top-content"></view>
 		</zb-drawer>
 	</view>
@@ -36,7 +80,7 @@
 
 <script>
 	const list = []
-	for(let i=0;i<40;i++){
+	for (let i = 0; i < 40; i++) {
 		list.push(`数据${i}`)
 	}
 	export default {
@@ -44,7 +88,10 @@
 			return {
 				list,
 				isShow: false,
-				isShow1:false,
+				isShow1: false,
+				isShow2:false,
+				isShow3:false,
+				isShow4:false,
 				mode: 'left'
 			}
 		},
@@ -52,62 +99,111 @@
 			click() {
 				uni.showToast({
 					icon: 'none',
-					duration: 3000,
+					duration: 10000,
 					title: '点击自定义'
 				})
 			},
-			btn1(type){
+			btn1(type) {
 				this.mode = type
 				this.isShow1 = true
 			},
+			btn3(type){
+				this.mode = type
+				this.isShow3 = true
+			},
+			btn4(type){
+				this.mode = type
+				this.isShow4 = true
+			},
+			btn2(type) {
+				this.mode = type
+				this.isShow2 = true
+			},
+			beforeClose(done, type) {
+				uni.showToast({
+					icon: 'none',
+					duration: 3000,
+					title: '异步关闭'
+				})
+				setTimeout(() => {
+					done()
+				}, 1000)
+			},
 			btn(type) {
-				// uni.showToast({
-				// 	icon: 'none',
-				// 	duration: 3000,
-				// 	title: '点击自定义1'
-				// })
 				console.log('==========', type)
 				this.isShow = true
 				this.mode = type
-				// uni.hideTabBar()
-
-
 				// uni.hideTabBar(); //隐藏tab
 				// uni.showTabBar(); //显示tab
 			},
-			// btn1() {
-			// 	this.$refs.btn.open()
-			// }
+
 		}
 	}
 </script>
 
 <style scoped lang="scss">
-	.wrap{
+	.m-drawer {
+		background-color: #f7f8fa;
+		position: absolute;
+		left: 0;
+		top:0;
+		right: 0;
+		bottom: 0;
+	}
+	.item-block{
+		.title{
+			color: #455a6499;
+			padding: 20px 16px 5px;
+			font-size: 28rpx;
+		}
+		.card{
+				margin: 12px 12px 0;
+				padding-left: 10px;
+				padding-right: 10px;
+			    overflow: hidden;
+			    border-radius: 8px;
+				box-sizing: border-box;
+				background: white;
+
+		}
+		.inner{
+			display: flex;
+			border-bottom:1px solid #e8e8e8;
+			flex-direction: row;
+			padding-bottom: 10px;
+			padding-top: 10px;
+		}
+	}
+	.wrap {
 		flex: 1;
 		display: flex;
 		flex-direction: column;
-		overflow:hidden;
-		.center{
+		overflow: hidden;
+
+		.center {
 			flex: 1;
-			overflow:auto;
+			overflow: auto;
 		}
 	}
-	.item{
+
+	.item {
 		margin-bottom: 20rpx;
 	}
-	.item-child{
+
+	.item-child {
 		height: 60rpx;
 		display: flex;
 		align-items: center;
 	}
-	.footer{
+
+	.footer {
 		flex-shrink: 0;
-	    margin-top: 10px;	
+		margin-top: 10px;
 		display: flex;
 		flex-direction: row;
 	}
-	.top-content{
+
+	.top-content {
 		height: 300rpx;
 	}
 </style>

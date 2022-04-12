@@ -3,8 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="be7958c3-0d1c-4f74-a433-b590462e7034" name="Default Changelist" comment="修改 回显问题">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/table/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/table/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uni_modules/zb-table/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/uni_modules/zb-table/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/index/index.nvue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/index.nvue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uni_modules/zb-drawer/changelog.md" beforeDir="false" afterPath="$PROJECT_DIR$/uni_modules/zb-drawer/changelog.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uni_modules/zb-drawer/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/uni_modules/zb-drawer/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,18 +15,10 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="zb-table" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="GitSEFilterConfiguration">
-    <file-type-list>
-      <filtered-out-file-type name="LOCAL_BRANCH" />
-      <filtered-out-file-type name="REMOTE_BRANCH" />
-      <filtered-out-file-type name="TAG" />
-      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
-    </file-type-list>
   </component>
   <component name="ProjectId" id="26rhwtBGqLb7juC522rK06TrAm0" />
   <component name="ProjectViewState">
@@ -37,20 +30,16 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/uni_modules/zb-table/components/zb-table/components" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\dingw\pr2\zzb-table\uni_modules\zb-table\components\zb-table\components" />
-      <recent name="E:\dingw\pr2\zzb-table\pages\mul" />
-    </key>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="false" />
+  <component name="SvnConfiguration">
+    <configuration />
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="be7958c3-0d1c-4f74-a433-b590462e7034" name="Default Changelist" comment="" />
@@ -63,14 +52,10 @@
       <workItem from="1648431030503" duration="8382000" />
       <workItem from="1648520959363" duration="615000" />
       <workItem from="1648538538979" duration="595000" />
-      <workItem from="1649401849350" duration="1772000" />
-      <workItem from="1649403675343" duration="1772000" />
-      <workItem from="1649405484475" duration="1296000" />
-      <workItem from="1649407132108" duration="11000" />
-      <workItem from="1649407182292" duration="6875000" />
-      <workItem from="1649422146482" duration="4615000" />
-      <workItem from="1649645784017" duration="8788000" />
-      <workItem from="1649662497062" duration="2467000" />
+      <workItem from="1649422257820" duration="1673000" />
+      <workItem from="1649463533571" duration="2789000" />
+      <workItem from="1649581552050" duration="598000" />
+      <workItem from="1649679884528" duration="1510000" />
     </task>
     <task id="LOCAL-00001" summary="修改 回显问题">
       <created>1648190576831</created>
@@ -83,31 +68,53 @@
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
+    <option name="version" value="1" />
   </component>
-  <component name="Vcs.Log.History.Properties">
-    <option name="COLUMN_ID_ORDER">
-      <list>
-        <option value="Default.Root" />
-        <option value="Default.Author" />
-        <option value="Default.Date" />
-        <option value="Default.Subject" />
-      </list>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="2a03f74a-7cd8-421c-b47f-199e09e6a213">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="roots">
+                    <value>
+                      <list>
+                        <option value="$PROJECT_DIR$" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
     </option>
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="2a03f74a-7cd8-421c-b47f-199e09e6a213" value="TOOL_WINDOW" />
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="修改 回显问题" />
-    <option name="LAST_COMMIT_MESSAGE" value="修改 回显问题" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/pages/index/index.vue</url>
-          <line>357</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="合并主分支" />
+    <option name="LAST_COMMIT_MESSAGE" value="合并主分支" />
   </component>
 </project>

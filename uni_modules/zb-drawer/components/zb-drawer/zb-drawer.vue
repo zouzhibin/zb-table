@@ -15,6 +15,8 @@
          :class="[`zb-drawer_${mode}`,{
           'content--visible':mask&&(mode==='left'||mode==='right'),
           'content--visible_Y':mask&&(mode==='top'||mode==='bottom'),
+		  'content--visible_top':radius&&mode==='top',
+		  'content--visible_bottom':radius&&mode==='bottom'
           }]"
          :style="{
             width:(mode==='left'||mode==='right')?getWidth:'100%',
@@ -59,6 +61,10 @@ export default {
       type:Boolean,
       default:true
     },
+	radius:{
+		type:Boolean,
+		default:false
+	},
     beforeClose:Function,
     showClose:{
       type:Boolean,
@@ -68,6 +74,7 @@ export default {
       type:String,
       default:'我是标题'
     },
+	
     visible: Boolean,
     width:{
       type:[Number,String],
@@ -150,7 +157,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .zb-drawer__wrapper{
   //display: block;
   position: fixed;
@@ -163,8 +170,14 @@ export default {
   margin: 0;
   z-index: 999;
 }
-
-
+.content--visible_top{
+	border-bottom-left-radius: 8rpx;
+	border-bottom-right-radius: 8rpx;
+}
+.content--visible_bottom{
+	border-top-left-radius: 8rpx;
+	border-top-right-radius: 8rpx;
+}
 .mask{
   //display: block;
   position: absolute;
