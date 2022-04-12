@@ -1,7 +1,7 @@
 {
   "id": "zb-table",
   "displayName": "zb-table（多功能表格）",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "表格组件 支持固定表头和首列、上拉加载更多、及固定多列，表格自适应内容，排序，多级表头，多选checkbox、可点击删除，编辑、合计功能兼容多端",
   "keywords": [
     "table",

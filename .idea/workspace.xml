@@ -2,20 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="be7958c3-0d1c-4f74-a433-b590462e7034" name="Default Changelist" comment="修改 回显问题">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/index/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uni_modules/zb-table/components/zb-table/zb-table.vue" beforeDir="false" afterPath="$PROJECT_DIR$/uni_modules/zb-table/components/zb-table/zb-table.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/index/index.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/index/index.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/uni_modules/zb-table/components/zb-table/zb-table.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/uni_modules/zb-table/components/zb-table/zb-table.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uni_modules/zb-table/changelog.md" beforeDir="false" afterPath="$PROJECT_DIR$/uni_modules/zb-table/changelog.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uni_modules/zb-table/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/uni_modules/zb-table/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uni_modules/zb-table/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/uni_modules/zb-table/readme.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/common/vendor.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/common/vendor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/pages/index/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/pages/index/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/uni_modules/zb-table/components/zb-table/zb-table.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-alipay/uni_modules/zb-table/components/zb-table/zb-table.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/common/vendor.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/common/vendor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/index/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/index/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/project.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/project.config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/zb-table.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/uni_modules/zb-table/components/zb-table/zb-table.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,6 +86,18 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="2a03f74a-7cd8-421c-b47f-199e09e6a213">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="修改 回显问题" />
