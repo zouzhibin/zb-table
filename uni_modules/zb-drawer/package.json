@@ -1,7 +1,7 @@
 {
   "id": "zb-drawer",
   "displayName": "zb-drawer",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "抽屉组件，功能有、支持设置宽度百分比、高度百分比、左边弹出、右边弹出、顶部弹出、底部弹出",
   "keywords": [
     "drawer",

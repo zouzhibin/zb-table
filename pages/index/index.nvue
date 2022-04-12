@@ -17,7 +17,7 @@
 				</view>
 			</view>
 		</view>
-		
+
 		<view class="item-block">
 			<view class="title">关闭图标和头部标题显示</view>
 			<view class="card">
@@ -29,7 +29,7 @@
 				</view>
 			</view>
 		</view>
-		
+
 		<view class="item-block">
 			<view class="title">展示圆角</view>
 			<view class="card">
@@ -39,11 +39,11 @@
 
 			</view>
 		</view>
-		
-		
-		<zb-drawer 
-		:beforeClose="beforeClose" 
-		:mode="mode" width="80%" 
+
+
+		<zb-drawer
+		:beforeClose="beforeClose"
+		:mode="mode" width="80%"
 		:withHeader="false"
 		:visible.sync="isShow" >
 			<view class="wrap">
@@ -62,16 +62,18 @@
 		</zb-drawer>
 
 		<zb-drawer :mode="mode" width="80%" :visible.sync="isShow1" :title="null">
-		
+<view class="top-content"></view>
 		</zb-drawer>
-		
+
 		<zb-drawer :mode="mode" width="80%" :visible.sync="isShow2">
 			<view class="top-content"></view>
 		</zb-drawer>
-		
+
 		<zb-drawer :mode="mode" width="80%" :visible.sync="isShow3" :withHeader="false">
+			<view class="top-content"></view>
 		</zb-drawer>
 		<zb-drawer :mode="mode" width="80%" :visible.sync="isShow4" :radius="true">
+			<view class="top-content"></view>
 		</zb-drawer>
 	</view>
 </template>
@@ -134,7 +136,7 @@
 				// uni.hideTabBar(); //隐藏tab
 				// uni.showTabBar(); //显示tab
 			},
-		
+
 		}
 	}
 </script>
@@ -142,8 +144,11 @@
 <style scoped lang="scss">
 	.m-drawer {
 		background-color: #f7f8fa;
-		height: 100%;
-		width: 100%;
+		position: absolute;
+		left: 0;
+		top:0;
+		right: 0;
+		bottom: 0;
 	}
 	.item-block{
 		.title{
@@ -159,7 +164,7 @@
 			    border-radius: 8px;
 				box-sizing: border-box;
 				background: white;
-				
+
 		}
 		.inner{
 			display: flex;
