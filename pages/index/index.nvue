@@ -15,6 +15,9 @@
 				<view class="inner" @click="btn3('bottom')">
 					<view class="text">底部弹出</view>
 				</view>
+				<view class="inner" @click="btn10('bottom')">
+					<view class="text">距顶部任意位置弹出</view>
+				</view>
 			</view>
 		</view>
 
@@ -39,6 +42,8 @@
 
 			</view>
 		</view>
+		
+		
 
 
 		<zb-drawer
@@ -50,14 +55,33 @@
 				<view class="center">
 					<scroll-view scroll-y>
 						<view>
-							<view v-for="item in list" class="item-child">{{item}}</view>
+							<view v-for="item in list" class="item-child">
+								<view>数据展示</view>
+								<view>{{item}}</view>
+							</view>
 						</view>
 					</scroll-view>
 				</view>
 				<view class="footer">
-					<button style="flex: 1;" size="mini">取消</button>
-					<button type="primary" style="flex: 1;" size="mini">确定</button>
+					<view style="flex: 1;" class="cancel" @click="isShow=false">
+						<text class="text" >取消</text>
+					</view>
+					<view style="flex: 1;" class="config" @click="config">
+						<!-- #ifdef APP-NVUE -->
+						<loading-indicator v-if="isLoading"
+							:style="{color: 'white',width:'24px',height:'24px'}" :animating="true"
+							></loading-indicator>
+						<!-- #endif -->
+						<!-- #ifndef APP-NVUE -->
+						<image
+						v-if="isLoading"
+						:src="base64Flower" style="" class="loading-custom-image"></image>
+						<!-- #endif -->
+						
+						<text class="text"  >异步关闭</text>
+					</view>
 				</view>
+				
 			</view>
 		</zb-drawer>
 
@@ -75,24 +99,34 @@
 		<zb-drawer :mode="mode" width="80%" :visible.sync="isShow4" :radius="true">
 			<view class="top-content"></view>
 		</zb-drawer>
+		
+		<zb-drawer mode="top" width="80%" :visible.sync="isShow5" :radius="true">
+			<view class="top-content"></view>
+		</zb-drawer>
 	</view>
 </template>
 
 <script>
+	const base64Flower = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkBAMAAACCzIhnAAAAKlBMVEVHcEzDw8Ovr6+pqamUlJTCwsKenp61tbWxsbGysrLNzc2bm5u5ubmjo6MpovhuAAAACnRSTlMA/P79/sHDhiZS0DxZowAABBBJREFUWMPtl89rE0EUx7ctTXatB3MI1SWnDbUKPUgXqh4ED8Uf7KUVSm3ooVSpSii0Fn/gD4j4o+APiEoVmos9FO2celiqZVgwgaKHPQiCCkv+F99kM7Ozm5kxq1dfD91k9pPve9/3ZjbRNHHok/mKli4eIPNgSuRObuN9SqSEzM20iGnm0yIbqCuV7NSSSIV7uyPM6JMBYdeTOanh/QihJYZsUCSby+VkMj2AvOt0rAeQAwqE3lfKMZVlQCZk1QOCKkkVPadITCfIRNKxfoJI5+0OIFtJx14CMSg1mRSDko7VAfksRQzEbGYqxOJcVTWMCH2I1/IACNW0PWU2M8cmAVHtnH5mM1VRWtwKZjOd5JbF6s1IbaYqaotjNlPHgDAnlAizubTR6ovMYn052g/U5qcmOpi0WL8xTS/3IfSet5m8MEr5ajjF5le6dq/OJpobrdY0t3i9QgefWrxW9/1BLhk0E9m8FeUMhhXal499iD0eQRfDF+ts/tttORRerfp+oV7f4xJj82iUYm1Yzod+ZQEAlS/8mMBwKebVmCVp1f0JLS6zKd17+iwRKTARVg2SHtz3iEbBH+Q+U28zW2Jiza8Tjb1YFoYZMsJyjDqp3M9XBQdSdPLFdxEpvOB37JrHcmR/y9+LgoTlCFGZEa2sc6d4PGlweEa2JSVPoVm+IfGG3ZL037iV9oH+P+Jxc4HGVflNq1M0pivao/EopO4b/ojVCP9GjmiXOeS0DOn1o/iiccT4ORnyvBGF3yUywkQajW4Ti0SGuiy/wVSg/L8w+X/8Q+hvUx8Xd90z4oV5a1i88MbFWHz0WZZ1UrTwBGPX3Rat9AFiXRMRjoMdIdJLEOt2h7jrYOzgOamKZSWSNspOS0X8SAqRYmxRL7sg4eLzYmNehcxh3uoyud/BH2Udux4ywxFTc1xC7Mgf4vMhc5S+kSH3Y7yj+qpwIWSoPTVCOOPVthGx9FbGqrwFw6wSFxJr+17zeKcztt3u+2roAEVgUjDd+AHGuxHy2rZHaa8JMkTHEeyi85ANPO9j9BVuBRD2FY5LDMo/Sz/2hReqGIs/KiFin+CsPsYO/yvM3jL2vE8EbX7/Bf8ejtr2GLN65bioAdgLd8Bis/mD5GmP2qeqyo2ZwQEOtAjRIDH7mBKpUcMoApbZJ5UIxkEwxyMZyMxW/uKFvHCFR3SSmerHyDNQ2dF4JG6zIMpBgLfjSF9x1D6smFcYnGApjmSLICO3ecCDWrQ48geba9DI3STy2i7ax6WIB62fSyIZIiO3GFQqSURp8wCo7GhJBGwuSovJBNjb7kT6FPVnIa9qJ2Ko+l9mefGIdinaMp0yC1URYiwsdfNE45EuA5Cx9EhalfvN5s+UyItm81vaB3p4joniN+SCP7Qc1hblAAAAAElFTkSuQmCC';
+	import load from '@/assets/ee.gif'
 	const list = []
 	for (let i = 0; i < 40; i++) {
-		list.push(`数据${i}`)
+		list.push(`${i}`)
 	}
 	export default {
 		data() {
 			return {
+				load,
+				base64Flower,
 				list,
 				isShow: false,
 				isShow1: false,
 				isShow2:false,
 				isShow3:false,
 				isShow4:false,
-				mode: 'left'
+				isShow5:true,
+				mode: 'left',
+				isLoading:false
 			}
 		},
 		methods: {
@@ -102,6 +136,9 @@
 					duration: 10000,
 					title: '点击自定义'
 				})
+			},
+			btn10(){
+				this.isShow5 = true
 			},
 			btn1(type) {
 				this.mode = type
@@ -123,11 +160,19 @@
 				uni.showToast({
 					icon: 'none',
 					duration: 3000,
-					title: '异步关闭'
+					title: '点击遮罩层关闭'
 				})
-				setTimeout(() => {
-					done()
-				}, 1000)
+				done()
+				// setTimeout(() => {
+				// 	done()
+				// }, 1000)
+			},
+			config(){
+				this.isLoading = true
+				setTimeout(()=>{
+					this.isLoading = false
+					this.isShow = false
+				},2000)
 			},
 			btn(type) {
 				console.log('==========', type)
@@ -149,6 +194,40 @@
 		top:0;
 		right: 0;
 		bottom: 0;
+	}
+	.cancel{
+		background-color: #f8f8f8;
+			display: flex;
+			height: 80rpx;
+			justify-content: center;
+			align-items: center;
+	}
+	.config{
+			display: flex;
+			height: 80rpx;
+			justify-content: center;
+			align-items: center;
+			flex-direction: row;	
+		    background-color: #007aff;
+			.text{
+				color: white;
+			}
+			.loading-custom-image{
+				width: 40rpx;
+				height: 40rpx;
+				margin-right: 5px;
+				animation: loading-circle 1s linear infinite;
+			}
+			@keyframes loading-circle {
+			  0% {
+			    -webkit-transform: rotate(0deg);
+			    transform: rotate(0deg);
+			  }
+			  100% {
+			    -webkit-transform: rotate(360deg);
+			    transform: rotate(360deg);
+			  }
+			}
 	}
 	.item-block{
 		.title{
@@ -175,6 +254,7 @@
 		}
 	}
 	.wrap {
+		border-top:1px solid #e8e8e8;
 		flex: 1;
 		display: flex;
 		flex-direction: column;
@@ -193,7 +273,10 @@
 	.item-child {
 		height: 60rpx;
 		display: flex;
-		align-items: center;
+		flex-direction: row;
+		justify-content: space-around;
+		align-items:center;
+		border-bottom:1px solid #e8e8e8;
 	}
 
 	.footer {

@@ -115,15 +115,22 @@ export default {
       handler(newValue){
         this.$emit('update:visible', newValue)
       },
-      // immediate:true
+      
     },
-    async visible (val) {
-      this._change('show','mask',val)
-    }
+    visible:{
+		async handler(val){
+			if(val){
+				 this._change('show','mask',val)
+			}else{
+				this._change('mask','show',val)
+			}
+		},
+		immediate:true
+	}
   },
   data(){
     return{
-      show: this.visible,
+      show: false,
       mask:this.visible,
       watchTimer:null,
     }

@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="be7958c3-0d1c-4f74-a433-b590462e7034" name="Default Changelist" comment="修改 回显问题">
+      <change afterPath="$PROJECT_DIR$/assets/ee.gif" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/index/index.nvue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/index.nvue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/uni_modules/zb-drawer/changelog.md" beforeDir="false" afterPath="$PROJECT_DIR$/uni_modules/zb-drawer/changelog.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uni_modules/zb-drawer/components/zb-drawer/zb-drawer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/uni_modules/zb-drawer/components/zb-drawer/zb-drawer.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/uni_modules/zb-drawer/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/uni_modules/zb-drawer/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -15,7 +17,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="zb-pagination" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -30,11 +32,21 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/assets" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\dingw\pr2\zzb-table\assets" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\dingw\pr2\zzb-table" />
+      <recent name="E:\dingw\pr2\zzb-table\pages" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="false" />
   <component name="SvnConfiguration">
