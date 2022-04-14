@@ -19,6 +19,7 @@
 		  'content--visible_bottom':radius&&mode==='bottom'
           }]"
          :style="{
+			top:(top>0||top)?top:false ,
             width:(mode==='left'||mode==='right')?getWidth:'100%',
             height:(mode==='top'||mode==='bottom')?height:'100%',
           }">
@@ -74,7 +75,10 @@ export default {
       type:String,
       default:'我是标题'
     },
-	
+	top:{
+		type:[Number,String],
+		default:0
+	},
     visible: Boolean,
     width:{
       type:[Number,String],
