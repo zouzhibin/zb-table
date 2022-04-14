@@ -14,7 +14,7 @@
     <view class="item__center">
       <text class="currentInnerPage">{{ currentInnerPage }}</text>
       <text>/</text>
-      <text>{{this.pageNumber}}</text>
+      <text>{{pageNumber}}</text>
     </view>
     <view class="item__right">
       <view class="next-page"
@@ -59,6 +59,7 @@
     },
     computed:{
 	    pageNumber(){
+			console.log('Math.ceil(this.total/this.pageSize)',Math.ceil(this.total/this.pageSize))
 	      return Math.ceil(this.total/this.pageSize)
       },
     },

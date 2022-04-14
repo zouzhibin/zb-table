@@ -105,11 +105,11 @@
 /******/
 /******/
 /******/ 		// mini-css-extract-plugin CSS loading
-/******/ 		var cssChunks = {"uni_modules/zb-table/components/zb-table/zb-table":1,"uni_modules/uni-card/components/uni-card/uni-card":1,"uni_modules/zb-table/components/zb-table/components/table-h5-summary":1,"uni_modules/zb-table/components/zb-table/components/table-side-summary":1,"uni_modules/zb-table/components/zb-table/components/table-summary":1,"uni_modules/zb-table/components/zb-table/components/table-checkbox":1,"uni_modules/zb-table/components/zb-table/components/zb-load-more":1};
+/******/ 		var cssChunks = {"uni_modules/uni-card/components/uni-card/uni-card":1,"uni_modules/zb-pagination/components/zb-pagination/zb-pagination":1};
 /******/ 		if(installedCssChunks[chunkId]) promises.push(installedCssChunks[chunkId]);
 /******/ 		else if(installedCssChunks[chunkId] !== 0 && cssChunks[chunkId]) {
 /******/ 			promises.push(installedCssChunks[chunkId] = new Promise(function(resolve, reject) {
-/******/ 				var href = "" + ({"uni_modules/zb-table/components/zb-table/zb-table":"uni_modules/zb-table/components/zb-table/zb-table","uni_modules/uni-card/components/uni-card/uni-card":"uni_modules/uni-card/components/uni-card/uni-card","uni_modules/zb-table/components/zb-table/components/table-h5-summary":"uni_modules/zb-table/components/zb-table/components/table-h5-summary","uni_modules/zb-table/components/zb-table/components/table-side-summary":"uni_modules/zb-table/components/zb-table/components/table-side-summary","uni_modules/zb-table/components/zb-table/components/table-summary":"uni_modules/zb-table/components/zb-table/components/table-summary","uni_modules/zb-table/components/zb-table/components/table-checkbox":"uni_modules/zb-table/components/zb-table/components/table-checkbox","uni_modules/zb-table/components/zb-table/components/zb-load-more":"uni_modules/zb-table/components/zb-table/components/zb-load-more"}[chunkId]||chunkId) + ".wxss";
+/******/ 				var href = "" + ({"uni_modules/uni-card/components/uni-card/uni-card":"uni_modules/uni-card/components/uni-card/uni-card","uni_modules/zb-pagination/components/zb-pagination/zb-pagination":"uni_modules/zb-pagination/components/zb-pagination/zb-pagination"}[chunkId]||chunkId) + ".wxss";
 /******/ 				var fullhref = __webpack_require__.p + href;
 /******/ 				var existingLinkTags = document.getElementsByTagName("link");
 /******/ 				for(var i = 0; i < existingLinkTags.length; i++) {
