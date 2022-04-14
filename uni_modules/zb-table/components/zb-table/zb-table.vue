@@ -577,7 +577,6 @@ export default {
         item.emptyString = item.emptyString||'--'
       })
       let realColumns = this.renderRealColumns(this.columns)
-      console.log('===========',this.columns)
       return {
         columns:this.columns,
         realColumns:realColumns

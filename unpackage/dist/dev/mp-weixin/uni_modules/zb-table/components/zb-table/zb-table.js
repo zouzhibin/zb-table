@@ -788,7 +788,6 @@ var _util = __webpack_require__(/*! ./js/util */ 42);function _interopRequireDef
         item.emptyString = item.emptyString || '--';
       });
       var realColumns = this.renderRealColumns(this.columns);
-      console.log('===========', this.columns);
       return {
         columns: this.columns,
         realColumns: realColumns };
