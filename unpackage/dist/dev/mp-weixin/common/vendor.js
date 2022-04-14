@@ -1,6 +1,6 @@
-(global["webpackJsonp"] = global["webpackJsonp"] || []).push([["common/vendor"],{
-
-/***/ 1:
+(global["webpackJsonp"] = global["webpackJsonp"] || []).push([["common/vendor"],[
+/* 0 */,
+/* 1 */
 /*!************************************************************!*\
   !*** ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js ***!
   \************************************************************/
@@ -2090,83 +2090,7 @@ uni$1;exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../webpack/buildin/global.js */ 2)))
 
 /***/ }),
-
-/***/ 16:
-/*!*************************************************!*\
-  !*** E:/dingw/pr2/zzb-table/pages/index/all.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.column4 = exports.column3 = exports.column2 = exports.column1 = exports.column5 = void 0;
-
-var column5 = [
-{ type: 'index', width: 60, label: '序号', fixed: true },
-{ name: 'date', label: '日期', sorter: true },
-{ name: 'address', label: '地址' },
-{
-  label: '配送信息',
-  children: [
-  { name: 'province', label: '省份', width: 130 },
-  { name: 'city', label: '城市' },
-  { name: 'zip', label: '邮编' }] }];exports.column5 = column5;
-
-
-
-
-
-
-
-var column1 = [
-{ type: 'index', width: 60, label: '序号' },
-{ name: 'name', label: '姓名', width: 80, emptyString: '--' },
-{ name: 'age', label: '年纪' },
-{ name: 'sex', label: '性别', filters: { 0: '男', 1: '女' } },
-{ name: 'address', label: '地址' },
-{ name: 'date', label: '日期' },
-{ name: 'province', label: '省份' },
-{ name: 'city', label: '城市' },
-{ name: 'zip', label: '邮编' }];exports.column1 = column1;
-
-var column2 = [
-{ type: 'selection', width: 50 },
-{ name: 'name', label: '姓名', width: 80, emptyString: '--' },
-{ name: 'age', label: '年纪' },
-{ name: 'sex', label: '性别', filters: { 0: '男', 1: '女' } },
-{ name: 'address', label: '地址' },
-{ name: 'date', label: '日期' },
-{ name: 'province', label: '省份' },
-{ name: 'city', label: '城市' },
-{ name: 'zip', label: '邮编' }];exports.column2 = column2;
-
-
-var column3 = [
-{ type: 'selection', fixed: true, width: 50 },
-{ name: 'name', label: '姓名', fixed: true, width: 80, emptyString: '--' },
-{ name: 'age', label: '年纪' },
-{ name: 'sex', label: '性别', filters: { 0: '男', 1: '女' } },
-{ name: 'address', label: '地址' },
-{ name: 'date', label: '日期' },
-{ name: 'province', label: '省份' },
-{ name: 'city', label: '城市' },
-{ name: 'zip', label: '邮编' }];exports.column3 = column3;
-
-
-var column4 = [
-{ type: 'selection', fixed: true, width: 50 },
-{ name: 'name', label: '姓名', fixed: true, width: 80, emptyString: '--' },
-{ name: 'age', label: '年纪', sorter: true },
-{ name: 'sex', label: '性别', filters: { 0: '男', 1: '女' } },
-{ name: 'address', label: '地址' },
-{ name: 'date', label: '日期', sorter: true },
-{ name: 'province', label: '省份' },
-{ name: 'city', label: '城市' },
-{ name: 'zip', label: '邮编' }];exports.column4 = column4;
-
-/***/ }),
-
-/***/ 2:
+/* 2 */
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
   \***********************************/
@@ -2196,8 +2120,7 @@ module.exports = g;
 
 
 /***/ }),
-
-/***/ 3:
+/* 3 */
 /*!******************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js ***!
   \******************************************************************************************/
@@ -8248,8 +8171,7 @@ internalMixin(Vue);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../webpack/buildin/global.js */ 2)))
 
 /***/ }),
-
-/***/ 4:
+/* 4 */
 /*!*************************************************************!*\
   !*** ./node_modules/@dcloudio/uni-i18n/dist/uni-i18n.es.js ***!
   \*************************************************************/
@@ -8712,70 +8634,7 @@ function resolveLocaleChain(locale) {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"], __webpack_require__(/*! ./../../../webpack/buildin/global.js */ 2)))
 
 /***/ }),
-
-/***/ 42:
-/*!**********************************************************************************!*\
-  !*** E:/dingw/pr2/zzb-table/uni_modules/zb-table/components/zb-table/js/util.js ***!
-  \**********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.getScrollbarSize = void 0; /**
-                                                                                                               * 获取滚动条宽度
-                                                                                                               */
-var cached = undefined;
-
-var getScrollbarSize = function getScrollbarSize(fresh) {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  return cached;
-};exports.getScrollbarSize = getScrollbarSize;
-
-/***/ }),
-
-/***/ 5:
+/* 5 */
 /*!*****************************************!*\
   !*** E:/dingw/pr2/zzb-table/pages.json ***!
   \*****************************************/
@@ -8785,104 +8644,10 @@ var getScrollbarSize = function getScrollbarSize(fresh) {
 
 
 /***/ }),
-
-/***/ 66:
-/*!*************************************************************************************!*\
-  !*** E:/dingw/pr2/zzb-table/uni_modules/zb-table/components/zb-table/js/summary.js ***!
-  \*************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default2 = {
-  props: {
-    scrollbarSize: {
-      type: Number,
-      default: 0 },
-
-    fixedLeftColumns: {
-      type: Array,
-      default: function _default() {return [];} },
-
-    data: {
-      type: Array,
-      default: function _default() {return [];} },
-
-    transColumns: {
-      type: Array,
-      default: function _default() {return [];} },
-
-    border: {
-      type: Boolean,
-      default: false },
-
-    showSummary: {
-      type: Boolean,
-      default: false },
-
-    summaryMethod: {
-      type: Function },
-
-    sumText: {
-      type: String,
-      default: '合计' },
-
-    headerFooterTableLeft: {
-      type: Number,
-      default: 0 },
-
-    handleFooterTableScrollLeft: Function },
-
-  data: function data() {
-    return {
-      sums: [] };
-
-  },
-  watch: {
-    'data': {
-      deep: true,
-      immediate: true,
-      handler: function handler(newValue, oldValue) {var _this = this;
-        var sums = [];
-        if (this.summaryMethod) {
-          sums = this.summaryMethod({ columns: this.transColumns, data: this.data });
-        } else {
-          this.transColumns.forEach(function (column, index) {
-            if (index === 0) {
-              sums[index] = _this.sumText;
-              return;
-            }
-            var values = _this.data.map(function (item) {return Number(item[column.name]);});
-            var precisions = [];
-            var notNumber = true;
-            values.forEach(function (value) {
-              if (!isNaN(value)) {
-                notNumber = false;
-                var decimal = ('' + value).split('.')[1];
-                precisions.push(decimal ? decimal.length : 0);
-              }
-            });
-            var precision = Math.max.apply(null, precisions);
-            if (!notNumber) {
-              sums[index] = values.reduce(function (prev, curr) {
-                var value = Number(curr);
-                if (!isNaN(value)) {
-                  return parseFloat((prev + curr).toFixed(Math.min(precision, 20)));
-                } else {
-                  return prev;
-                }
-              }, 0);
-            } else {
-              sums[index] = '';
-            }
-          });
-        }
-        this.sums = sums;
-      } } } };exports.default = _default2;
-
-/***/ }),
-
-/***/ 9:
+/* 6 */,
+/* 7 */,
+/* 8 */,
+/* 9 */
 /*!**********************************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
   \**********************************************************************************************************/
@@ -9010,6 +8775,5 @@ function normalizeComponent (
 
 
 /***/ })
-
-}]);
+]]);
 //# sourceMappingURL=../../.sourcemap/mp-weixin/common/vendor.js.map
