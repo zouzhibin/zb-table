@@ -5,12 +5,12 @@
          flexDirection:multify.length?'column':'row'
       }"
       class="zb__item-inner"
-
   >
     <view
         @click.stop="sortAction(item,index)"
         class="item-th"
         :style="[{
+                  height:item.muilty?'100%':'auto',
                   width:`${item.width?item.width+'px':'100%'}`,
                   flex:(index===transColumns.length-1)?1:'none',
                   minWidth:`${item.width?item.width:'100'}px`,
@@ -49,7 +49,7 @@
           :item="ite"
           @sortAction="sortAction"
           :border="border"
-          wrapIndex=""
+          wrapIndex="no"
           @checkboxSelectedAll="checkboxSelectedAll"
           :indeterminate="indeterminate"
           :checkedAll="checkedAll"
@@ -169,7 +169,7 @@
   display: flex;
   flex-direction: column;
   .item-th{
-    height: 100%!important;
+    //height: 100%!important;
     position: relative;
     display: flex;
    background: #fafafa;
