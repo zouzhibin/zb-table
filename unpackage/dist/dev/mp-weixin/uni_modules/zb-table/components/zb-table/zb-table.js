@@ -95,7 +95,7 @@ var render = function() {
         {
           left: ite.left + "px",
           width: (ite.width ? ite.width : "100") + "px",
-          flex: i === _vm.transColumns.columns.length - 1 ? 1 : "none",
+          flex: i === _vm.transColumns.realColumns.length - 1 ? 1 : "none",
           minWidth: (ite.width ? ite.width : "100") + "px",
           borderRight: "" + (_vm.border ? "1px solid #e8e8e8" : ""),
           textAlign: ite.align || "left"
@@ -766,6 +766,9 @@ var _util = __webpack_require__(/*! ./js/util */ 42);function _interopRequireDef
       }
       var number = 0;
       this.columns.forEach(function (item, index) {
+        if (!(item.children && item.children.length)) {
+          item.muilty = true;
+        }
         if (item.type === "operation" && item.renders && !item.width) {
           var str = '';
           item.renders.map(function (item) {
@@ -785,6 +788,7 @@ var _util = __webpack_require__(/*! ./js/util */ 42);function _interopRequireDef
         item.emptyString = item.emptyString || '--';
       });
       var realColumns = this.renderRealColumns(this.columns);
+      console.log('===========', this.columns);
       return {
         columns: this.columns,
         realColumns: realColumns };

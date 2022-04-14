@@ -64,7 +64,7 @@
 	                <view
 	                    :style="[{
 									              width:`${ite.width?ite.width:'100'}px`,
-															  flex:i===transColumns.columns.length-1?1:'none',
+															  flex:i===transColumns.realColumns.length-1?1:'none',
 															  minWidth:`${ite.width?ite.width:'100'}px`,
 															  borderRight:`${border?'1px solid #e8e8e8':''}`,
                                 textAlign:ite.align||'left',
@@ -302,7 +302,7 @@
                     :style="[{
                       left:`${ite.left}px`,
                       width:`${ite.width?ite.width:'100'}px`,
-                      flex:i===transColumns.columns.length-1?1:'none',
+                      flex:i===transColumns.realColumns.length-1?1:'none',
                       minWidth:`${ite.width?ite.width:'100'}px`,
                       borderRight:`${border?'1px solid #e8e8e8':''}`,
                       textAlign:ite.align||'left',
@@ -555,6 +555,9 @@ export default {
       }
       let number = 0
       this.columns.forEach((item,index)=>{
+        if(!(item.children&&item.children.length)){
+          item.muilty = true
+        }
         if(item.type==="operation"&&item.renders&&!item.width){
           let str = ''
           item.renders.map((item)=>{
@@ -574,6 +577,7 @@ export default {
         item.emptyString = item.emptyString||'--'
       })
       let realColumns = this.renderRealColumns(this.columns)
+      console.log('===========',this.columns)
       return {
         columns:this.columns,
         realColumns:realColumns

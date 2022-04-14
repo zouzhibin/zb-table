@@ -2110,8 +2110,15 @@ var column5 = [
   children: [
   { name: 'province', label: '省份', width: 130 },
   { name: 'city', label: '城市' },
-  { name: 'zip', label: '邮编' }] }];exports.column5 = column5;
+  { name: 'zip', label: '邮编' }] },
 
+
+{
+  label: '配送信息',
+  children: [
+  { name: 'province', label: '省份', width: 130 },
+  { name: 'city', label: '城市' },
+  { name: 'zip', label: '邮编' }] }];exports.column5 = column5;
 
 
 
