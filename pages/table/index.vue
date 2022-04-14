@@ -1,5 +1,6 @@
 <template>
 	<view class="content">
+		<u-header/>
     <uni-card title="全部功能" >
       <view style="height: 300px">
         <zb-table
@@ -168,9 +169,11 @@
 
 <script>
   import {column1,column2,column3,column4,column5} from './all.js'
+  import UHeader from '@/components/u-header.vue'
   let that = null
 	export default {
 		components:{
+			UHeader
 		},
 		data() {
 			return {
