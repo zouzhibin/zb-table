@@ -42,8 +42,8 @@
 
 			</view>
 		</view>
-		
-	
+
+
 		<zb-drawer
 		:beforeClose="beforeClose"
 		:mode="mode" width="80%"
@@ -51,7 +51,7 @@
 		:visible.sync="isShow" >
 			<view class="wrap">
 				<view class="center">
-					<scroll-view scroll-y>
+					<scroll-view scroll-y style="height:100%">
 						<view>
 							<view v-for="item in list" class="item-child">
 								<view>数据展示</view>
@@ -75,11 +75,11 @@
 						v-if="isLoading"
 						:src="base64Flower" style="" class="loading-custom-image"></image>
 						<!-- #endif -->
-						
+
 						<text class="text"  >异步关闭</text>
 					</view>
 				</view>
-				
+
 			</view>
 		</zb-drawer>
 
@@ -97,7 +97,7 @@
 		<zb-drawer :mode="mode" width="80%" :visible.sync="isShow4" :radius="true">
 			<view class="top-content"></view>
 		</zb-drawer>
-		
+
 		<zb-drawer mode="top" width="80%" :visible.sync="isShow5" :radius="true" top="100px">
 			<view class="top-content"></view>
 		</zb-drawer>
@@ -122,7 +122,7 @@
 				isShow2:false,
 				isShow3:false,
 				isShow4:false,
-				isShow5:true,
+				isShow5:false,
 				mode: 'left',
 				isLoading:false
 			}
@@ -205,7 +205,7 @@
 			height: 80rpx;
 			justify-content: center;
 			align-items: center;
-			flex-direction: row;	
+			flex-direction: row;
 		    background-color: #007aff;
 			.text{
 				color: white;

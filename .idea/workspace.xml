@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="be7958c3-0d1c-4f74-a433-b590462e7034" name="Default Changelist" comment="修改 回显问题">
+    <list default="true" id="be7958c3-0d1c-4f74-a433-b590462e7034" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/index/index.nvue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/index.nvue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uni_modules/zb-drawer/changelog.md" beforeDir="false" afterPath="$PROJECT_DIR$/uni_modules/zb-drawer/changelog.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/uni_modules/zb-drawer/components/zb-drawer/zb-drawer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/uni_modules/zb-drawer/components/zb-drawer/zb-drawer.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uni_modules/zb-drawer/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/uni_modules/zb-drawer/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uni_modules/zb-table/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/uni_modules/zb-table/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/common/runtime.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/common/runtime.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/project.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/project.config.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,7 +14,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="zb-pagination" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -34,7 +29,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/assets" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/pages/index" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -43,6 +38,9 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\dingw\pr2\zzb-table\pages\index" />
+      <recent name="E:\dingw\pr2\zzb-table\components" />
+      <recent name="E:\dingw\pr2\zzb-table\uni_modules\zb-drawer\components\zb-drawer" />
       <recent name="E:\dingw\pr2\zzb-table\assets" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -71,6 +69,7 @@
       <workItem from="1649581552050" duration="598000" />
       <workItem from="1649679884528" duration="1510000" />
       <workItem from="1649919445476" duration="601000" />
+      <workItem from="1650012489144" duration="594000" />
     </task>
     <task id="LOCAL-00001" summary="修改 回显问题">
       <created>1648190576831</created>
