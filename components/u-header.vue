@@ -10,9 +10,9 @@
 			title="组件"
 			width="60%" :visible.sync="isShowDrawer" >
 			<view class="drawer_content">
-				<view @click="goTo('/pages/table/index')">表格组件</view>
-				<view @click="goTo('')">分页组件</view>
-				<view @click="goTo('/pages/drawer/drawer')">抽屉组件</view>
+				<view class="item" @click="goTo('/pages/table/index')">表格组件</view>
+				<view class="item" @click="goTo('')">分页组件</view>
+				<view class="item" @click="goTo('/pages/drawer/drawer')">抽屉组件</view>
 			</view>
 		</zb-drawer>
 	</view>
@@ -52,7 +52,7 @@
 	}
 </script>	
 	
-<style>
+<style lang="scss" scoped>
 	.m-header{
 		/* position: absolute; */
 		/* right: 0; */
@@ -69,5 +69,22 @@
 		padding-right: 8px;
 		justify-content: space-between;
 		align-items: center;
+	}
+	.drawer_content{
+		padding-left: 8px;
+		padding-right: 8px;
+		.item{
+			 overflow: hidden;
+				    color: #808080;
+				    font-size: 32rpx;
+					height: 80rpx;
+				    text-overflow: ellipsis;
+				    word-wrap: normal;
+				    white-space: nowrap;
+					display: flex;
+					flex-direction: row;
+					justify-content: space-between;
+			  align-items: center;
+		}
 	}
 </style>	
