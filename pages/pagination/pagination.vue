@@ -1,5 +1,6 @@
 <template>
 	<view class="zb-pagination">
+    <u-header/>
     <uni-card title="全部功能" >
       <zb-pagination
           :current-page="2"
@@ -31,10 +32,10 @@
 </template>
 
 <script>
-// import ZbPagination from '../../components/pagination/pagination'
+import UHeader from '@/components/u-header.vue'
 	export default {
     components:{
-      // ZbPagination
+      UHeader
     },
 		data() {
 			return {

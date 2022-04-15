@@ -1,17 +1,20 @@
 <template>
 	<view class="m-header">
 		<view class="m-layout-header">
-			<uni-icons type="list" size="30" @click="showMenu"></uni-icons>
+			<uni-icons
+          class="icons-left"
+          type="list" size="30" @click="showMenu"></uni-icons>
+      <view class="title">
+        {{title}}
+      </view>
 		</view>
-		<view>
-			
-		</view>
-		<zb-drawer mode="left" 
+
+		<zb-drawer mode="left"
 			title="组件"
 			width="60%" :visible.sync="isShowDrawer" >
 			<view class="drawer_content">
 				<view class="item" @click="goTo('/pages/table/index')">表格组件</view>
-				<view class="item" @click="goTo('')">分页组件</view>
+				<view class="item" @click="goTo('/pages/pagination/pagination')">分页组件</view>
 				<view class="item" @click="goTo('/pages/drawer/drawer')">抽屉组件</view>
 			</view>
 		</zb-drawer>
@@ -26,13 +29,28 @@
 				isShowDrawer:false
 			}
 		},
+    computed:{
+		  title(){
+		    let obj = {
+		      '/pages/table/index':'zb-table',
+		      '/pages/pagination/pagination':'zb-pagination',
+		      '/pages/pagination/drawer':'zb-drawer',
+        }
+        return obj[this.$page.path]
+      }
+    },
 		mounted(){
+		  // console.log(getCu)
+      // console.log('===',this.$page.path)
 			// uni.navigateTo({
 			//         url: `/pages/table/index`,
 			//         animationType: 'slide-in-right',
 			//         animationDuration: 2000,
 			//       });
 		},
+    onLoad(e){
+		  console.log('===',this.$mp.page.route)
+    },
 		methods:{
 			goTo(url){
 				this.isShowDrawer = false
@@ -43,15 +61,15 @@
 					        animationDuration: 2000,
 					      });
 				},300)
-				
+
 			},
 			showMenu(){
 				this.isShowDrawer = true
 			}
 		}
 	}
-</script>	
-	
+</script>
+
 <style lang="scss" scoped>
 	.m-header{
 		/* position: absolute; */
@@ -60,15 +78,23 @@
 		/* left: 0; */
 		top: 0;
 	}
+  .icons-left{
+    position: absolute;
+    left: 8px;
+  }
 	.m-layout-header{
 		height: 80rpx;
+    position: relative;
 		background-color: white;
 		display: flex;
 		flex-direction: row;
 		padding-left: 8px;
 		padding-right: 8px;
-		justify-content: space-between;
+		justify-content: center;
 		align-items: center;
+    .title{
+      font-weight: bold;
+    }
 	}
 	.drawer_content{
 		padding-left: 8px;
@@ -87,4 +113,4 @@
 			  align-items: center;
 		}
 	}
-</style>	
+</style>

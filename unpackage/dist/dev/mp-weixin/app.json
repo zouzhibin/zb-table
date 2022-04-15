@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/table/index",
-    "pages/drawer/drawer"
+    "pages/drawer/drawer",
+    "pages/pagination/pagination"
   ],
   "subPackages": [],
   "window": {

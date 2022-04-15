@@ -20,7 +20,7 @@
 		}
 	    ,{
             "path" : "pages/drawer/drawer",
-            "style" :                                                                                    
+            "style" :
             {
 				"h5":{
 					"titleNView":false
@@ -28,8 +28,20 @@
                 "navigationBarTitleText": "zb-drawer",
                 "enablePullDownRefresh": false
             }
-            
-        }
+
+        },
+		{
+			"path" : "pages/pagination/pagination",
+			"style" :
+			{
+				"h5":{
+					"titleNView":false
+				},
+				"navigationBarTitleText": "zb-pagination",
+				"enablePullDownRefresh": false
+			}
+
+		}
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
