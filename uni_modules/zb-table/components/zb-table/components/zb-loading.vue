@@ -28,7 +28,7 @@ export default {
 
   bottom: 0;
   left: 0;
-  z-index: 120;
+  z-index: 200;
   background: white;
   display: flex;
   height: 100%;
