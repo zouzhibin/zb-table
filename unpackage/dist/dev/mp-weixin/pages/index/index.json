@@ -1,8 +1,7 @@
 {
-  "navigationBarTitleText": "",
-  "enablePullDownRefresh": false,
+  "navigationBarTitleText": "uni-app",
   "usingComponents": {
-    "uni-card": "/uni_modules/uni-card/components/uni-card/uni-card",
-    "zb-pagination": "/uni_modules/zb-pagination/components/zb-pagination/zb-pagination"
+    "uni-icons": "/uni_modules/uni-icons/components/uni-icons/uni-icons",
+    "zb-drawer": "/uni_modules/zb-drawer/components/zb-drawer/zb-drawer"
   }
 }

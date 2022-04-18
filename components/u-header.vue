@@ -4,9 +4,12 @@
 			<uni-icons
           class="icons-left"
           type="list" size="30" @click="showMenu"></uni-icons>
-      <view class="title">
-        {{title}}
-      </view>
+	<!-- #ifdef APP-NVUE || H5 -->
+	<view class="title">
+	  {{title}}
+	</view>
+	<!-- #endif -->	  
+     
 		</view>
 
 		<zb-drawer mode="left"
@@ -36,7 +39,10 @@
 		      '/pages/pagination/pagination':'zb-pagination',
 		      '/pages/pagination/drawer':'zb-drawer',
         }
+		// #ifdef APP-NVUE || H5
         return obj[this.$page.path]
+		// #endif
+		return ''
       }
     },
 		mounted(){
