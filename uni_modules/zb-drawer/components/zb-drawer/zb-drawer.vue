@@ -1,50 +1,56 @@
 <template>
   <view
+      @touchmove.stop.prevent="()=>{}"
   <!-- #ifdef H5 -->
   v-show="show"
   <!-- #endif -->
   <!-- #ifndef H5 -->
   v-if="show"
   <!-- #endif -->
-      class="zb-drawer__wrapper"
+  class="zb-drawer__wrapper"
+
   >
-    <view class="mask" :class="{'mask__visible':show&&mask&&modal}" @click.stop="close('mask')"></view>
-    <view 
-	@click.stop=""
-	class="zb-drawer__container"
-         :class="[`zb-drawer_${mode}`,{
+  <view class="mask" :class="{'mask__visible':show&&mask&&modal}" @click.stop="close('mask')"></view>
+  <view
+      @touchstart="touchstart"
+      @touchend="touchend"
+      @touchmove="touchmove"
+      @click.stop=""
+      class="zb-drawer__container"
+      :class="[`zb-drawer_${mode}`,{
+          'animation':isMove,
           'content--visible':mask&&(mode==='left'||mode==='right'),
           'content--visible_Y':mask&&(mode==='top'||mode==='bottom'),
 		  'content--visible_top':radius&&mode==='top',
 		  'content--visible_bottom':radius&&mode==='bottom'
           }]"
-         :style="{
+      :style="[{
 			top:(top>0||top)?top:false ,
             width:(mode==='left'||mode==='right')?getWidth:'100%',
             height:(mode==='top'||mode==='bottom')?height:'100%',
-          }">
-        <view class="zb_drawer__header" v-if="withHeader">
-          <slot name="title">
-            <view class="title">{{ title }}</view>
-          </slot>
+          },style]">
+    <view class="zb_drawer__header" v-if="withHeader">
+      <slot name="title">
+        <view class="title">{{ title }}</view>
+      </slot>
 
-          <view class="close-wrap" v-if="showClose" @click="close('cancel')">
-			  <!-- #ifndef APP-NVUE||APP-PLUS-NVUE -->
-			<view class="close"></view>
-			  <!-- #endif -->
-            <!-- #ifdef APP-NVUE||APP-PLUS-NVUE -->
-            <view class="close" v-if="showClose">
-				<view class="before"></view>
-				<view class="after"></view>
-			</view>
-              <!-- #endif -->
-          </view>
+      <view class="close-wrap" v-if="showClose" @click="close('cancel')">
+        <!-- #ifndef APP-NVUE||APP-PLUS-NVUE -->
+        <view class="close"></view>
+        <!-- #endif -->
+        <!-- #ifdef APP-NVUE||APP-PLUS-NVUE -->
+        <view class="close" v-if="showClose">
+          <view class="before"></view>
+          <view class="after"></view>
         </view>
-        <view class="zb_drawer__body">
-			<slot></slot>
-		</view>
-
+        <!-- #endif -->
+      </view>
     </view>
+    <view class="zb_drawer__body">
+      <slot></slot>
+    </view>
+
+  </view>
   </view>
 </template>
 <script >
@@ -54,18 +60,18 @@ export default {
       type:Boolean,
       default:true
     },
-      wrapperClosable:{
-          type:Boolean,
-          default:true
-      },
+    wrapperClosable:{
+      type:Boolean,
+      default:true
+    },
     modal:{
       type:Boolean,
       default:true
     },
-	radius:{
-		type:Boolean,
-		default:false
-	},
+    radius:{
+      type:Boolean,
+      default:false
+    },
     beforeClose:Function,
     showClose:{
       type:Boolean,
@@ -75,10 +81,10 @@ export default {
       type:String,
       default:'我是标题'
     },
-	top:{
-		type:[Number,String],
-		default:0
-	},
+    top:{
+      type:[Number,String],
+      default:0
+    },
     visible: Boolean,
     width:{
       type:[Number,String],
@@ -98,48 +104,102 @@ export default {
     }
   },
   computed:{
-	getWidth(){
-		let wid = this.width
-		// #ifdef APP-NVUE||APP-PLUS-NVUE
-		try {
-			const res = uni.getSystemInfoSync();
-			if(this.width.indexOf('%')>-1){
-				let percent = Number(this.width.replace('%',''))
-				wid = res.screenWidth*percent/100
-			} 
-		} catch (e) {
-			// error
-		}
-		// #endif
-		return wid
-	}  
+    getWidth(){
+      let wid = this.width
+      // #ifdef APP-NVUE||APP-PLUS-NVUE
+      try {
+        const res = uni.getSystemInfoSync();
+        if(this.width.indexOf('%')>-1){
+          let percent = Number(this.width.replace('%',''))
+          wid = res.screenWidth*percent/100
+        }
+      } catch (e) {
+        // error
+      }
+      // #endif
+      return wid
+    }
   },
   watch:{
     show:{
       handler(newValue){
         this.$emit('update:visible', newValue)
       },
-      
+
     },
     visible:{
-		async handler(val){
-			if(val){
-				 this._change('show','mask',val)
-			}else{
-				this._change('mask','show',val)
-			}
-		},
-		immediate:true
-	}
+      async handler(val){
+        if(val){
+          this._change('show','mask',val)
+        }else{
+          this._change('mask','show',val)
+        }
+      },
+      immediate:true
+    }
   },
   data(){
     return{
+      style:{
+
+      },
+      isMove:true,
       show: false,
       mask:this.visible,
       watchTimer:null,
+      start:{
+        x:null,
+        y:null
+      },
+      move:{
+        x:null,
+        y:null
+      },
+      moveDisX:null,
+      moveDisY:null,
     }
   },
   methods:{
+    touchstart(e){
+      this.isMove = false
+      let [changedTouche] = e.changedTouches
+      this.start.x = changedTouche.clientX
+      this.start.y = changedTouche.clientY
+      console.log('==========',changedTouche)
+    },
+    touchend(e){
+      this.isMove = true
+      if(Math.abs(this.moveDisX)>120){
+        this._change('mask','show',false)
+      }else {
+        this.style={
+          transform: `translateX(0px)`
+        }
+      }
+      setTimeout(()=>{
+        this.style = {}
+
+      },200)
+    },
+    touchmove(e){
+
+      let [changedTouche] = e.changedTouches
+      this.move.x = changedTouche.clientX
+      this.move.y = changedTouche.clientY
+
+      this.moveDisX = this.move.x - this.start.x
+      this.moveDisY = this.move.y - this.start.y
+      console.log('==============',this.moveDisX)
+
+      if(this.moveDisX<0){
+        this.style = {
+          transform: `translateX(${this.moveDisX}px)`
+        }
+      }
+
+      console.log('this.style',this.style)
+
+    },
     _change(param1, param2, status) {
       this[param1] = status
       this.watchTimer&&clearTimeout(this.watchTimer)
@@ -150,16 +210,16 @@ export default {
     },
     close(type){
       if(this.beforeClose&&typeof this.beforeClose==='function'){
-          return this.beforeClose(()=>{
-              this._change('mask','show',false)
-          },type)
+        return this.beforeClose(()=>{
+          this._change('mask','show',false)
+        },type)
       }
 
       if(this.wrapperClosable&&type==='mask'){
-          this._change('mask','show',false)
+        this._change('mask','show',false)
       }
       if(type==='cancel'){
-          this._change('mask','show',false)
+        this._change('mask','show',false)
       }
       this.$emit('closeDrawer')
 
@@ -182,12 +242,12 @@ export default {
   z-index: 999;
 }
 .content--visible_top{
-	border-bottom-left-radius: 8rpx;
-	border-bottom-right-radius: 8rpx;
+  border-bottom-left-radius: 8rpx;
+  border-bottom-right-radius: 8rpx;
 }
 .content--visible_bottom{
-	border-top-left-radius: 8rpx;
-	border-top-right-radius: 8rpx;
+  border-top-left-radius: 8rpx;
+  border-top-right-radius: 8rpx;
 }
 .mask{
   //display: block;
@@ -220,9 +280,9 @@ export default {
   }
   .close-wrap{
     position: relative;
-	  /* #ifndef APP-NVUE || APP-PLUS-NVUE */
+    /* #ifndef APP-NVUE || APP-PLUS-NVUE */
     flex-shrink: 0;
-	/* #endif */
+    /* #endif */
     overflow: hidden;
   }
   .close {
@@ -231,32 +291,32 @@ export default {
     align-items: center;
     justify-content: center;
     height:  50rpx;
-	/* #ifndef APP-NVUE || APP-PLUS-NVUE */
+    /* #ifndef APP-NVUE || APP-PLUS-NVUE */
     cursor: pointer;
-	/* #endif */
+    /* #endif */
   }
   .before, .after {
     position: absolute;
     left: 30rpx;
-	/* #ifndef APP-NVUE || APP-PLUS-NVUE */
+    /* #ifndef APP-NVUE || APP-PLUS-NVUE */
     content: ' ';
-	 /* #endif */
+    /* #endif */
     height: 30rpx;
     width: 4rpx;
     background-color: #333;
   }
-  
+
   .close:before, .close:after {
-	  /* #ifndef APP-NVUE || APP-PLUS-NVUE */
+    /* #ifndef APP-NVUE || APP-PLUS-NVUE */
     position: absolute;
     left: 30rpx;
     content: ' ';
     height: 30rpx;
     width: 4rpx;
     background-color: #333;
-	 /* #endif */
+    /* #endif */
   }
- 
+
   .before {
     transform: rotate(45deg);
   }
@@ -272,53 +332,54 @@ export default {
 }
 
 .zb-drawer__container{
-	/* #ifndef APP-NVUE || APP-PLUS-NVUE */
-    outline: 0;
-	/* #endif */
-    height: 100%;
-    position: absolute;
-    width: 200px;
-	z-index: 2;
-	display: flex;
-	flex-direction: column;
-    background-color: #fff;
-    transition: transform 0.3s ease;
-  }
-
-  .zb-drawer_top{
-    top: 0;
-	right:0;
-	left: 0;
-    transform: translateY(-100%);
-  }
-  .zb-drawer_bottom{
-    bottom: 0;
-	 right: 0;
-	 left: 0;
-    transform: translateY(100%);
-  }
-  .zb-drawer_right{
-    right: 0;
-	 top:0;
-	 bottom: 0;
-    transform: translateX(100%);
-  }
-  .zb-drawer_left{
-	top:0;
-    left: 0;
-	bottom: 0;
-    transform: translateX(-100%);
-  }
-  .content--visible{
-    transform: translateX(0px);
-  }
-  .content--visible_Y{
-    transform: translateY(0px);
-  }
-	.zb_drawer__body{
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		overflow: hidden;
-	}
+  /* #ifndef APP-NVUE || APP-PLUS-NVUE */
+  outline: 0;
+  /* #endif */
+  height: 100%;
+  position: absolute;
+  width: 200px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+}
+.animation{
+  transition: transform 0.3s ease;
+}
+.zb-drawer_top{
+  top: 0;
+  right:0;
+  left: 0;
+  transform: translateY(-100%);
+}
+.zb-drawer_bottom{
+  bottom: 0;
+  right: 0;
+  left: 0;
+  transform: translateY(100%);
+}
+.zb-drawer_right{
+  right: 0;
+  top:0;
+  bottom: 0;
+  transform: translateX(100%);
+}
+.zb-drawer_left{
+  top:0;
+  left: 0;
+  bottom: 0;
+  transform: translateX(-100%);
+}
+.content--visible{
+  transform: translateX(0px);
+}
+.content--visible_Y{
+  transform: translateY(0px);
+}
+.zb_drawer__body{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
 </style>
