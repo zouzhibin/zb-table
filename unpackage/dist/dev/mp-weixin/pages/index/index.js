@@ -104,10 +104,10 @@ var components
 try {
   components = {
     uniIcons: function() {
-      return Promise.all(/*! import() | uni_modules/uni-icons/components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-icons/components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-icons/components/uni-icons/uni-icons.vue */ 47))
+      return Promise.all(/*! import() | uni_modules/uni-icons/components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-icons/components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-icons/components/uni-icons/uni-icons.vue */ 48))
     },
     zbDrawer: function() {
-      return Promise.all(/*! import() | uni_modules/zb-drawer/components/zb-drawer/zb-drawer */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/zb-drawer/components/zb-drawer/zb-drawer")]).then(__webpack_require__.bind(null, /*! @/uni_modules/zb-drawer/components/zb-drawer/zb-drawer.vue */ 55))
+      return Promise.all(/*! import() | uni_modules/zb-drawer/components/zb-drawer/zb-drawer */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/zb-drawer/components/zb-drawer/zb-drawer")]).then(__webpack_require__.bind(null, /*! @/uni_modules/zb-drawer/components/zb-drawer/zb-drawer.vue */ 56))
     }
   }
 } catch (e) {
