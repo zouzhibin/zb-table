@@ -57,7 +57,82 @@ button {
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+.m-drawer.data-v-8ddf7c9c {
+  background-color: #f7f8fa;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+.cancel.data-v-8ddf7c9c {
+  background-color: #f8f8f8;
+  display: flex;
+  height: 80rpx;
+  justify-content: center;
+  align-items: center;
+}
+.config.data-v-8ddf7c9c {
+  display: flex;
+  height: 80rpx;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  background-color: #007aff;
+}
+.config .text.data-v-8ddf7c9c {
+  color: white;
+}
+.config .loading-custom-image.data-v-8ddf7c9c {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 5px;
+  -webkit-animation: loading-circle-data-v-8ddf7c9c 1s linear infinite;
+          animation: loading-circle-data-v-8ddf7c9c 1s linear infinite;
+}
+@-webkit-keyframes loading-circle-data-v-8ddf7c9c {
+0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+}
+100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+}
+}
+@keyframes loading-circle-data-v-8ddf7c9c {
+0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+}
+100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+}
+}
+.item-block .title.data-v-8ddf7c9c {
+  color: #455a6499;
+  padding: 20px 16px 5px;
+  font-size: 28rpx;
+}
+.item-block .card.data-v-8ddf7c9c {
+  margin: 12px 12px 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  overflow: hidden;
+  border-radius: 8px;
+  box-sizing: border-box;
+  background: white;
+}
+.item-block .inner.data-v-8ddf7c9c {
+  display: flex;
+  border-bottom: 1px solid #e8e8e8;
+  flex-direction: row;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
 .wrap.data-v-8ddf7c9c {
+  border-top: 1px solid #e8e8e8;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -73,7 +148,10 @@ button {
 .item-child.data-v-8ddf7c9c {
   height: 60rpx;
   display: flex;
+  flex-direction: row;
+  justify-content: space-around;
   align-items: center;
+  border-bottom: 1px solid #e8e8e8;
 }
 .footer.data-v-8ddf7c9c {
   flex-shrink: 0;
