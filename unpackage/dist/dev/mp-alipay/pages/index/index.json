@@ -1,4 +1,7 @@
 {
   "defaultTitle": "uni-app",
-  "usingComponents": {}
+  "usingComponents": {
+    "uni-card": "/uni_modules/uni-card/components/uni-card/uni-card",
+    "zb-table": "/uni_modules/zb-table/components/zb-table/zb-table"
+  }
 }

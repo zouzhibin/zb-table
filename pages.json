@@ -3,44 +3,8 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app",
-				"h5":{
-					"titleNView":false
-				}
+				"navigationBarTitleText": "uni-app"
 			}
-		},
-		{
-			"path": "pages/table/index",
-			"style": {
-				"h5":{
-					"titleNView":false
-				},
-				"navigationBarTitleText": "zb-table"
-			}
-		}
-	    ,{
-            "path" : "pages/drawer/drawer",
-            "style" :
-            {
-				"h5":{
-					"titleNView":false
-				},
-                "navigationBarTitleText": "zb-drawer",
-                "enablePullDownRefresh": false
-            }
-
-        },
-		{
-			"path" : "pages/pagination/pagination",
-			"style" :
-			{
-				"h5":{
-					"titleNView":false
-				},
-				"navigationBarTitleText": "zb-pagination",
-				"enablePullDownRefresh": false
-			}
-
 		}
     ],
 	"globalStyle": {
@@ -49,25 +13,4 @@
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	}
-	// ,
-	// "tabBar": {
-	// 	"color": "#7A7E83",
-	// 	"selectedColor": "#007AFF",
-	// 	"borderStyle": "black",
-	// 	"backgroundColor": "#F8F8F8",
-	// 	"list": [
-	// 		{
-	// 			"pagePath": "pages/index/index",
-	// 			"iconPath": "static/home.png",
-	// 			"selectedIconPath": "static/home-active.png",
-	// 			"text": "主页"
-	// 		},
-	// 		{
-	// 			"pagePath": "pages/table/index",
-	// 			"iconPath": "static/component.png",
-	// 			"selectedIconPath": "static/componentHL.png",
-	// 			"text": "表格组件"
-	// 		}
-	// 	]
-	// }
 }

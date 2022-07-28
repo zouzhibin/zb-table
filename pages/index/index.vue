@@ -1,11 +1,8 @@
 <template>
 	<view class="content">
-		<u-header/>
     <uni-card title="全部功能" >
       <view style="height: 300px">
         <zb-table
-            :formatter="formatter"
-            :isLoading="isLoading"
             @sort-change="sortChange"
             :pullUpLoading="pullUpLoading"
             :isShowLoadMore="true"
@@ -22,24 +19,13 @@
             @custom="custom"
             @edit="buttonEdit"
             @dele="dele"
-            :data="data">
-        </zb-table>
+            :data="data"></zb-table>
       </view>
     </uni-card>
     <uni-card title="普通表格" >
       <view style="height: 200px">
         <zb-table
             :columns="column1"
-            :stripe="true"
-            @rowClick="rowClick"
-            :data="data"></zb-table>
-      </view>
-    </uni-card>
-    <uni-card title="多级表头" >
-      <view style="height: 200px">
-        <zb-table
-            :border="true"
-            :columns="column5"
             :stripe="true"
             @rowClick="rowClick"
             :data="data"></zb-table>
@@ -153,7 +139,6 @@
     <uni-card title="支持设置单元格样式" >
       <view style="height: 300px">
         <zb-table
-            :cell-header-style="cellHeaderStyle"
             :cell-style="cellStyle"
             :show-header="true"
             :columns="column1"
@@ -168,12 +153,10 @@
 </template>
 
 <script>
-  import {column1,column2,column3,column4,column5} from './all.js'
-  import UHeader from '@/components/u-header.vue'
+  import {column1,column2,column3,column4} from './all.js'
   let that = null
 	export default {
 		components:{
-			UHeader
 		},
 		data() {
 			return {
@@ -181,14 +164,13 @@
         column2,
         column3,
         column4,
-        column5,
 				title: 'Hello',
         column:[
           { type:'selection', fixed:true,width:60 },
           { name: 'name', label: '姓名',fixed:true,width:80,emptyString:'--' },
-          { name: 'age', label: '年龄',sorter:'custom',align:'right',fixed:false,formatter:true },
+          { name: 'age', label: '年龄',sorter:'custom',align:'right',fixed:false, },
           { name: 'sex', label: '性别',filters:{0:'男',1:'女'}},
-          { name: 'price', label: '价格',sorter: true},
+          { name: 'price', label: '价格'},
           { name: 'admin', label: '账号'},
           { name: 'address', label: '地址' },
           { name: 'date', label: '日期',sorter:true },
@@ -358,10 +340,9 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
         ],
         data1:[],
         flag1:true,
-		    flag2:true,
+		flag2:true,
         num:0,
-		    num1:0,
-        isLoading:true,
+		num1:0,
         isShowLoadMore:true
 			}
 		},
@@ -375,45 +356,16 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
 		  this.data1 = JSON.parse(JSON.stringify(this.data))
 		  let data2 = JSON.parse(JSON.stringify(this.data))
       setTimeout(()=>{
-        this.isLoading = false
-      },1500)
+        //  data2.forEach(item=>{
+        //   item.checked = true
+        // })
+        // this.data = data2
+      },3000)
     },
     methods:{
-      formatter(row,column,rowIndex,columnIndex){
-        return row.age+'岁'
-      },
-      permissionBtn (row,renders,rowIndex){
-        if(row.id==2){
-          let arr = renders.filter(item=>item.func==='edit')
-          return arr
-        }
-        return renders
-      },
       sortChange(item,sorterMode,index){
-        uni.showToast({
-          icon:'none',
-          duration:3000,
-          title:'触发自定义排序，通过接口返回排序，不默认排序'
-        })
+
         console.log('触发排序',item,sorterMode,index)
-      },
-      cellHeaderStyle({column,columnIndex}){
-        if(columnIndex === 1 || columnIndex === 4) {
-          return{
-            color:'red'
-          }
-        }
-
-        // if(column.children){
-        //   for(let item of column.children){
-        //     if(item.name==='province'){
-        //       return{
-        //         color:'red'
-        //       }
-        //     }
-        //   }
-        // }
-
       },
       cellStyle({row, column, rowIndex, columnIndex}){
         // console.log('row, column, rowIndex, columnIndex')
@@ -450,7 +402,13 @@ img:"https://img.pddpic.com/mms-material-img/2020-11-27/84c7fad3-d945-4e71-ab09-
           }
         },2000)
       },
-
+      permissionBtn (row,renders,rowIndex){
+        if(row.id==2){
+          let arr = renders.filter(item=>item.func==='edit')
+          return arr
+        }
+        return renders
+      },
 	  pullUpLoadingAction(done){
 	    if(!this.flag2){
 	      return

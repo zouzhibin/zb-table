@@ -1,31 +1,5 @@
-
-
-export const column5 = [
-    { type:'index', width:60,label: '序号',fixed:true },
-    { name: 'date', label: '日期',sorter:true },
-    { name: 'address', label: '地址' },
-    {
-        label: '配送信息',
-        children:[
-            { name: 'province', label: '省份',width:130 },
-            { name: 'city', label: '城市' },
-            { name: 'zip', label: '邮编' },
-        ]
-    },
-    {
-        label: '配送信息',
-        children:[
-            { name: 'province', label: '省份',width:130 },
-            { name: 'city', label: '城市' },
-            { name: 'zip', label: '邮编' },
-        ]
-    },
-
-]
-
-
 export const column1 = [
-    { type:'index', width:60 ,label: '序号',},
+    { type:'index', width:60 },
     { name: 'name', label: '姓名',width:80,emptyString:'--' },
     { name: 'age', label: '年纪',},
     { name: 'sex', label: '性别',filters:{0:'男',1:'女'}},

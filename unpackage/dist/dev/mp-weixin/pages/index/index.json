@@ -1,7 +1,7 @@
 {
   "navigationBarTitleText": "uni-app",
   "usingComponents": {
-    "uni-icons": "/uni_modules/uni-icons/components/uni-icons/uni-icons",
-    "zb-drawer": "/uni_modules/zb-drawer/components/zb-drawer/zb-drawer"
+    "uni-card": "/uni_modules/uni-card/components/uni-card/uni-card",
+    "zb-table": "/uni_modules/zb-table/components/zb-table/zb-table"
   }
 }

@@ -1,9 +1,6 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/table/index",
-    "pages/drawer/drawer",
-    "pages/pagination/pagination"
+    "pages/index/index"
   ],
   "subPackages": [],
   "window": {
@@ -12,5 +9,6 @@
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
   },
-  "usingComponents": {}
+  "usingComponents": {},
+  "sitemapLocation": "sitemap.json"
 }
