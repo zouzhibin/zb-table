@@ -1,15 +1,11 @@
 
 ## 介绍
-基于uni-app开发的一个普通的表格组件，功能有固定首列和表头、排序、操作按钮、数据格式化、
-table 表格 固定表头、固定首列、多列 上拉加载更多、 排序、自适应列宽、多选checkbox、编辑、删除、按钮、表尾合计
+基于uni-app开发的一个普通的表格组件，功能有固定首列和表头、排序、操作按钮、
+table 表格 固定表头、固定首列、多列 上拉加载更多、 排序、自适应列宽、多选checkbox、编辑、删除、按钮、合计
 已用于生产环境
 
-## qq群 731805264  
-## -- github 第一时间会更新到github，永远保持最新，有啥想法的可以提PR,共同开发 [地址](https://github.com/zouzhibin/zb-ui)
-
-## 友情链接
-#### vue-admin-perfect —— [企业级、通用型中后台前端解决方案（基于vue3.0+TS+Element-Plus  最新版，同时支持电脑，手机，平板)](https://github.com/zouzhibin/vue-admin-perfect)
-
+## qq群 731805264
+## -- github 永远保持最新，有啥想法的可以提PR,共同开发 [地址](https://github.com/zouzhibin/zb-table)
 
 
 ## table 属性
@@ -18,7 +14,6 @@ table 表格 固定表头、固定首列、多列 上拉加载更多、 排序�
 | data | 显示的数据 | array |-- | -- |必须 |
 | column | 显示的列数据 | array |-- | -- |必须 |
 | stripe | 是否为斑马纹 table| boolean | - |false | 否 |
-| isLoading | 是否显示loading,动态控制 | boolean | - |false | 否 |
 | fit | 列的宽度是否自撑开 | boolean |true,false | false |否 |
 | show-header | 是否显示表头 | boolean |true,false | true |否 |
 | cell-style | 单元格的 style 的回调方法，也可以使用一个固定的 Object 为所有单元格设置一样的 Style。 | Function({row, column, rowIndex, columnIndex})/Object |-- | -- |否 |
@@ -69,7 +64,6 @@ done 接收参数为 type ，type为空代表还有数据，可以继续加载�
 | label | 显示的标题 | string |-- | 无 |
 | width | 列的宽度 | number |-- | 100 |
 | fixed | 列是否固定在左侧，true 表示固定在左侧 | boolean |true,false | true |
-| formatter | 是否进行格式化转换数据 | boolean |true,false | false |
 | sorter | 排序，当设置为custom的时候代表自定义排序，不会再触发默认排序，会触发table事件@sort-change,可以通过接口来进行排序 | boolean |true,false,'custom' | false |
 | emptyString | 当值为空的时候默认显示的值 | string |  | -- |
 | filters | 对象过滤的选项，对象格式，对象中的元素需要有 key 和 value 属性。 | Object | {key:value} | -- |
@@ -126,12 +120,6 @@ column:[
               {
                 name:'编辑',
                 func:'edit' // func 代表子元素点击的事件 父元素接收的事件 父元素 @edit
-              },
-              {
-                name:'自定义按钮',
-                type:'custom', // type 为custom的时候自定义按钮 其他类型取决于uniapp buttom组件按钮
-                class:"custom",
-                func:'custom'
               },
               {
                 name:'删除',
