@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="be7958c3-0d1c-4f74-a433-b590462e7034" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uni_modules/zb-table/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/uni_modules/zb-table/readme.md" afterDir="false" />
-    </list>
+    <list default="true" id="be7958c3-0d1c-4f74-a433-b590462e7034" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -70,7 +67,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658989983048</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="修改">
+      <created>1661416380088</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1661416380088</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -121,6 +125,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="修改 回显问题" />
     <MESSAGE value="合并主分支" />
-    <option name="LAST_COMMIT_MESSAGE" value="合并主分支" />
+    <MESSAGE value="修改" />
+    <option name="LAST_COMMIT_MESSAGE" value="修改" />
   </component>
 </project>
